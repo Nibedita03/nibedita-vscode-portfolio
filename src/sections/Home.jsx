@@ -32,17 +32,18 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-5xl md:text-7xl font-black text-white tracking-tight font-sans flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4"
+          className="text-5xl md:text-7xl font-black text-white tracking-tight font-sans flex flex-wrap items-baseline gap-x-3 md:gap-x-4"
         >
           <span>Hi, I'm</span>
-          <span className="text-vscode-accent font-normal" style={{ fontFamily: "'Dancing Script', cursive", fontSize: "1.2em", lineHeight: "1" }}>Nibedita Behera</span>.
+          <span className="text-vscode-accent font-normal" style={{ fontFamily: "'Dancing Script', cursive", fontSize: "1.2em", lineHeight: "1" }}>Nibedita Behera</span>
+          <span className="text-white ml-[-5px]">.</span>
         </motion.h1>
         
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="text-3xl md:text-5xl font-semibold text-vscode-textDark"
+          className="text-3xl md:text-5xl font-semibold text-vscode-textDark font-sans"
         >
           UX/UI Designer
         </motion.h2>
@@ -83,7 +84,7 @@ const Home = () => {
       {/* Decorative Parallax Code Background */}
       <motion.div 
         style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]) }}
-        className="absolute right-[-10%] md:-right-24 top-20 md:top-10 text-[180px] md:text-[250px] font-mono text-white opacity-[0.015] select-none pointer-events-none leading-none"
+        className="absolute right-[-15%] md:-right-24 top-20 md:top-10 text-[180px] md:text-[250px] font-mono text-white opacity-[0.03] select-none pointer-events-none leading-none"
       >
         {'{}'}
       </motion.div>

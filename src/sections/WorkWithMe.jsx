@@ -9,7 +9,7 @@ const WorkWithMe = () => {
         viewport={{ once: true }}
         className="minimal-card p-8 md:p-12 rounded-md relative overflow-hidden shadow-lg"
       >
-        <h1 className="text-3xl text-white font-bold mb-8 border-b border-vscode-border pb-6 relative z-10 flex items-center">
+        <h1 className="text-3xl text-white font-bold mb-8 border-b border-vscode-border pb-6 relative z-10 flex items-center font-sans">
           <span className="text-vscode-accent font-mono text-xl mr-4">06.</span>
           Work With Me
         </h1>

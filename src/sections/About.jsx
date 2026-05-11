@@ -8,7 +8,7 @@ const About = () => {
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="text-3xl font-bold mb-12 flex items-center space-x-4 text-white"
+        className="text-3xl font-bold mb-12 flex items-center space-x-4 text-white font-sans"
       >
         <span className="text-vscode-accent font-mono text-xl">02.</span>
         <span>About Me</span>

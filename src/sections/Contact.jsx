@@ -5,11 +5,11 @@ const Contact = () => {
   return (
     <div className="pt-8 relative flex flex-col min-h-[60vh] justify-between">
       <div>
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-16 flex items-center space-x-4 text-white"
+          className="text-3xl font-bold mb-16 flex items-center space-x-4 text-white font-sans"
         >
           <span className="text-vscode-accent font-mono text-xl">05.</span>
           <span>Contact Me</span>
@@ -24,8 +24,12 @@ const Contact = () => {
           className="max-w-2xl mx-auto"
         >
           <div className="text-vscode-textDark mb-4 italic font-mono text-sm">/* send-message.html */</div>
-          
-          <form className="minimal-card p-8 md:p-12 rounded-md shadow-lg flex flex-col space-y-6 font-sans relative border-t-4 border-t-vscode-accent">
+
+          <form
+            action="https://formspree.io/f/mykoljld"
+            method="POST"
+            className="minimal-card p-8 md:p-12 rounded-md shadow-lg flex flex-col space-y-6 font-sans relative border-t-4 border-t-vscode-accent"
+          >
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-white mb-2">Let's Work Together</h3>
               <p className="text-vscode-textDark text-sm">I'm currently available for freelance work or full-time roles.</p>
@@ -34,33 +38,39 @@ const Contact = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs text-vscode-textDark uppercase tracking-wider mb-2 font-mono">First Name *</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
+                  name="name"
+                  required
                   className="w-full bg-[#1E1E1E] border border-vscode-border rounded p-3 text-white focus:outline-none focus:border-vscode-accent transition-all"
                   placeholder="John"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-xs text-vscode-textDark uppercase tracking-wider mb-2 font-mono">Email Address *</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
+                  name="email"
+                  required
                   className="w-full bg-[#1E1E1E] border border-vscode-border rounded p-3 text-white focus:outline-none focus:border-vscode-accent transition-all"
                   placeholder="john@example.com"
                 />
               </div>
             </div>
-            
+
             <div>
               <label className="block text-xs text-vscode-textDark uppercase tracking-wider mb-2 font-mono">Message *</label>
-              <textarea 
+              <textarea
+                name="message"
+                required
                 className="w-full bg-[#1E1E1E] border border-vscode-border rounded p-3 text-white focus:outline-none focus:border-vscode-accent transition-all h-32 resize-none"
                 placeholder="Hello there..."
               ></textarea>
             </div>
-            
-            <button 
-              type="button"
+
+            <button
+              type="submit"
               className="flex items-center justify-center space-x-2 w-full py-4 bg-vscode-accent text-white rounded hover:bg-blue-600 transition-all duration-300 font-mono text-sm tracking-wider font-bold hover:scale-[1.02] active:scale-95"
             >
               <Send size={16} />
@@ -71,7 +81,7 @@ const Contact = () => {
       </div>
 
       {/* Footer / Socials */}
-      <motion.footer 
+      <motion.footer
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

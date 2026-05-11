@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Play, Loader2, ArrowUpRight } from 'lucide-react';
+import { Play, Loader2, ArrowUpRight, FolderGit2 } from 'lucide-react';
 
 const projects = [
   {
@@ -199,6 +199,7 @@ const Projects = () => {
 
             <div className="relative z-10 flex-1 md:pr-12">
               <h4 className="text-2xl text-white font-bold mb-3 font-sans group-hover:text-vscode-accent transition-colors flex items-center">
+                <FolderGit2 className="mr-3 text-vscode-accent" size={24} />
                 {project.title}
                 <ArrowUpRight size={20} className="ml-3 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300" />
               </h4>

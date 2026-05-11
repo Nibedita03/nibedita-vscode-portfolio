@@ -24,7 +24,8 @@ export default {
       },
       fontFamily: {
         mono: ['"Fira Code"', 'Consolas', 'Monaco', 'monospace'],
-        sans: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['Outfit', 'system-ui', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
       }
     },
   },
