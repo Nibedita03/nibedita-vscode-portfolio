@@ -1,7 +1,39 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Instagram, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Send, Instagram, Linkedin, Twitter, Mail, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
+  const [status, setStatus] = useState('idle'); // idle, submitting, success, error
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('submitting');
+    
+    const form = e.target;
+    const data = new FormData(form);
+    
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        setStatus('success');
+        form.reset();
+        // Optional: Reset back to idle after a few seconds
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+
   return (
     <div className="pt-8 relative flex flex-col min-h-[60vh] justify-between">
       <div>
@@ -28,6 +60,7 @@ const Contact = () => {
           <form
             action="https://formspree.io/f/mykoljld"
             method="POST"
+            onSubmit={handleSubmit}
             className="minimal-card p-8 md:p-12 rounded-md shadow-lg flex flex-col space-y-6 font-sans relative border-t-4 border-t-vscode-accent"
           >
             <div className="text-center mb-6">
@@ -69,13 +102,26 @@ const Contact = () => {
               ></textarea>
             </div>
 
-            <button
-              type="submit"
-              className="flex items-center justify-center space-x-2 w-full py-4 bg-vscode-accent text-white rounded hover:bg-blue-600 transition-all duration-300 font-mono text-sm tracking-wider font-bold hover:scale-[1.02] active:scale-95"
-            >
-              <Send size={16} />
-              <span>Send Message</span>
-            </button>
+            {status === 'success' ? (
+              <div className="flex items-center justify-center space-x-2 w-full py-4 bg-green-500/20 text-green-400 border border-green-500/50 rounded font-mono text-sm tracking-wider font-bold">
+                <CheckCircle size={16} />
+                <span>Message Sent Successfully!</span>
+              </div>
+            ) : status === 'error' ? (
+              <div className="flex items-center justify-center space-x-2 w-full py-4 bg-red-500/20 text-red-400 border border-red-500/50 rounded font-mono text-sm tracking-wider font-bold">
+                <AlertCircle size={16} />
+                <span>Oops! Something went wrong.</span>
+              </div>
+            ) : (
+              <button
+                type="submit"
+                disabled={status === 'submitting'}
+                className={`flex items-center justify-center space-x-2 w-full py-4 bg-vscode-accent text-white rounded transition-all duration-300 font-mono text-sm tracking-wider font-bold ${status === 'submitting' ? 'opacity-70 cursor-not-allowed' : 'hover:bg-blue-600 hover:scale-[1.02] active:scale-95'}`}
+              >
+                <Send size={16} className={status === 'submitting' ? 'animate-pulse' : ''} />
+                <span>{status === 'submitting' ? 'Sending...' : 'Send Message'}</span>
+              </button>
+            )}
           </form>
         </motion.div>
       </div>
