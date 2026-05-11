@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .vscode-scrollbar::-webkit-scrollbar {
+    width: 14px;
+  }
+  .vscode-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .vscode-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(121, 121, 121, 0.4);
+    border: 4px solid #1E1E1E;
+    background-clip: padding-box;
+  }
+  .vscode-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 100, 100, 0.7);
+    border: 4px solid #1E1E1E;
+    background-clip: padding-box;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: #1E1E1E;
+  color: #CCCCCC;
+  overflow-x: hidden;
+  /* Cool subtle grid pattern */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-attachment: fixed;
+}
+
+/* Classic minimal card, no crazy glows */
+.minimal-card {
+  background: #252526;
+  border: 1px solid #3C3C3C;
+}
+
+/* For parallax images */
+.parallax-container {
+  overflow: hidden;
+  position: relative;
+}
