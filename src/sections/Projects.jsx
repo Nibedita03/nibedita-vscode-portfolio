@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Play, Loader2, ArrowUpRight, FolderGit2 } from 'lucide-react';
+import NooginCaseStudy from '../components/NooginCaseStudy';
+import ScrapGardenCaseStudy from '../components/ScrapGardenCaseStudy';
 
 const projects = [
   {
@@ -8,8 +10,8 @@ const projects = [
     title: "Noogin nooks",
     description: "Transforming one-size-fits-all education into a personalized learning experience tailored to how each student learns best.",
     tech: ["Product Design", "Personalization", "Ed Tech"],
-    image: "",
-    link: "https://nibedita.framer.website/noogin-nooks"
+    image: "/noogin-cover.jpg",
+    link: "noogin"
   },
   {
     id: 2,
@@ -25,7 +27,7 @@ const projects = [
     description: "Creating a sustainable, interactive installation that transforms scrap materials into a responsive garden experience.",
     tech: ["Spatial Experience", "Arduino", "Craft"],
     image: "",
-    link: "#"
+    link: "scrap-garden"
   }
 ];
 
@@ -55,13 +57,13 @@ const ProjectCard = ({ project, index, onRun }) => {
       className="group relative flex flex-col md:flex-row items-center gap-8 mb-32 last:mb-0"
     >
       {/* Image Side with Parallax ONLY (no pop) */}
-      <div className={`w-full md:w-3/5 relative overflow-hidden rounded-md border border-vscode-border bg-[#1E1E1E] aspect-video shadow-lg flex items-center justify-center ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
+      <div className={`w-full md:w-3/5 relative overflow-hidden rounded-md border border-vscode-border bg-[#e8e0d4] aspect-[4/3] shadow-lg flex items-center justify-center ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
         {project.image ? (
           <motion.img 
-            style={{ y: imageY, scale: 1.2 }}
+            style={{ y: imageY }}
             src={project.image} 
             alt={project.title}
-            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+            className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-700"
           />
         ) : (
           <div className="flex flex-col items-center justify-center text-vscode-textDark/40">
@@ -115,6 +117,8 @@ const Projects = () => {
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
   const [hoveredExploration, setHoveredExploration] = useState(null);
+  const [isNooginCaseStudyOpen, setIsNooginCaseStudyOpen] = useState(false);
+  const [isScrapGardenCaseStudyOpen, setIsScrapGardenCaseStudyOpen] = useState(false);
 
   const handleRun = (link) => {
     setLoading(true);
@@ -124,7 +128,13 @@ const Projects = () => {
       setLoadingText("rendering...");
       setTimeout(() => {
         setLoading(false);
-        window.open(link, '_blank');
+        if (link === 'noogin') {
+          setIsNooginCaseStudyOpen(true);
+        } else if (link === 'scrap-garden') {
+          setIsScrapGardenCaseStudyOpen(true);
+        } else {
+          window.open(link, '_blank');
+        }
       }, 800);
     }, 800);
   };
@@ -229,6 +239,15 @@ const Projects = () => {
           </motion.div>
         ))}
       </div>
+
+      <AnimatePresence>
+        {isNooginCaseStudyOpen && (
+          <NooginCaseStudy onClose={() => setIsNooginCaseStudyOpen(false)} />
+        )}
+        {isScrapGardenCaseStudyOpen && (
+          <ScrapGardenCaseStudy onClose={() => setIsScrapGardenCaseStudyOpen(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

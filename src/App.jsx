@@ -13,12 +13,15 @@ import Contact from './sections/Contact';
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('Home.jsx');
-  const [openTabs, setOpenTabs] = useState([
-    'Home.jsx', 'Projects.jsx', 'About.js', 'WhatIDo.ts', 'TechStack.json', 'Contact.css'
-  ]);
+  const [openTabs, setOpenTabs] = useState(['Home.jsx']);
 
   const handleTabSelect = (tab) => {
+    // Add to open tabs if not already there
+    if (!openTabs.includes(tab)) {
+      setOpenTabs(prev => [...prev, tab]);
+    }
     setActiveTab(tab);
+
     const sectionId = tab.split('.')[0].toLowerCase();
     const element = document.getElementById(sectionId);
     if (element) {
@@ -39,6 +42,26 @@ const App = () => {
     e.stopPropagation();
     const newTabs = openTabs.filter(tab => tab !== tabToClose);
     setOpenTabs(newTabs);
+
+    // If closing the active tab, switch to the nearest remaining tab
+    if (activeTab === tabToClose && newTabs.length > 0) {
+      const closedIndex = openTabs.indexOf(tabToClose);
+      const newActiveIndex = Math.min(closedIndex, newTabs.length - 1);
+      const newActive = newTabs[newActiveIndex];
+      setActiveTab(newActive);
+
+      // Scroll to the new active section
+      const sectionId = newActive.split('.')[0].toLowerCase();
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offset = 40;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    }
   };
 
   useEffect(() => {
