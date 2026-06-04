@@ -551,11 +551,6 @@ const HighFidelityGrid = () => {
           </div>
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-white font-sans">High Fidelity Designs</h2>
-            <p className="text-vscode-accent font-mono text-sm mt-1">
-              {lensEnabled 
-                ? "Move your mouse over the screens to use the magnifying lens →" 
-                : "A clean overview of all 21 final screens →"}
-            </p>
           </div>
         </div>
 
@@ -641,6 +636,9 @@ const HighFidelityGrid = () => {
     </div>
   );
 };
+
+
+
 
 
 const PhoneFrame = ({ children, label = "", disableHover = false }) => (
@@ -1711,18 +1709,18 @@ const NooginCaseStudy = ({ onClose }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: "100%" }}
       transition={{ type: "spring", bounce: 0, duration: 0.6 }}
-      className="fixed top-9 right-0 bottom-0 left-0 md:left-64 z-[100] bg-[#1E1E1E] overflow-y-auto overflow-x-hidden shadow-2xl border-l border-vscode-border"
+      className="fixed inset-0 z-[100] bg-[#07080b] overflow-y-auto overflow-x-hidden shadow-2xl"
     >
       {/* Navbar */}
-      <div className="sticky top-0 z-[110] bg-[#1E1E1E]/80 backdrop-blur-md border-b border-vscode-border px-6 py-4 flex justify-between items-center">
+      <div className="sticky top-0 z-[110] bg-[#07080b]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <button 
           onClick={onClose}
-          className="flex items-center space-x-2 text-vscode-text hover:text-white transition-colors group font-mono text-sm"
+          className="flex items-center space-x-2 text-zinc-400 hover:text-white transition-colors group font-sans text-sm"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           <span>Back to Projects</span>
         </button>
-        <div className="font-mono text-vscode-accent text-sm hidden md:block">Noogin Nooks.case_study</div>
+        <div className="text-zinc-500 text-sm font-semibold tracking-wider uppercase hidden md:block">Noogin Nooks / Case Study</div>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">

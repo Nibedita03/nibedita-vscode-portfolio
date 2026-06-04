@@ -26,7 +26,17 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
   // Navigation & Interactive States
   const [activeTab, setActiveTab] = useState("vision"); // vision, materials, schematic, fab
   const [simulatorMode, setSimulatorMode] = useState("simulator"); // 'simulator' or 'video'
-  
+
+  // Slideshow States
+  const [activeImg, setActiveImg] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveImg(prev => (prev + 1) % 3);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Virtual Simulator States
   const [joystick, setJoystick] = useState({ x: 512, y: 512 });
   const [activeFlower, setActiveFlower] = useState(null); // 'up', 'down', 'left', 'right', or null
@@ -42,7 +52,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
     let newX = 512;
     let newY = 512;
     let logMsg = "";
-    
+
     if (dir === 'up') {
       newX = 512; newY = 1023;
       setActiveFlower('up');
@@ -95,22 +105,22 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: "100%" }}
       transition={{ type: "spring", bounce: 0, duration: 0.6 }}
-      className="fixed top-9 right-0 bottom-0 left-0 md:left-64 z-[100] bg-[#1E1E1E] overflow-y-auto overflow-x-hidden shadow-2xl border-l border-vscode-border"
+      className="fixed inset-0 z-[100] bg-[#07080b] overflow-y-auto overflow-x-hidden shadow-2xl"
     >
       {/* Navbar */}
-      <div className="sticky top-0 z-[110] bg-[#1E1E1E]/85 backdrop-blur-md border-b border-vscode-border px-6 py-4 flex justify-between items-center">
+      <div className="sticky top-0 z-[110] bg-[#07080b]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <button
           onClick={onClose}
-          className="flex items-center space-x-2 text-vscode-text hover:text-white transition-colors group font-mono text-sm"
+          className="flex items-center space-x-2 text-zinc-400 hover:text-white transition-colors group font-sans text-sm"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           <span>Back to Projects</span>
         </button>
-        <div className="font-mono text-vscode-accent text-sm hidden md:block">ScrapGarden.case_study</div>
+        <div className="text-zinc-500 text-sm font-semibold tracking-wider uppercase hidden md:block">Scrap Garden / Case Study</div>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
-        
+
         {/* Hero Block */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -118,33 +128,33 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-24"
         >
-          <span className="font-mono text-vscode-accent text-sm mb-4 block">02. Spatial Physical Installation</span>
+          <span className="font-mono text-vscode-accent text-sm mb-4 block">03. Featured Case Study</span>
           <h1 className="text-5xl md:text-7xl font-bold text-white font-sans tracking-tight mb-8">
             Scrap Garden
           </h1>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 p-8 bg-[#252526]/50 border border-vscode-border rounded-xl font-sans text-sm shadow-xl relative overflow-hidden">
-            
+
             <div className="space-y-1.5">
               <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Role</span>
               <span className="text-white font-semibold leading-relaxed block">Concept, Interaction Design, Arduino Programming</span>
             </div>
-            
+
             <div className="space-y-1.5">
               <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Team</span>
-              <span className="text-white font-semibold leading-relaxed block">Nibedita Behera, Vrisha, Sahana</span>
+              <span className="text-white font-semibold leading-relaxed block">Nibedita Behera, Vrisha, Sahana, Tanya</span>
             </div>
-            
+
             <div className="space-y-1.5">
               <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Timeline</span>
               <span className="text-white font-semibold leading-relaxed block">2 weeks</span>
             </div>
-            
+
             <div className="space-y-1.5">
               <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Context</span>
               <span className="text-white font-semibold leading-relaxed block">Art for the 99%, Srishti Manipal</span>
             </div>
-            
+
             <div className="col-span-2 md:col-span-4 pt-4 border-t border-vscode-border/30 flex items-center gap-2">
               <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider font-bold">Status:</span>
               <span className="px-2.5 py-0.5 rounded-full bg-[#28C840]/10 border border-[#28C840]/30 text-[#28C840] font-mono text-xs font-bold flex items-center gap-1.5 shadow-sm">
@@ -152,6 +162,71 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
                 Installed
               </span>
             </div>
+          </div>
+
+          {/* 5-Screen Stacked Hero for Scrap Garden */}
+          <div className="relative h-[550px] md:h-[720px] flex items-center justify-center mb-8 overflow-hidden">
+            {/* Background glow */}
+            <div className="absolute w-[600px] h-[500px] bg-vscode-accent/10 rounded-full blur-[150px] pointer-events-none" />
+
+            {/* Screen 1 - Far left, deepest behind: Junkyard Search */}
+            <motion.div 
+              initial={{ opacity: 0, x: -80 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              whileHover={{ rotate: -8, x: -30, scale: 1.02 }}
+              className="absolute w-[160px] md:w-[230px] rounded-[24px] overflow-hidden border-[5px] border-[#3C3C3C] shadow-[0_25px_50px_rgba(0,0,0,0.4)] cursor-pointer transition-all duration-500 z-[5]"
+              style={{ left: 'calc(50% - 370px)', top: '12%', rotate: -14 }}
+            >
+              <img src="/process-2.jpg" alt="Junkyard Archaeology" className="w-full h-auto object-cover aspect-[9/16]" />
+            </motion.div>
+
+            {/* Screen 2 - Left, behind center: Streetlight Dome */}
+            <motion.div 
+              initial={{ opacity: 0, x: -40, rotate: -15 }}
+              animate={{ opacity: 1, x: 0, rotate: -7 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              whileHover={{ rotate: -3, x: -15, scale: 1.02 }}
+              className="absolute w-[180px] md:w-[260px] rounded-[26px] overflow-hidden border-[6px] border-[#3C3C3C] shadow-[0_30px_60px_rgba(0,0,0,0.5)] cursor-pointer transition-all duration-500 z-10"
+              style={{ left: 'calc(50% - 260px)', top: '6%' }}
+            >
+              <img src="/process-3.jpg" alt="Streetlight Dome" className="w-full h-auto object-cover aspect-[9/16]" />
+            </motion.div>
+
+            {/* Screen 3 - Center, front and biggest: Courtyard Cover */}
+            <motion.div 
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              whileHover={{ scale: 1.03 }}
+              className="relative w-[220px] md:w-[300px] rounded-[32px] overflow-hidden border-[7px] border-[#3C3C3C] shadow-[0_40px_80px_rgba(0,0,0,0.7)] cursor-pointer transition-all duration-500 z-30"
+            >
+              <img src="/scrapgarden-cover.jpg" alt="Finished Installation" className="w-full h-auto object-cover aspect-[9/16]" />
+            </motion.div>
+
+            {/* Screen 4 - Right, behind center: Circuit Wiring */}
+            <motion.div 
+              initial={{ opacity: 0, x: 40, rotate: 15 }}
+              animate={{ opacity: 1, x: 0, rotate: 7 }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              whileHover={{ rotate: 3, x: 15, scale: 1.02 }}
+              className="absolute w-[180px] md:w-[260px] rounded-[26px] overflow-hidden border-[6px] border-[#3C3C3C] shadow-[0_30px_60px_rgba(0,0,0,0.5)] cursor-pointer transition-all duration-500 z-10"
+              style={{ right: 'calc(50% - 260px)', top: '6%' }}
+            >
+              <img src="/process-1.jpg" alt="Arduino Circuit Wiring" className="w-full h-auto object-cover aspect-[9/16]" />
+            </motion.div>
+
+            {/* Screen 5 - Far right, deepest behind: Textile Fabrication */}
+            <motion.div 
+              initial={{ opacity: 0, x: 80 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              whileHover={{ rotate: 8, x: 30, scale: 1.02 }}
+              className="absolute w-[160px] md:w-[230px] rounded-[24px] overflow-hidden border-[5px] border-[#3C3C3C] shadow-[0_25px_50px_rgba(0,0,0,0.4)] cursor-pointer transition-all duration-500 z-[5]"
+              style={{ right: 'calc(50% - 370px)', top: '12%', rotate: 14 }}
+            >
+              <img src="/process-5.jpg" alt="Textile Fabrication" className="w-full h-auto object-cover aspect-[9/16]" />
+            </motion.div>
           </div>
 
           <p className="text-xl md:text-2xl text-vscode-text font-sans font-light leading-relaxed max-w-4xl">
@@ -183,7 +258,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
                 Physical Exhibition Working Footage
               </span>
             </div>
-            
+
             <div className="relative rounded-2xl overflow-hidden aspect-video max-h-[580px] bg-[#1E1E1E]">
               <video
                 src="/scrapgarden-loop.mp4"
@@ -195,7 +270,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
                 className="w-full h-full object-cover"
               />
             </div>
-            
+
             <div className="mt-4 px-2 flex justify-between items-center text-xs font-mono text-vscode-textDark">
               <span>📽️ physical_installation_working.mp4</span>
               <span className="hidden sm:inline">Tactile light diffusion via copper weaving & scrap garment fabric</span>
@@ -352,7 +427,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
 
           </div>
         </Section>
-            
+
 
         {/* BTS & Process Video */}
         <Section title="Watch It Come Together" icon={Play}>
@@ -371,6 +446,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <video
                 src="/process-video.mp4"
+                preload="metadata"
                 controls
                 className="w-full rounded-2xl border border-vscode-border/50 bg-[#1E1E1E]"
                 style={{ maxHeight: '620px' }}
@@ -381,56 +457,72 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
 
         {/* People Using It */}
         <Section title="Then People Touched It" icon={Sparkles}>
-          {(() => {
-            const userImages = ['/user-1.png', '/user-2.png', '/user-3.png'];
-            const [activeImg, setActiveImg] = useState(0);
-            useEffect(() => {
-              const timer = setInterval(() => {
-                setActiveImg(prev => (prev + 1) % userImages.length);
-              }, 3000);
-              return () => clearInterval(timer);
-            }, []);
-            return (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full items-center">
-                {/* Text Left */}
-                <div className="lg:col-span-5 space-y-5">
-                  <p className="text-vscode-text text-lg leading-relaxed font-sans">
-                    Once it was installed, people just walked up to it. There's a joystick in the middle. No label, no sign, nothing telling you what it does.
-                  </p>
-                  <p className="text-vscode-text text-lg leading-relaxed font-sans">
-                    You pick it up and push it. One direction, a flower glows. Push another way, a different one responds. That's the whole thing.
-                  </p>
-                  <p className="text-vscode-text text-lg leading-relaxed font-sans">
-                    What I noticed was, nobody asked how it worked. They just tried it. Some people were slow and deliberate, testing each direction. Some went straight to moving it in circles. A few handed it to someone else mid-interaction.
-                  </p>
-                  <p className="text-vscode-textDark text-base leading-relaxed font-sans">
-                    That was the intention. The joystick isn't labelled. The flowers aren't numbered. There's no screen, no instructions. The only way in is to touch it, and the installation does the rest.
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full items-center">
+            {/* Text Left */}
+            <div className="lg:col-span-5 space-y-5">
+              <p className="text-vscode-text text-lg leading-relaxed font-sans">
+                Once it was installed, people just walked up to it. There's a joystick in the middle. No label, no sign, nothing telling you what it does.
+              </p>
+              <p className="text-vscode-text text-lg leading-relaxed font-sans">
+                You pick it up and push it. One direction, a flower glows. Push another way, a different one responds. That's the whole thing.
+              </p>
+              <p className="text-vscode-text text-lg leading-relaxed font-sans">
+                What I noticed was, nobody asked how it worked. They just tried it. Some people were slow and deliberate, testing each direction. Some went straight to moving it in circles. A few handed it to someone else mid-interaction.
+              </p>
+              <p className="text-vscode-textDark text-base leading-relaxed font-sans">
+                That was the intention. The joystick isn't labelled. The flowers aren't numbered. There's no screen, no instructions. The only way in is to touch it, and the installation does the rest.
+              </p>
+            </div>
 
-                {/* Image Right - Auto Cycling */}
-                <div className="lg:col-span-7 relative rounded-2xl overflow-hidden border border-vscode-border bg-[#1E1E1E] shadow-xl h-[500px] flex items-center justify-center">
-                  {userImages.map((src, i) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt={`People interacting with the installation ${i + 1}`}
-                      className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-opacity duration-700 ${i === activeImg ? 'opacity-100' : 'opacity-0'}`}
-                    />
-                  ))}
-                  <div className="absolute bottom-4 left-4 flex gap-2">
-                    {userImages.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setActiveImg(i)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${i === activeImg ? 'bg-vscode-accent w-6' : 'bg-white/30'}`}
-                      />
-                    ))}
-                  </div>
-                </div>
+            {/* Image Right - Auto Cycling */}
+            <div className="lg:col-span-7 relative rounded-2xl overflow-hidden border border-vscode-border bg-[#1E1E1E] shadow-xl h-[500px] flex items-center justify-center">
+              {['/sg-user-1.jpg', '/sg-user-2.jpg', '/sg-user-3.jpg'].map((src, i) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`People interacting with the installation ${i + 1}`}
+                  className={`absolute inset-0 w-full h-full object-cover rounded-xl transition-opacity duration-700 ${i === activeImg ? 'opacity-100' : 'opacity-0'}`}
+                />
+              ))}
+              <div className="absolute bottom-4 left-4 flex gap-2">
+                {[0, 1, 2].map((i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImg(i)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${i === activeImg ? 'bg-vscode-accent w-6' : 'bg-white/30'}`}
+                  />
+                ))}
               </div>
-            );
-          })()}
+            </div>
+          </div>
+        </Section>
+
+        {/* Reflections */}
+        <Section title="Reflection" icon={Sparkles}>
+          <div className="w-full p-6 bg-[#252526]/20 border border-vscode-border/40 rounded-xl relative overflow-hidden shadow-lg flex gap-6 items-stretch">
+            {/* Left Accent Bar with Gradient */}
+            <div className="w-1 bg-gradient-to-b from-vscode-accent via-vscode-accent/50 to-transparent rounded-full hidden md:block shrink-0"></div>
+            
+            {/* Reflection Content */}
+            <div className="flex-1 space-y-4 font-sans">
+              <div className="flex items-center space-x-3">
+                <div className="px-2 py-0.5 rounded bg-vscode-accent/10 border border-vscode-accent/20 text-[9px] font-mono text-vscode-accent uppercase tracking-wider font-bold">
+                  Takeaway
+                </div>
+                <span className="text-[11px] font-mono text-vscode-textDark">scrap_garden_reflection.md</span>
+              </div>
+              
+              <div className="space-y-4 text-vscode-text text-sm md:text-[15px] leading-relaxed">
+                <p className="text-white/95">
+                  The scrap garden changed the way I looked at waste. Junk pieces slowly started feeling like <span className="text-white font-medium border-b border-vscode-accent/30 pb-0.5">materials with another life hidden inside them</span>. Through this project, I wanted to show that <span className="text-vscode-accent font-semibold">art is not only for galleries or rich people</span>. Art can be made from everyday discarded objects and still create curiosity, interaction, and emotion.
+                </p>
+                
+                <p className="text-vscode-text/90">
+                  The hardest part was realizing that simple was enough. I kept wanting to add more, but eventually understood that <span className="text-vscode-accent font-semibold">restraint itself became part of the design</span>. Watching someone move the joystick for the first time and seeing a flower light up made the project feel complete. It reminded me that interactive art <span className="text-white font-medium">does not need expensive materials; it just needs connection</span>.
+                </p>
+              </div>
+            </div>
+          </div>
         </Section>
 
         {/* Footer */}

@@ -1,65 +1,108 @@
 import { motion } from 'framer-motion';
-import { PenTool, Code2, Wrench } from 'lucide-react';
 
-const techGroups = [
-  {
-    category: "Design",
-    icon: <PenTool className="text-[#FFBD2E] mb-4" size={24} />,
-    skills: ["Figma", "Framer", "Adobe XD", "Adobe Photoshop", "Adobe Illustrator", "Adobe AfterEffects"]
-  },
-  {
-    category: "Development",
-    icon: <Code2 className="text-vscode-accent mb-4" size={24} />,
-    skills: ["HTML5 / CSS3", "JavaScript", "React.js", "Tailwind CSS", "Python"]
-  },
-  {
-    category: "Tools & Others",
-    icon: <Wrench className="text-[#4ADE80] mb-4" size={24} />,
-    skills: ["Git & GitHub", "Notion", "Arduino IDE", "Responsive Design", "Wireframing", "Prototyping"]
-  }
+const designSkills = [
+  "Figma",
+  "After Effects",
+  "Adobe Creative Suite",
+  "Webflow",
+  "Framer"
 ];
+
+const devSkills = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "React",
+  "p5.js"
+];
+
+const SkillItem = ({ name, index }) => {
+  return (
+    <motion.li
+      initial={{ opacity: 0, x: -8 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.04, duration: 0.4 }}
+      className="flex items-center space-x-4 text-zinc-400 hover:text-white transition-colors duration-300 py-3.5 group cursor-default select-none"
+    >
+      {/* Elegant dot indicator that highlights with the warm bronze accent color on hover */}
+      <span 
+        className="w-2 h-2 rounded-full bg-zinc-850 group-hover:bg-[#c5a880] transition-all duration-300 group-hover:scale-125"
+      />
+      <span className="text-lg font-light tracking-wide font-sans">{name}</span>
+    </motion.li>
+  );
+};
 
 const TechStack = () => {
   return (
-    <div className="pt-8 pb-16 relative">
+    <div className="pt-8 pb-16 relative w-full">
+      {/* Heading */}
       <motion.h2 
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="text-3xl font-bold mb-16 flex items-center space-x-4 text-white font-sans"
+        className="text-3xl font-bold mb-12 flex items-center space-x-4 text-white font-sans tracking-tight"
       >
-        <span className="text-vscode-accent font-mono text-xl">04.</span>
-        <span>My Tech Stack</span>
-        <div className="h-px bg-vscode-border flex-1 ml-4"></div>
+        <span className="text-accent font-sans text-2xl">✦</span>
+        <span>Tech Stack</span>
+        <div className="h-px bg-white/5 flex-1 ml-4"></div>
       </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {techGroups.map((group, i) => (
-          <motion.div 
-            key={group.category}
-            initial={{ opacity: 0, y: 20 }}
+      {/* Infinite Scrolling Marquee Banner */}
+      <div className="w-full overflow-hidden border-y border-white/5 py-4 mb-16 bg-white/[0.01] backdrop-blur-sm select-none rounded-2xl">
+        <div className="animate-marquee flex gap-12 text-[10px] uppercase tracking-[0.25em] font-black text-zinc-400">
+          <span>✦ UI/UX EXPERTISE</span>
+          <span>✦ PRODUCT DESIGN</span>
+          <span>✦ INTERACTION SYSTEMS</span>
+          <span>✦ CREATIVE CODE</span>
+          <span>✦ PHYSICAL COMPUTING</span>
+          <span>✦ BRANDING & DESIGN</span>
+          {/* Loop Duplicate */}
+          <span>✦ UI/UX EXPERTISE</span>
+          <span>✦ PRODUCT DESIGN</span>
+          <span>✦ INTERACTION SYSTEMS</span>
+          <span>✦ CREATIVE CODE</span>
+          <span>✦ PHYSICAL COMPUTING</span>
+          <span>✦ BRANDING & DESIGN</span>
+        </div>
+      </div>
+
+      {/* 2-Column Clean Typographic List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-x-24 w-full px-2">
+        {/* Design Column */}
+        <div className="text-left">
+          <motion.h3 
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="flex flex-col minimal-card p-8 rounded-md border border-vscode-border bg-[#1E1E1E] transition-all duration-300 hover:border-vscode-accent/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+            className="text-zinc-500 text-xs font-mono tracking-[0.25em] mb-6 border-b border-white/10 pb-3 uppercase font-bold"
           >
-            {group.icon}
-            <h4 className="font-bold text-white font-sans text-xl mb-6 border-b border-vscode-border pb-4">{group.category}</h4>
-            <div className="flex flex-wrap gap-3 mt-2">
-              {group.skills.map((skill, index) => (
-                <motion.span 
-                  key={skill} 
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 + (index * 0.05), duration: 0.3 }}
-                  className="px-3 py-1.5 bg-[#252526] border border-vscode-border rounded text-sm text-vscode-text font-mono hover:text-white hover:border-vscode-accent cursor-default shadow-sm hover:scale-110 hover:bg-[#2A2D2E] hover:-translate-y-1 transition-all duration-200"
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+            Design
+          </motion.h3>
+          <ul className="divide-y divide-white/[0.03]">
+            {designSkills.map((skill, i) => (
+              <SkillItem key={skill} name={skill} index={i} />
+            ))}
+          </ul>
+        </div>
+
+        {/* Development Column */}
+        <div className="text-left">
+          <motion.h3 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-zinc-500 text-xs font-mono tracking-[0.25em] mb-6 border-b border-white/10 pb-3 uppercase font-bold"
+          >
+            Development
+          </motion.h3>
+          <ul className="divide-y divide-white/[0.03]">
+            {devSkills.map((skill, i) => (
+              <SkillItem key={skill} name={skill} index={i} />
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

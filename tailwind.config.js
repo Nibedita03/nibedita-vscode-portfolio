@@ -7,20 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        vscode: {
-          bg: '#1E1E1E', // Classic VS Code Dark
-          sidebar: '#252526',
-          activityBar: '#333333',
-          statusBar: '#007ACC',
-          text: '#CCCCCC',
-          textDark: '#858585',
-          activeTab: '#1E1E1E',
-          inactiveTab: '#2D2D2D',
-          tabBorder: '#252526',
-          accent: '#007ACC', // Classic blue
-          hover: '#2A2D2E',
-          border: '#3C3C3C'
-        }
+        accent: 'var(--accent-color, #6366f1)',
+        accentGlow: 'var(--accent-glow, rgba(99, 102, 241, 0.15))'
       },
       fontFamily: {
         mono: ['"Fira Code"', 'Consolas', 'Monaco', 'monospace'],
