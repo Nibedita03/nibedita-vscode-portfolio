@@ -5,6 +5,7 @@ import NooginCaseStudy from '../components/NooginCaseStudy';
 import ScrapGardenCaseStudy from '../components/ScrapGardenCaseStudy';
 import RydrCaseStudy from '../components/RydrCaseStudy';
 import GeospatialCaseStudy from '../components/GeospatialCaseStudy';
+import SmartVisionCaseStudy from '../components/SmartVisionCaseStudy';
 
 const projects = [
   {
@@ -38,7 +39,7 @@ const projects = [
     description: "Terminal based AI checking tool. Built a seamless interface for checking real-time vision processing.",
     tech: ["Computer Vision", "Python", "TensorFlow"],
     image: "/vision-cover.jpg",
-    link: "https://github.com"
+    link: "smart-vision"
   }
 ];
 
@@ -66,18 +67,18 @@ const explorationProjects = [
     title: "Blender Basics", 
     description: "A series of 16 3D modeling experiments, low-poly objects, and lighting studies.", 
     tech: ["3D Modeling", "Blender", "Cycles Render"], 
-    image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=400",
+    image: "/kitchen-2.jpg",
     images: [
-      { id: 1, title: "Low-Poly Isometric Bedroom", type: "image", src: "/blender-1.jpg", folder: "isometric_room", aspect: "aspect-video" },
-      { id: 2, title: "Fluid Splash Simulation", type: "video", src: "/blender-2.mp4", folder: "isometric_room", aspect: "aspect-square" },
-      { id: 3, title: "Sci-Fi Cargo Bay", type: "image", src: "/blender-3.jpg", folder: "isometric_room", aspect: "aspect-square" },
-      { id: 4, title: "Satisfying Gear Assembly", type: "video", src: "/blender-4.mp4", folder: "isometric_room", aspect: "aspect-video" },
-      { id: 5, title: "Cloth Physics on Sphere", type: "video", src: "/blender-5.mp4", folder: "isometric_room", aspect: "aspect-video" },
-      { id: 6, title: "Glass Dispersion Shader", type: "image", src: "/blender-6.jpg", folder: "nobita_bedroom", aspect: "aspect-video" },
-      { id: 7, title: "Mech Drone Model", type: "image", src: "/blender-7.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
-      { id: 8, title: "Retro Console Box", type: "image", src: "/blender-8.jpg", folder: "nobita_bedroom", aspect: "aspect-video" },
-      { id: 9, title: "Marble Run Simulation", type: "video", src: "/blender-9.mp4", folder: "nobita_bedroom", aspect: "aspect-video" },
-      { id: 10, title: "Procedural Pine Tree", type: "image", src: "/blender-10.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
+      { id: 1, title: "Isometric Kitchen View", type: "image", src: "/kitchen-2.jpg", folder: "isometric_room", aspect: "aspect-square" },
+      { id: 2, title: "Cabinet Detail & Shelf", type: "image", src: "/kitchen-1.jpg", folder: "isometric_room", aspect: "aspect-square" },
+      { id: 3, title: "Sink & Refrigerator Detail", type: "image", src: "/kitchen-3.jpg", folder: "isometric_room", aspect: "aspect-square" },
+      { id: 4, title: "Dining Set & Pantry", type: "image", src: "/kitchen-4.jpg", folder: "isometric_room", aspect: "aspect-square" },
+      { id: 5, title: "Top-Down Layout View", type: "image", src: "/kitchen-5.jpg", folder: "isometric_room", aspect: "aspect-square" },
+      { id: 6, title: "Nobita Bedroom - Wide Shot", type: "image", src: "/nobita-4.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
+      { id: 7, title: "Nobita Bedroom - Front View", type: "image", src: "/nobita-2.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
+      { id: 8, title: "Bookshelf & Desk Close-up", type: "image", src: "/nobita-1.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
+      { id: 9, title: "Study Desk Detail", type: "image", src: "/nobita-3.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
+      { id: 10, title: "Bedroom Perspective View", type: "image", src: "/nobita-5.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
       { id: 11, title: "Chocolate Bar & Gold Foil", type: "image", src: "/blender-11.jpg", folder: "basic_object_studies", aspect: "aspect-video" },
       { id: 12, title: "Chess Queen", type: "image", src: "/blender-12.jpg", folder: "basic_object_studies", aspect: "aspect-video" },
       { id: 13, title: "Candle & Candleholder", type: "image", src: "/blender-13.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
@@ -87,7 +88,7 @@ const explorationProjects = [
       { id: 17, title: "Chocolate Drip", type: "image", src: "/blender-chess.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
       { id: 18, title: "Dart Board", type: "image", src: "/blender-dart.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
       { id: 19, title: "Ping Pong Paddle", type: "image", src: "/blender-paddle.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
-      { id: 20, title: "Animation Render", type: "video", src: "/blender-anim.mp4", folder: "basic_object_studies", aspect: "aspect-video" }
+      { id: 20, title: "Egg Animation", type: "video", src: "/blender-egg.mp4", folder: "basic_object_studies", aspect: "aspect-video" }
     ],
     size: "narrow"
   },
@@ -313,6 +314,7 @@ const Projects = () => {
   const [isScrapGardenCaseStudyOpen, setIsScrapGardenCaseStudyOpen] = useState(false);
   const [isRydrCaseStudyOpen, setIsRydrCaseStudyOpen] = useState(false);
   const [isGeospatialCaseStudyOpen, setIsGeospatialCaseStudyOpen] = useState(false);
+  const [isSmartVisionCaseStudyOpen, setIsSmartVisionCaseStudyOpen] = useState(false);
 
   // Exploration Quick-View Detail Modal
   const [activeExploration, setActiveExploration] = useState(null);
@@ -337,6 +339,7 @@ const Projects = () => {
       setIsScrapGardenCaseStudyOpen(false);
       setIsRydrCaseStudyOpen(false);
       setIsGeospatialCaseStudyOpen(false);
+      setIsSmartVisionCaseStudyOpen(false);
       setActiveExploration(null);
       setSelectedImageIndex(null);
       setSelectedFolder("isometric_room");
@@ -352,6 +355,8 @@ const Projects = () => {
         setIsScrapGardenCaseStudyOpen(true);
       } else if (hash === '#geospatial') {
         setIsGeospatialCaseStudyOpen(true);
+      } else if (hash === '#smart-vision') {
+        setIsSmartVisionCaseStudyOpen(true);
       } else if (hash.startsWith('#exp-')) {
         const expId = parseInt(hash.replace('#exp-', ''), 10);
         const exp = explorationProjects.find(e => e.id === expId);
@@ -393,7 +398,7 @@ const Projects = () => {
   }, [activeExploration, selectedImageIndex]);
 
   const handleRun = (link) => {
-    if (link === 'noogin' || link === 'rydr' || link === 'scrap-garden' || link === 'geospatial') {
+    if (link === 'noogin' || link === 'rydr' || link === 'scrap-garden' || link === 'geospatial' || link === 'smart-vision') {
       setLoading(true);
       setLoadingText("opening case study...");
       
@@ -407,6 +412,29 @@ const Projects = () => {
     } else if (link.startsWith('http')) {
       window.open(link, '_blank');
     }
+  };
+
+  const handleNavigate = (link) => {
+    setLoading(true);
+    setLoadingText("loading next project...");
+    
+    setTimeout(() => {
+      setLoading(false);
+      if (link.startsWith('http')) {
+        window.open(link, '_blank');
+        window.location.hash = '';
+      } else if (link === 'creative-explorations') {
+        window.location.hash = '';
+        setTimeout(() => {
+          const el = document.getElementById('creative-explorations');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        window.location.hash = link;
+      }
+    }, 800);
   };
 
   const handleExplorationClick = (project) => {
@@ -463,10 +491,11 @@ const Projects = () => {
 
       {/* ─── CREATIVE EXPLORATIONS SECTION ─── */}
       <motion.h2 
+        id="creative-explorations"
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="text-3xl font-bold mb-12 flex items-center space-x-4 text-white font-sans tracking-tight"
+        className="text-3xl font-bold mb-12 flex items-center space-x-4 text-white font-sans tracking-tight scroll-mt-24"
       >
         <span className="text-accent font-sans text-2xl">✦</span>
         <span>Creative Explorations</span>
@@ -485,19 +514,21 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* ─── FULLSCREEN CASE STUDY MODAL SLIDES ─── */}
       <AnimatePresence>
         {isNooginCaseStudyOpen && (
-          <NooginCaseStudy onClose={() => { window.location.hash = ''; }} />
+          <NooginCaseStudy onClose={() => { window.location.hash = ''; }} onNavigate={handleNavigate} />
         )}
         {isScrapGardenCaseStudyOpen && (
-          <ScrapGardenCaseStudy onClose={() => { window.location.hash = ''; }} />
+          <ScrapGardenCaseStudy onClose={() => { window.location.hash = ''; }} onNavigate={handleNavigate} />
         )}
         {isRydrCaseStudyOpen && (
-          <RydrCaseStudy onClose={() => { window.location.hash = ''; }} />
+          <RydrCaseStudy onClose={() => { window.location.hash = ''; }} onNavigate={handleNavigate} />
         )}
         {isGeospatialCaseStudyOpen && (
-          <GeospatialCaseStudy onClose={() => { window.location.hash = ''; }} />
+          <GeospatialCaseStudy onClose={() => { window.location.hash = ''; }} onNavigate={handleNavigate} />
+        )}
+        {isSmartVisionCaseStudyOpen && (
+          <SmartVisionCaseStudy onClose={() => { window.location.hash = ''; }} onNavigate={handleNavigate} />
         )}
       </AnimatePresence>
 
@@ -521,44 +552,48 @@ const Projects = () => {
                 onClick={(e) => e.stopPropagation()}
                 className="max-w-7xl w-[94vw] h-[90vh] border border-[#c5a880]/15 bg-[#141413] rounded-3xl relative shadow-2xl flex flex-col overflow-hidden"
               >
-                {/* Always-pinned Close button on top-right of the modal window */}
-                <button
-                  onClick={() => { window.location.hash = ''; }}
-                  className="absolute top-8 right-8 md:top-10 md:right-10 p-3 rounded-full border border-white/10 hover:border-white/20 bg-[#141413]/90 text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105 z-30 backdrop-blur-sm shadow-md"
-                >
-                  <X size={20} />
-                </button>
-
                 {/* Inner Scrollable Body */}
-                <div className="overflow-y-auto flex-1 custom-scrollbar p-8 md:p-12 pr-12 text-left">
+                <div className="overflow-y-auto flex-1 custom-scrollbar pt-10 pb-8 px-5 sm:pt-14 sm:px-8 md:pt-20 md:pb-12 md:px-12 text-left relative">
                   
                   {/* Modal Header */}
-                  <div className="mb-12 text-left space-y-4 pr-24">
-                    <h3 className="text-4xl md:text-5xl font-black font-sans text-white tracking-tight uppercase">
-                      {activeExploration.title}
-                    </h3>
-                    <p className="text-zinc-300 font-sans text-base md:text-lg max-w-4xl leading-relaxed">
-                      {activeExploration.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2.5 pt-2">
-                      {activeExploration.tech.map((t, idx) => (
-                        <span 
-                          key={idx} 
-                          className="text-xs md:text-sm font-mono text-accent border border-accent/20 px-4 py-1.5 rounded-xl bg-accent/5 font-semibold"
-                        >
-                          {t}
-                        </span>
-                      ))}
+                  <div className="mb-12 flex items-start justify-between gap-6">
+                    <div className="space-y-4 flex-1">
+                      <h3 className="text-3xl sm:text-4xl md:text-5xl font-black font-sans text-white tracking-tight uppercase">
+                        {activeExploration.title}
+                      </h3>
+                      <p className="text-zinc-300 font-sans text-base md:text-lg max-w-4xl leading-relaxed">
+                        {activeExploration.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2.5 pt-2">
+                        {activeExploration.tech.map((t, idx) => (
+                          <span 
+                            key={idx} 
+                            className="text-xs md:text-sm font-mono text-accent border border-accent/20 px-4 py-1.5 rounded-xl bg-accent/5 font-semibold"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+
+                    {/* Close Button aligned with heading */}
+                    <button
+                      onClick={() => { window.location.hash = ''; }}
+                      className="p-3 rounded-full border border-white/10 hover:border-[#c5a880]/35 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105 shrink-0 mt-1"
+                    >
+                      <X size={20} />
+                    </button>
                   </div>
 
                   {/* 1. Singular Objects Section */}
                   <div className="space-y-6 mb-12 text-left">
                     <div className="flex items-center gap-3 border-b border-white/5 pb-3">
                       <span className="text-base md:text-lg font-mono uppercase text-zinc-400 font-black tracking-wider">Singular 3D Objects</span>
-                      <span className="text-xs px-2.5 py-1 rounded-lg bg-white/[0.03] text-zinc-500 border border-white/5 font-mono">6 renders</span>
+                      <span className="text-xs px-2.5 py-1 rounded-lg bg-white/[0.03] text-zinc-500 border border-white/5 font-mono">
+                        {activeExploration.images.filter(img => img.folder === 'basic_object_studies').length} renders
+                      </span>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 mt-6">
                       {activeExploration.images
                         .filter(img => img.folder === 'basic_object_studies')
                         .map((obj) => {
@@ -617,18 +652,20 @@ const Projects = () => {
                   <div className="border border-[#c5a880]/30 bg-[#c5a880]/[0.01] rounded-3xl overflow-hidden mb-8 text-left">
                     <button 
                       onClick={() => setIsRoom1Expanded(!isRoom1Expanded)}
-                      className="w-full flex items-center justify-between px-8 py-6 hover:bg-[#c5a880]/[0.03] transition-colors"
+                      className="w-full flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6 hover:bg-[#c5a880]/[0.03] transition-colors"
                     >
-                      <div className="flex items-center gap-4">
-                        <span className="text-2xl">📁</span>
-                        <h4 className="text-white font-sans text-lg md:text-xl font-extrabold uppercase tracking-wide">Isometric Room</h4>
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                        <h4 className="text-white font-sans text-base sm:text-lg md:text-xl font-extrabold uppercase tracking-wide">Isometric Kitchen</h4>
+                        <span className="text-xs px-2 py-0.5 rounded-lg bg-white/[0.03] text-zinc-500 border border-white/5 font-mono">
+                          {activeExploration.images.filter(img => img.folder === 'isometric_room').length} renders
+                        </span>
                       </div>
                       <span className="text-zinc-300 font-mono text-base font-semibold mr-2">
                         {isRoom1Expanded ? '▲' : '▼'}
                       </span>
                     </button>
                     {isRoom1Expanded && (
-                      <div className="p-8 border-t border-[#c5a880]/30 bg-[#0e0e0d]/30 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                      <div className="p-4 sm:p-8 border-t border-[#c5a880]/30 bg-[#0e0e0d]/30 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
                         {activeExploration.images
                           .filter(img => img.folder === 'isometric_room')
                           .map((obj) => {
@@ -688,18 +725,20 @@ const Projects = () => {
                   <div className="border border-[#c5a880]/30 bg-[#c5a880]/[0.01] rounded-3xl overflow-hidden mb-8 text-left">
                     <button 
                       onClick={() => setIsRoom2Expanded(!isRoom2Expanded)}
-                      className="w-full flex items-center justify-between px-8 py-6 hover:bg-[#c5a880]/[0.03] transition-colors"
+                      className="w-full flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6 hover:bg-[#c5a880]/[0.03] transition-colors"
                     >
-                      <div className="flex items-center gap-4">
-                        <span className="text-2xl">📁</span>
-                        <h4 className="text-white font-sans text-lg md:text-xl font-extrabold uppercase tracking-wide">Nobita Bedroom</h4>
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                        <h4 className="text-white font-sans text-base sm:text-lg md:text-xl font-extrabold uppercase tracking-wide">Nobita Bedroom</h4>
+                        <span className="text-xs px-2 py-0.5 rounded-lg bg-white/[0.03] text-zinc-500 border border-white/5 font-mono">
+                          {activeExploration.images.filter(img => img.folder === 'nobita_bedroom').length} renders
+                        </span>
                       </div>
                       <span className="text-zinc-300 font-mono text-base font-semibold mr-2">
                         {isRoom2Expanded ? '▲' : '▼'}
                       </span>
                     </button>
                     {isRoom2Expanded && (
-                      <div className="p-8 border-t border-[#c5a880]/30 bg-[#0e0e0d]/30 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                      <div className="p-4 sm:p-8 border-t border-[#c5a880]/30 bg-[#0e0e0d]/30 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
                         {activeExploration.images
                           .filter(img => img.folder === 'nobita_bedroom')
                           .map((obj) => {
@@ -755,6 +794,68 @@ const Projects = () => {
                     )}
                   </div>
 
+                  {/* Cinematic Split Image Navigation Footer */}
+                  <div className="mt-28 pt-12 border-t border-white/10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      
+                      {/* Previous Project Card */}
+                      <div 
+                        onClick={() => handleNavigate('exp-5')}
+                        className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-white/5 bg-zinc-950 flex flex-col justify-end p-6"
+                      >
+                        <img 
+                          src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=400" 
+                          alt="Physical Computing" 
+                          className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+                        <div className="relative z-10 space-y-0.5">
+                          <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Sensory Custom Controllers</span>
+                          <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                            ← PREVIOUS PROJECT
+                          </h4>
+                          <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                            PHYSICAL COMPUTING
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Next Project Card */}
+                      <div 
+                        onClick={() => handleNavigate('geospatial')}
+                        className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-[#c5a880]/15 hover:border-[#c5a880]/30 bg-zinc-950 flex flex-col justify-end p-6 text-right items-end"
+                      >
+                        <img 
+                          src="/geo-map-3.png" 
+                          alt="Geospatial Visualisation" 
+                          className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+                        <div className="relative z-10 space-y-0.5">
+                          <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Cyclone Vulnerability Mapping</span>
+                          <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                            NEXT PROJECT →
+                          </h4>
+                          <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                            GEOSPATIAL VISUALISATION
+                          </span>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div className="mt-10 flex justify-center">
+                      <button 
+                        onClick={() => { window.location.hash = ''; }}
+                        className="text-zinc-400 hover:text-white transition-colors cursor-pointer border border-white/10 hover:border-white/20 px-6 py-2.5 rounded-xl bg-white/[0.01] font-mono text-xs uppercase tracking-wider"
+                      >
+                        Return to Portfolio
+                      </button>
+                    </div>
+                  </div>
+
                 </div>
               </motion.div>
             ) : (
@@ -765,11 +866,11 @@ const Projects = () => {
                 exit={{ scale: 0.95, y: 15 }}
                 transition={{ type: "spring", duration: 0.5 }}
                 onClick={(e) => e.stopPropagation()}
-                className="max-w-2xl w-full border border-white/5 bg-[#141413] rounded-3xl p-6 md:p-8 relative shadow-2xl overflow-hidden"
+                className="max-w-2xl w-full border border-white/5 bg-[#141413] rounded-3xl p-6 md:p-8 relative shadow-2xl overflow-y-auto max-h-[90vh] custom-scrollbar"
               >
                 <button
                   onClick={() => { window.location.hash = ''; }}
-                  className="absolute top-6 right-6 p-2 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105"
+                  className="absolute top-8 right-8 p-2 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105 z-30"
                 >
                   <X size={16} />
                 </button>
@@ -816,6 +917,70 @@ const Projects = () => {
                       </span>
                     ))}
                   </div>
+
+                  {/* Cinematic Split Image Navigation Footer */}
+                  <div className="mt-28 pt-12 border-t border-white/10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      
+                      {/* Previous Project Card */}
+                      <div 
+                        onClick={() => handleNavigate('scrap-garden')}
+                        className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-white/5 bg-zinc-950 flex flex-col justify-end p-6"
+                      >
+                        <img 
+                          src="/scrapgarden-cover.jpg" 
+                          alt="Scrap Garden" 
+                          className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+                        <div className="relative z-10 space-y-0.5">
+                          <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Tangible Electronics</span>
+                          <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                            ← PREVIOUS PROJECT
+                          </h4>
+                          <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                            SCRAP GARDEN
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Next Project Card */}
+                      <div 
+                        onClick={() => handleNavigate('exp-6')}
+                        className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-[#c5a880]/15 hover:border-[#c5a880]/30 bg-zinc-950 flex flex-col justify-end p-6 text-right items-end"
+                      >
+                        <img 
+                          src="/kitchen-2.jpg" 
+                          alt="Blender Basics" 
+                          className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+                          onError={(e) => { e.target.src = '/blender_chocolate_1780617789265.png'; }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+                        <div className="relative z-10 space-y-0.5">
+                          <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">3D Low-Poly Environments</span>
+                          <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                            NEXT PROJECT →
+                          </h4>
+                          <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                            BLENDER BASICS
+                          </span>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div className="mt-10 flex justify-center">
+                      <button 
+                        onClick={() => { window.location.hash = ''; }}
+                        className="text-zinc-400 hover:text-white transition-colors cursor-pointer border border-white/10 hover:border-white/20 px-6 py-2.5 rounded-xl bg-white/[0.01] font-mono text-xs uppercase tracking-wider"
+                      >
+                        Return to Portfolio
+                      </button>
+                    </div>
+                  </div>
+
                 </div>
               </motion.div>
             )}

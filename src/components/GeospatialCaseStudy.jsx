@@ -124,7 +124,7 @@ const MapSection = ({ map, index }) => (
 /* ──────────────────────────────────────────────
    MAIN COMPONENT
 ────────────────────────────────────────────── */
-const GeospatialCaseStudy = ({ onClose }) => {
+const GeospatialCaseStudy = ({ onClose, onNavigate }) => {
   const [sourcesOpen, setSourcesOpen] = useState(false);
 
   // Lock body scroll
@@ -178,10 +178,20 @@ const GeospatialCaseStudy = ({ onClose }) => {
               <span className="text-[10px] font-mono tracking-[0.3em] uppercase px-3 py-1.5 rounded-full border border-white/10 text-zinc-400 bg-white/[0.02]">QGIS</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black font-sans text-white leading-none tracking-tight mb-6">
-              Geospatial<br />
-              <span className="text-accent">Mapping</span><br />
-              <span className="text-zinc-500">Ganjam District</span>
+            <h1 className="font-black uppercase leading-[0.85] text-[clamp(2.5rem,7.5vw,5.5rem)] flex flex-col mb-8 tracking-tighter select-none">
+              <span style={{
+                background: 'linear-gradient(110deg, #ffffff 30%, #e5dfd5 60%, #c5a880 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }} className="inline-block">GEOSPATIAL</span>
+              <span style={{
+                background: 'linear-gradient(110deg, #ffffff 30%, #e5dfd5 60%, #c5a880 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }} className="inline-block">MAPPING</span>
+              <span className="text-zinc-500 text-xl md:text-2xl font-mono tracking-wider lowercase mt-2">Ganjam District</span>
             </h1>
 
             <p className="text-zinc-300 font-sans text-base md:text-lg leading-relaxed max-w-2xl">
@@ -459,21 +469,68 @@ const GeospatialCaseStudy = ({ onClose }) => {
           </AnimatePresence>
         </motion.section>
 
-        {/* ── Close Footer ── */}
-        <div className="flex items-center justify-between pt-8 border-t border-[#c5a880]/10">
-          <div className="space-y-1">
-            <p className="text-zinc-500 font-mono text-[11px] uppercase tracking-widest">End of Case Study</p>
-            <p className="text-zinc-600 font-mono text-[10px]">Geospatial Mapping · Ganjam District · QGIS</p>
-          </div>
-          <button
-            onClick={onClose}
-            className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-accent hover:text-white transition-colors duration-300 border border-accent/30 hover:border-white/20 px-6 py-3 rounded-xl hover:bg-white/[0.02]"
-          >
-            <X size={14} />
-            Close
-          </button>
-        </div>
+        {/* Cinematic Split Image Navigation Footer */}
+        <div className="mt-28 pt-12 border-t border-[#c5a880]/15">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* Previous Project Card */}
+            <div 
+              onClick={() => onNavigate('smart-vision')}
+              className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-white/5 bg-zinc-950 flex flex-col justify-end p-6"
+            >
+              <img 
+                src="/vision-cover.jpg" 
+                alt="Smart Vision AI System" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=400'; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
+              <div className="relative z-10 space-y-0.5">
+                <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Computer Vision Interface</span>
+                <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                  ← PREVIOUS PROJECT
+                </h4>
+                <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                  SMART VISION AI SYSTEM
+                </span>
+              </div>
+            </div>
+
+            {/* Next Project Card */}
+            <div 
+              onClick={() => onNavigate('creative-explorations')}
+              className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-[#c5a880]/15 hover:border-[#c5a880]/30 bg-zinc-950 flex flex-col justify-end p-6 text-right items-end"
+            >
+              <img 
+                src="/scrapgarden-cover.jpg" 
+                alt="Creative Explorations" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+              <div className="relative z-10 space-y-0.5">
+                <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Creative Experiments</span>
+                <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                  EXPLORE MORE →
+                </h4>
+                <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                  CREATIVE EXPLORATIONS
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <button 
+              onClick={onClose}
+              className="text-zinc-400 hover:text-white transition-colors cursor-pointer border border-[#c5a880]/20 hover:border-[#c5a880]/40 px-6 py-2.5 rounded-xl bg-white/[0.01] font-mono text-xs uppercase tracking-wider"
+            >
+              Return to Portfolio
+            </button>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

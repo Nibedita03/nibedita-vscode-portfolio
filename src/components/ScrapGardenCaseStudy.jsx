@@ -22,7 +22,7 @@ const Section = ({ title, icon: Icon, children }) => (
   </motion.div>
 );
 
-const ScrapGardenCaseStudy = ({ onClose }) => {
+const ScrapGardenCaseStudy = ({ onClose, onNavigate }) => {
   // Navigation & Interactive States
   const [activeTab, setActiveTab] = useState("vision"); // vision, materials, schematic, fab
   const [simulatorMode, setSimulatorMode] = useState("simulator"); // 'simulator' or 'video'
@@ -545,11 +545,48 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
           </div>
         </Section>
 
-        {/* Footer */}
+        {/* Cinematic Split Image Navigation Footer */}
+        <div className="mt-28 pt-12 border-t border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* Previous Project Card */}
+            <div className="relative overflow-hidden rounded-2xl h-28 md:h-32 border border-white/5 bg-zinc-950/20 flex items-center justify-center text-zinc-600 font-mono text-xs uppercase tracking-wider">
+              Start of Journey
+            </div>
 
-        <div className="mt-32 pt-8 border-t border-vscode-border flex justify-between items-center text-vscode-textDark font-mono text-sm">
-          <span>End of Case Study</span>
-          <button onClick={onClose} className="text-vscode-accent hover:text-white transition-colors">Return to Portfolio</button>
+            {/* Next Project Card */}
+            <div 
+              onClick={() => onNavigate('exp-5')}
+              className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-[#c5a880]/15 hover:border-[#c5a880]/30 bg-zinc-950 flex flex-col justify-end p-6 text-right items-end"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=400" 
+                alt="Physical Computing" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+              <div className="relative z-10 space-y-0.5">
+                <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Sensory Custom Controllers</span>
+                <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                  NEXT PROJECT →
+                </h4>
+                <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                  PHYSICAL COMPUTING
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <button 
+              onClick={onClose}
+              className="text-zinc-400 hover:text-white transition-colors cursor-pointer border border-white/10 hover:border-white/20 px-6 py-2.5 rounded-xl bg-white/[0.01] font-mono text-xs uppercase tracking-wider"
+            >
+              Return to Portfolio
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>

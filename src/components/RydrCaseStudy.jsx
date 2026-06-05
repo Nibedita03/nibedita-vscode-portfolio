@@ -948,6 +948,52 @@ const PhoneFrame = ({ children, label = "", disableHover = false }) => (
   </div>
 );
 
+const WireframesGrid = () => {
+  const screens = [
+    { title: "Onboarding: Intro", image: "/rydr-wf-1.png" },
+    { title: "Onboarding: Benefits", image: "/rydr-wf-2.png" },
+    { title: "Onboarding: Access", image: "/rydr-wf-3.png" },
+    { title: "Role Selection: Default", image: "/rydr-wf-4.png" },
+    { title: "Role Selection: Active", image: "/rydr-wf-5.png" },
+    { title: "Email Input", image: "/rydr-wf-6.png" },
+    { title: "OTP Code: Default", image: "/rydr-wf-7.png" },
+    { title: "OTP Code: Entered", image: "/rydr-wf-8.png" },
+    { title: "Permissions: Location", image: "/rydr-wf-9.png" },
+    { title: "Permission Completer", image: "/rydr-wf-10.png" },
+    { title: "Map: Home View", image: "/rydr-wf-11.png" },
+    { title: "Nearby Docks List", image: "/rydr-wf-12.png" },
+    { title: "GPS Navigation HUD", image: "/rydr-wf-13.png" },
+    { title: "QR Scanner Camera", image: "/rydr-wf-14.png" },
+    { title: "Bike Unlock Details", image: "/rydr-wf-15.png" },
+    { title: "Rules & Safety", image: "/rydr-wf-16.png" },
+    { title: "Active Ride HUD", image: "/rydr-wf-17.png" },
+    { title: "Ride Paused HUD", image: "/rydr-wf-18.png" },
+    { title: "End Ride Prompt", image: "/rydr-wf-19.png" },
+    { title: "Final Ride Summary", image: "/rydr-wf-20.png" },
+    { title: "Feedback Survey", image: "/rydr-wf-21.png" },
+    { title: "Reserve Ride Selector", image: "/rydr-wf-22.png" },
+    { title: "Reservation Confirmed", image: "/rydr-wf-23.png" },
+    { title: "Impact Dashboard", image: "/rydr-wf-24.png" },
+    { title: "User Profile Settings", image: "/rydr-wf-25.png" }
+  ];
+
+  return (
+    <div className="w-full">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+        {screens.map((screen, idx) => (
+          <PhoneFrame key={idx} label={screen.title}>
+            <img 
+              src={screen.image} 
+              alt={screen.title} 
+              className="w-full h-full object-fill bg-white" 
+            />
+          </PhoneFrame>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const StyleGuide = () => {
   const [copiedColor, setCopiedColor] = useState(null);
 
@@ -2003,7 +2049,7 @@ const PersonaShowcase = () => {
   );
 };
 
-const RydrCaseStudy = ({ onClose }) => {
+const RydrCaseStudy = ({ onClose, onNavigate }) => {
   const [activeTestTab, setActiveTestTab] = useState(0);
 
   useEffect(() => {
@@ -2146,42 +2192,32 @@ const RydrCaseStudy = ({ onClose }) => {
         </motion.div>
 
         {/* Content Sections */}
+        {/* 1. Project Overview */}
         <Section title="Project Overview" icon={Lightbulb}>
           <p className="text-xl md:text-2xl leading-relaxed">
             <span className="text-vscode-accent font-semibold">Rydr is a smart campus micro-mobility ecosystem</span> designed specifically for college campuses. By offering a network of dock-based shared electric bikes, Rydr bridges the gap between classes, hostels, and amenities, giving students a simple, reliable, and highly affordable transportation solution that seamlessly fits into campus life.
           </p>
         </Section>
 
-        {/* Problem & Research Goals */}
-        <div className="grid md:grid-cols-2 gap-6 mb-24">
-          <CollapsibleCard
-            color="#EF4444"
-            label="01"
-            title="Problem Statement"
-          >
-            Most Indian college campuses are large, with long distances between classes, hostels, and facilities. Students often waste time walking or struggle without personal transport. Current bike rental apps aren't designed for campus life or student needs. There’s a need for a simple, affordable, and student-friendly mobility solution inside campuses.
-          </CollapsibleCard>
-
-          <CollapsibleCard
-            color="#10B981"
-            label="02"
-            title="Research Goal"
-          >
-            Our objective was to understand campus transit habits, map frequent student route bottlenecks, evaluate Yulu/city app flaws in closed campus environments, and design a custom student-friendly electric bike-sharing application.
-          </CollapsibleCard>
-        </div>
-
-        {/* Target Audience */}
-        <Section title="Target Audience" icon={Users}>
-          <TargetAudienceWidget />
+        {/* 2. Problem Statement */}
+        <Section title="Problem Statement" icon={ShieldAlert}>
+          <div className="p-8 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[28px] shadow-2xl">
+            <p className="text-base md:text-lg leading-relaxed text-zinc-300 font-sans">
+              Most Indian college campuses are large, with long distances between classes, hostels, and facilities. Students often waste time walking or struggle without personal transport. Current bike rental apps aren't designed for campus life or student needs. There’s a need for a simple, affordable, and student-friendly mobility solution inside campuses.
+            </p>
+          </div>
         </Section>
 
-        {/* User Behaviour & Habits */}
-        <Section title="User Behaviour & Habits" icon={Compass}>
-          <UserBehaviourWidget />
+        {/* 3. Research Goal */}
+        <Section title="Research Goal" icon={Target}>
+          <div className="p-8 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[28px] shadow-2xl">
+            <p className="text-base md:text-lg leading-relaxed text-zinc-300 font-sans">
+              Our objective was to understand campus transit habits, map frequent student route bottlenecks, evaluate Yulu/city app flaws in closed campus environments, and design a custom student-friendly electric bike-sharing application.
+            </p>
+          </div>
         </Section>
 
-        {/* How Might We (HMW) Sticky Notes */}
+        {/* 4. How Might We Questions */}
         <Section title="How Might We" icon={Target}>
           <div className="flex flex-wrap justify-center gap-6">
             {[
@@ -2209,7 +2245,22 @@ const RydrCaseStudy = ({ onClose }) => {
           </div>
         </Section>
 
-        <Section title="Research Methods" icon={Search}>
+        {/* 5. User Persona & Target Audience */}
+        <Section title="Target Audience" icon={Users}>
+          <TargetAudienceWidget />
+        </Section>
+
+        <Section title="User Persona" icon={Users}>
+          <PersonaShowcase />
+        </Section>
+
+        {/* 6. Identified Problems & Solutions Dashboard */}
+        <Section title="Identified Problems & Solutions" icon={ShieldAlert}>
+          <ProblemsDashboard />
+        </Section>
+
+        {/* 7. Secondary Research */}
+        <Section title="Secondary Research Methods" icon={Search}>
           <div className="w-full p-8 md:p-10 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[32px] shadow-2xl space-y-6">
             {[
               { title: "Field Research", desc: "Observed walkway congestion, commuter behavior, and campus transit bottlenecks first-hand." },
@@ -2227,11 +2278,16 @@ const RydrCaseStudy = ({ onClose }) => {
           </div>
         </Section>
 
-        {/* Secondary Research Case Studies */}
         <Section title="Secondary Research Case Studies" icon={Search}>
           <SecondaryResearchShowcase />
         </Section>
 
+        {/* 8. Competitive Analysis */}
+        <Section title="Competitive Analysis" icon={Target}>
+          <CompetitiveAnalysis />
+        </Section>
+
+        {/* 9. Affinity Mapping */}
         <Section title="Affinity Mapping Insights" icon={Compass}>
           <div className="space-y-6">
             <p className="text-base md:text-lg leading-relaxed text-zinc-300 font-sans max-w-4xl">
@@ -2332,53 +2388,43 @@ const RydrCaseStudy = ({ onClose }) => {
           </div>
         </Section>
 
-        {/* Expectations vs Complaints */}
-        <Section title="Student Expectations vs. App Complaints" icon={ShieldAlert}>
+        {/* 10. Insights from Research */}
+        <Section title="Insights from Research: Student Expectations vs. App Complaints" icon={ShieldAlert}>
           <ExpectationsVsComplaints />
         </Section>
 
-        {/* User Persona Section */}
-        <Section title="User Persona" icon={Users}>
-          <PersonaShowcase />
-        </Section>
-
-        {/* User Journey Map */}
-        <Section title="User Journey Map" icon={Compass}>
-          <JourneyMap />
-        </Section>
-
-        {/* Competitive Analysis */}
-        <Section title="Competitive Analysis" icon={Target}>
-          <CompetitiveAnalysis />
-        </Section>
-
-        {/* SWOT Analysis */}
-        <Section title="SWOT Analysis" icon={Lightbulb}>
-          <SwotAnalysis />
-        </Section>
-
-        {/* College Concerns & Safety Compliance */}
-        <Section title="College Concerns & Policy Compliance" icon={ShieldAlert}>
-          <CollegeConcernsWidget />
-        </Section>
-
-        {/* Gap & Opportunity Areas */}
+        {/* 11. Gaps & Opportunity Areas */}
         <Section title="Gaps & Opportunity Areas" icon={ShieldAlert}>
           <GapAnalysis />
         </Section>
 
-        {/* Identified Problems & Solutions Dashboard */}
-        <Section title="Identified Problems & Solutions" icon={ShieldAlert}>
-          <ProblemsDashboard />
+        {/* 12. Rest of the things (remains same) */}
+        <Section title="User Behaviour & Habits" icon={Compass}>
+          <UserBehaviourWidget />
         </Section>
 
-        {/* Design Architecture */}
+        <Section title="User Journey Map" icon={Compass}>
+          <JourneyMap />
+        </Section>
+
+        <Section title="SWOT Analysis" icon={Lightbulb}>
+          <SwotAnalysis />
+        </Section>
+
+        <Section title="College Concerns & Policy Compliance" icon={ShieldAlert}>
+          <CollegeConcernsWidget />
+        </Section>
         <Section title="Design & Architecture" icon={Layout}>
           <div className="space-y-12">
             <div>
               <h4 className="text-white font-bold mb-6 font-sans text-xl">Information Architecture</h4>
               
               <InformationArchitectureWidget />
+            </div>
+
+            <div>
+              <h4 className="text-white font-bold mb-6 font-sans text-xl">Low-Fidelity Wireframes</h4>
+              <WireframesGrid />
             </div>
 
             <StyleGuide />
@@ -2524,10 +2570,67 @@ const RydrCaseStudy = ({ onClose }) => {
           <RiskAnalysisWidget />
         </Section>
 
-        {/* Footer */}
-        <div className="mt-32 pt-8 border-t border-vscode-border flex justify-between items-center text-vscode-textDark font-mono text-sm">
-          <span>End of Case Study</span>
-          <button onClick={onClose} className="text-vscode-accent hover:text-white transition-colors">Return to Portfolio</button>
+        {/* Cinematic Split Image Navigation Footer */}
+        <div className="mt-28 pt-12 border-t border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* Previous Project Card */}
+            <div 
+              onClick={() => onNavigate('noogin')}
+              className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-white/5 bg-zinc-950 flex flex-col justify-end p-6"
+            >
+              <img 
+                src="/noogin-cover.jpg" 
+                alt="Noogin Nooks" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+              <div className="relative z-10 space-y-0.5">
+                <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Personalized Learning Suite</span>
+                <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                  ← PREVIOUS PROJECT
+                </h4>
+                <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                  NOOGIN NOOKS
+                </span>
+              </div>
+            </div>
+
+            {/* Next Project Card */}
+            <div 
+              onClick={() => onNavigate('smart-vision')}
+              className="group relative cursor-pointer overflow-hidden rounded-2xl h-28 md:h-32 border border-[#c5a880]/15 hover:border-[#c5a880]/30 bg-zinc-950 flex flex-col justify-end p-6 text-right items-end"
+            >
+              <img 
+                src="/vision-cover.jpg" 
+                alt="Smart Vision AI System" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=400'; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+              <div className="relative z-10 space-y-0.5">
+                <span className="text-zinc-400 font-mono text-[9px] uppercase block tracking-wider">Computer Vision Interface</span>
+                <h4 className="text-white text-xl md:text-2xl font-black uppercase font-sans tracking-tight group-hover:text-accent transition-colors duration-300">
+                  NEXT PROJECT →
+                </h4>
+                <span className="text-zinc-400 text-[10px] md:text-xs font-normal tracking-wider font-mono block group-hover:text-zinc-200 transition-colors duration-300">
+                  SMART VISION AI SYSTEM
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <button 
+              onClick={onClose}
+              className="text-zinc-400 hover:text-white transition-colors cursor-pointer border border-white/10 hover:border-white/20 px-6 py-2.5 rounded-xl bg-white/[0.01] font-mono text-xs uppercase tracking-wider"
+            >
+              Return to Portfolio
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>
