@@ -176,47 +176,114 @@ const UserBehaviourWidget = () => {
 
   const currentAlternatives = [
     { name: "Walking", rate: "85%", icon: "🚶‍♂️" },
+    { name: "Shuttle Bus", rate: "40%", icon: "🚌" },
     { name: "Own Bicycles", rate: "20%", icon: "🚲" },
     { name: "Shared Cycles", rate: "15%", icon: "🚲" },
-    { name: "Shuttle Bus", rate: "40%", icon: "🚌" },
     { name: "Find Scooty", rate: "12%", icon: "🛵" },
     { name: "Manual Rental", rate: "8%", icon: "🔑" }
   ];
 
   return (
-    <div className="bg-[#252526] border border-vscode-border rounded-xl p-6 md:p-8 my-8 shadow-xl">
-      <h4 className="text-white font-bold text-lg font-sans mb-6">Current Campus Transit Habits & Alternatives</h4>
-      <div className="grid lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-7 space-y-4">
-          <div className="flex gap-2 border-b border-vscode-border pb-3">
+    <div className="w-full my-8 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[32px] p-6 md:p-8 shadow-2xl space-y-8">
+      {/* Title & Help Guide */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+        <div>
+          <h4 className="text-white font-bold text-lg md:text-xl font-sans">Current Campus Transit Habits</h4>
+          <p className="text-zinc-500 text-sm font-mono mt-1">Observed user behaviors and primary frustrations</p>
+        </div>
+        <span className="text-xs md:text-sm font-sans text-zinc-400 animate-pulse flex items-center gap-1 self-start md:self-center">
+          <span>Click a tab to explore</span>
+          <span>➔</span>
+        </span>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Left Side: Interactive Habit Slider (one-by-one) */}
+        <div className="lg:col-span-8 flex flex-col justify-between space-y-4">
+          {/* Tab Headers */}
+          <div className="flex gap-2 border-b border-white/5 pb-3 overflow-x-auto hide-scrollbar">
             {habits.map((h, i) => (
               <button
                 key={i}
                 onClick={() => setActiveTab(i)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${activeTab === i ? 'bg-[#28C840] text-white' : 'text-vscode-textDark hover:text-white'}`}
+                className={`px-4 py-2 rounded-xl text-sm font-semibold font-sans transition-all flex items-center gap-2 whitespace-nowrap border ${
+                  activeTab === i 
+                    ? 'bg-[#c5a880] text-[#141413] border-transparent shadow-lg' 
+                    : 'text-zinc-400 border-white/5 hover:text-white hover:bg-white/5'
+                }`}
               >
-                {h.icon} {h.title}
+                <span>{h.icon}</span>
+                <span>{h.title}</span>
               </button>
             ))}
           </div>
 
-          <div className="p-4 bg-[#1E1E1E] rounded-xl border border-vscode-border min-h-[140px] flex flex-col justify-between">
-            <p className="text-vscode-text text-sm leading-relaxed font-sans">{habits[activeTab].details}</p>
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-[10px] font-mono text-vscode-textDark uppercase">Observed Challenge</span>
-              <span className="px-2 py-0.5 bg-[#FF5F56]/10 text-[#FF5F56] rounded text-[10px] font-bold font-mono">{habits[activeTab].metric}</span>
+          {/* Details Card */}
+          <div className="p-6 bg-[#141413]/60 border border-white/5 rounded-2xl min-h-[160px] flex flex-col justify-between transition-all duration-300">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2.5">
+                <span className="text-2xl">{habits[activeTab].icon}</span>
+                <h5 className="text-white font-bold text-lg font-sans">{habits[activeTab].title}</h5>
+              </div>
+              <p className="text-zinc-300 font-sans text-sm md:text-base leading-relaxed">
+                {habits[activeTab].details}
+              </p>
             </div>
+
+            <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+              <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider font-semibold">Observed Challenge</span>
+              <span className="px-2.5 py-1 bg-[#FF5F56]/10 text-[#FF5F56] rounded-lg text-xs font-bold font-mono">
+                {habits[activeTab].metric}
+              </span>
+            </div>
+          </div>
+
+          {/* Sequential Controls */}
+          <div className="flex items-center justify-between pt-2">
+            <button 
+              onClick={() => activeTab > 0 && setActiveTab(activeTab - 1)}
+              disabled={activeTab === 0}
+              className="px-3.5 py-2 rounded-lg border border-[#c5a880]/15 text-zinc-400 hover:text-white disabled:opacity-20 text-sm font-mono font-semibold transition-all flex items-center gap-1.5"
+            >
+              ← Prev
+            </button>
+            
+            <div className="flex gap-1.5">
+              {habits.map((_, idx) => (
+                <div 
+                  key={idx} 
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeTab === idx ? 'bg-[#c5a880] w-4' : 'bg-white/10'}`} 
+                />
+              ))}
+            </div>
+
+            <button 
+              onClick={() => activeTab < habits.length - 1 && setActiveTab(activeTab + 1)}
+              disabled={activeTab === habits.length - 1}
+              className="px-3.5 py-2 rounded-lg border border-[#c5a880]/15 text-[#c5a880] hover:text-white disabled:opacity-20 text-sm font-mono font-semibold transition-all flex items-center gap-1.5"
+            >
+              Next →
+            </button>
           </div>
         </div>
 
-        <div className="lg:col-span-5 space-y-3">
-          <h5 className="text-vscode-textDark font-mono text-xs uppercase tracking-wider">What Students Do Now (Overlap %)</h5>
-          <div className="space-y-2">
+        {/* Right Side: Alternatives Overlaps */}
+        <div className="lg:col-span-4 space-y-4 flex flex-col justify-center">
+          <div>
+            <h5 className="text-[#c5a880] font-mono text-sm uppercase tracking-wider font-bold">
+              What Students Do Now
+            </h5>
+            <p className="text-zinc-500 text-xs font-sans mt-0.5">Mode overlap percentages</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
             {currentAlternatives.map((alt, i) => (
-              <div key={i} className="flex items-center gap-3 bg-[#1E1E1E] px-3 py-2 rounded-lg border border-vscode-border">
+              <div 
+                key={i} 
+                className="flex items-center gap-3 bg-[#141413]/60 border border-white/5 px-4 py-2.5 rounded-xl hover:border-[#c5a880]/20 transition-colors"
+              >
                 <span className="text-lg">{alt.icon}</span>
-                <span className="text-white font-sans text-xs flex-grow font-semibold">{alt.name}</span>
-                <span className="text-[#28C840] font-mono text-xs font-bold">{alt.rate}</span>
+                <span className="text-zinc-300 font-sans text-sm flex-grow font-semibold">{alt.name}</span>
+                <span className="text-[#28C840] font-mono text-sm font-bold">{alt.rate}</span>
               </div>
             ))}
           </div>
@@ -228,103 +295,50 @@ const UserBehaviourWidget = () => {
 
 // Secondary Research Case Studies (Mo Cycle, Chandigarh, Universities Abroad)
 const SecondaryResearchShowcase = () => {
-  const [activeCase, setActiveCase] = useState(0);
-
   const cases = [
     {
       title: "BBSR Mo Cycle",
-      source: "TelegraphIndia",
-      metric: "120 stations • 1,220 bikes",
-      desc: "Covers approximately 40 sq. km inside Bhubaneswar. Managed directly by CRUT (Capital Region Urban Transport).",
-      bullets: [
-        "Bicycles are equipped with GPS tracking and smart ring locks",
-        "Provides utility baskets and adjustable seats for students",
-        "High dock network density bridges the gap between educational hubs"
-      ],
-      color: "#28C840"
+      scale: "1,220 Bikes • 120 Hubs",
+      model: "Capital Region Urban Transport (CRUT)",
+      lesson: "GPS smart ring locks; high dock density successfully bridges campus transit gaps."
     },
     {
-      title: "Chandigarh PBS System",
-      source: "Hindustan Times & Indian Express",
-      metric: "574 stations • 5,000 bikes",
-      desc: "One of India's largest automated Public Bicycle Sharing (PBS) systems, initiated in December 2020.",
-      bullets: [
-        "Fully automated system managed via SmartBike app",
-        "Operated by Smart Bike Mobility Pvt Ltd under a 10-year PPP model",
-        "Enables seamless locate, unlock, and lock operations for students"
-      ],
-      color: "#3B82F6"
+      title: "Chandigarh PBS",
+      scale: "5,000 Bikes • 574 Hubs",
+      model: "SmartBike PPP Model",
+      lesson: "Fully automated app operations; seamless user locate, unlock, and ride cycle."
     },
     {
-      title: "Abroad Campus Sharing",
-      source: "UC Berkeley, UW, Cambridge",
-      metric: "Global Benchmarks",
-      desc: "Large global universities use dedicated bike-sharing systems to enable fluid intra-campus transportation.",
-      bullets: [
-        "Specialized bike parking spots reduce corridor and pathway clutter",
-        "Provides affordable monthly student passes & regular vehicle inspections",
-        "Students can locate & pick/drop anywhere inside geofenced areas using apps"
-      ],
-      color: "#F59E0B"
+      title: "Abroad Campuses",
+      scale: "Global Benchmarks (UC Berkeley, Cambridge)",
+      model: "University & Transit Hub Partnerships",
+      lesson: "Geofenced parking boundaries; specialized parking zones minimize walkway clutter."
     }
   ];
 
   return (
-    <div className="bg-[#252526] border border-vscode-border rounded-xl p-6 md:p-8 my-8 shadow-xl">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-vscode-border">
-        <div>
-          <h4 className="text-white font-bold text-lg font-sans">Secondary Research Case Studies</h4>
-          <p className="text-vscode-textDark text-xs font-mono">Analyzing successful public & campus transit models</p>
-        </div>
-        <div className="flex gap-2">
-          {cases.map((c, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveCase(i)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-sans transition-all border ${
-                activeCase === i 
-                  ? 'bg-vscode-accent text-white border-transparent' 
-                  : 'text-vscode-textDark border-vscode-border hover:text-white'
-              }`}
-            >
-              {c.title}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid md:grid-cols-12 gap-8 items-center">
-        <div className="md:col-span-7 space-y-4">
-          <div className="flex items-center gap-3">
-            <span className="px-2 py-0.5 bg-[#1E1E1E] text-vscode-text font-mono text-[10px] rounded uppercase border border-vscode-border">Source: {cases[activeCase].source}</span>
-            <span className="text-xs font-mono text-vscode-textDark font-bold">{cases[activeCase].metric}</span>
-          </div>
-
-          <h3 className="text-white font-bold text-2xl font-sans">{cases[activeCase].title}</h3>
-          <p className="text-vscode-text text-sm leading-relaxed font-sans">{cases[activeCase].desc}</p>
-          
-          <ul className="space-y-2.5 pt-2">
-            {cases[activeCase].bullets.map((b, idx) => (
-              <li key={idx} className="flex items-start gap-2.5 text-xs font-sans text-vscode-text">
-                <span className="w-1.5 h-1.5 rounded-full bg-vscode-accent mt-1.5 flex-shrink-0" />
-                <span>{b}</span>
-              </li>
+    <div className="w-full my-8 overflow-hidden rounded-[24px] border border-[#c5a880]/15 bg-[#1e1d1b] shadow-2xl">
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-left font-sans">
+          <thead>
+            <tr className="border-b border-[#c5a880]/10 bg-[#c5a880]/5 text-[#c5a880] text-xs uppercase tracking-wider font-bold">
+              <th className="p-5 md:p-6 text-xs md:text-sm">System</th>
+              <th className="p-5 md:p-6 text-xs md:text-sm">Scale</th>
+              <th className="p-5 md:p-6 text-xs md:text-sm">Model / Operator</th>
+              <th className="p-5 md:p-6 text-xs md:text-sm">Key System Lesson</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5 text-zinc-300 text-xs md:text-sm">
+            {cases.map((c, i) => (
+              <tr key={i} className="hover:bg-white/5 transition-colors duration-200">
+                <td className="p-5 md:p-6 font-bold text-white whitespace-nowrap">{c.title}</td>
+                <td className="p-5 md:p-6 whitespace-nowrap text-zinc-400 font-mono text-xs">{c.scale}</td>
+                <td className="p-5 md:p-6 text-zinc-300">{c.model}</td>
+                <td className="p-5 md:p-6 text-[#f7f5f0]/80 leading-relaxed">{c.lesson}</td>
+              </tr>
             ))}
-          </ul>
-        </div>
-
-        <div className="md:col-span-5 bg-[#1E1E1E] border border-vscode-border rounded-xl p-6 text-center space-y-4 shadow-inner">
-          <div className="w-16 h-16 rounded-full bg-vscode-accent/10 border border-vscode-accent/20 flex items-center justify-center text-3xl mx-auto">
-            🚲
-          </div>
-          <div>
-            <span className="text-[10px] font-mono text-vscode-textDark uppercase block">System Highlight</span>
-            <span className="text-white font-bold font-sans text-sm block mt-1">Smart Tracking & Locks</span>
-            <p className="text-vscode-textDark text-[11px] leading-relaxed font-mono mt-2">
-              GPS tracking, auto-locking, and mobile app integrations form the foundation of modern campus micro-mobility.
-            </p>
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
   );
@@ -351,81 +365,32 @@ const ExpectationsVsComplaints = () => {
 
   return (
     <div className="grid md:grid-cols-2 gap-6 my-8">
-      <div className="p-6 bg-[#252526] border border-vscode-border rounded-xl shadow-lg">
-        <h4 className="text-white font-bold font-sans text-base mb-4 flex items-center gap-2 text-[#28C840]">
+      <div className="p-8 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[28px] shadow-2xl">
+        <h4 className="text-[#28C840] font-bold font-sans text-base md:text-lg mb-4 flex items-center gap-2">
           <span>🌟</span> Student Commute Expectations
         </h4>
         <ul className="space-y-3">
           {expectations.map((exp, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm font-sans text-vscode-text">
-              <span className="text-[#28C840] shrink-0 font-bold font-mono">✓</span>
+            <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm font-sans text-zinc-300">
+              <span className="text-[#28C840] shrink-0 font-bold font-sans">✓</span>
               <span>{exp}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="p-6 bg-[#252526] border border-vscode-border rounded-xl shadow-lg">
-        <h4 className="text-white font-bold font-sans text-base mb-4 flex items-center gap-2 text-[#FF5F56]">
+      <div className="p-8 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[28px] shadow-2xl">
+        <h4 className="text-[#FF5F56] font-bold font-sans text-base md:text-lg mb-4 flex items-center gap-2">
           <span>⚠️</span> Legacy App Complaints (e.g. Yulu)
         </h4>
         <ul className="space-y-3">
           {complaints.map((comp, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm font-sans text-vscode-text">
-              <span className="text-[#FF5F56] shrink-0 font-bold font-mono">✕</span>
+            <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm font-sans text-zinc-300">
+              <span className="text-[#FF5F56] shrink-0 font-bold font-sans">✕</span>
               <span>{comp}</span>
             </li>
           ))}
         </ul>
-      </div>
-    </div>
-  );
-};
-
-// Features contrast widget: Normal vs Rydr Standout
-const FeaturesComparisonWidget = () => {
-  const standardFeatures = [
-    "User Registration", "Bike Locator Map", "QR Code Unlock",
-    "Real-Time Tracking", "Ride History Log", "Payment Options",
-    "Ride Timer & Distance", "In-App Support Chat", "Safety Tips & Rules",
-    "Battery Status Indicator", "Multi-Language Support"
-  ];
-
-  const rydrStandout = [
-    { name: "Group Booking for Friends", desc: "Unlock up to 3 bikes simultaneously from a single account for group travel." },
-    { name: "In-App Issue & Block Bike", desc: "Instantly report safety issues with photos to disable and lock the bike for servicing." },
-    { name: "Emergency Contact Button", desc: "SOS button in active ride HUD to instantly alert campus security guards." },
-    { name: "Restricted Riding Hours", desc: "Auto-disable booking during late night hours (11 PM - 5 AM) for campus safety." },
-    { name: "Geofenced Speed Limiter", desc: "Enforces a strict 10-15 km/h limit in pedestrian zones to avoid accidents." }
-  ];
-
-  return (
-    <div className="bg-[#252526] border border-vscode-border rounded-xl p-6 md:p-8 my-8 shadow-xl">
-      <h4 className="text-white font-bold text-lg font-sans mb-6">Features Offered vs. Rydr Standout Additions</h4>
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="space-y-4">
-          <span className="text-vscode-textDark font-mono text-xs uppercase tracking-wider block mb-2">Normal Features Offered</span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {standardFeatures.map((feat, i) => (
-              <div key={i} className="flex items-center gap-2 bg-[#1E1E1E] px-3 py-2 rounded border border-vscode-border text-xs text-vscode-text font-sans">
-                <span className="text-zinc-500 font-mono">●</span>
-                <span>{feat}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <span className="text-vscode-accent font-mono text-xs uppercase tracking-wider block mb-2">Rydr Standout Features (Exclusive)</span>
-          <div className="space-y-3">
-            {rydrStandout.map((feat, i) => (
-              <div key={i} className="bg-[#1E1E1E] border border-vscode-border border-l-2 border-l-[#28C840] p-3 rounded-lg shadow-sm">
-                <span className="text-white font-sans text-xs font-bold block">{feat.name}</span>
-                <p className="text-vscode-textDark text-[11px] font-sans leading-relaxed mt-1">{feat.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -443,10 +408,6 @@ const RiskAnalysisWidget = () => {
       mitigation: "Geofenced parking docks. Users cannot lock or end rides unless parked within strict coordinates."
     },
     {
-      problem: "Adoption drop: hard to use app, or bikes aren't easily available",
-      mitigation: "1-tap QR scanning bypasses menu navigation. Peak demand rebalancing routes managed by admin."
-    },
-    {
       problem: "Battery charging constraints & flat charges mid-ride",
       mitigation: "Real-time battery telemetry in app; bikes with < 15% charge are hidden from active booking map."
     },
@@ -455,28 +416,24 @@ const RiskAnalysisWidget = () => {
       mitigation: "GPS tracker with anti-tamper sensors, alarm sirens, and .edu account authorization loops."
     },
     {
-      problem: "Payment quit: rides too expensive or payment fails",
-      mitigation: "Extremely affordable campus-specific pricing with prepaid monthly passes and zero security deposits."
-    },
-    {
-      problem: "App ignores busy class timings and student habit models",
-      mitigation: "Heatmap tracking positions vehicles automatically near dorms in the morning, and lecture halls at noon."
+      problem: "Accidents in pedestrian-heavy campus walkways",
+      mitigation: "Geofenced speed limiters capping ride speed automatically to 10-15 km/h in busy zones."
     }
   ];
 
   return (
     <div className="bg-[#252526] border border-vscode-border rounded-xl p-6 md:p-8 my-8 shadow-xl">
-      <h4 className="text-white font-bold text-lg font-sans mb-6">Risk Analysis: How Might It Fail & Rydr Mitigations</h4>
+      <h4 className="text-white font-bold text-lg font-sans mb-6">Risk Analysis & Mitigations</h4>
       <div className="space-y-4">
         {risks.map((risk, i) => (
           <div key={i} className="grid md:grid-cols-12 gap-4 bg-[#1E1E1E] p-4 rounded-xl border border-vscode-border hover:border-vscode-accent/30 transition-colors">
             <div className="md:col-span-5 flex items-start gap-2.5">
-              <span className="text-[#FF5F56] shrink-0 text-xs mt-0.5 font-bold font-mono">Risk {i+1}</span>
-              <span className="text-white font-sans text-xs md:text-sm font-semibold">{risk.problem}</span>
+              <span className="text-[#FF5F56] shrink-0 text-xs md:text-sm mt-0.5 font-bold font-mono">Risk {i+1}</span>
+              <span className="text-white font-sans text-sm md:text-base font-semibold">{risk.problem}</span>
             </div>
             <div className="md:col-span-7 border-t md:border-t-0 md:border-l border-vscode-border/50 pt-2.5 md:pt-0 md:pl-4 flex items-start gap-2.5">
-              <span className="text-[#28C840] font-bold text-xs mt-0.5 font-mono">Mitigation</span>
-              <p className="text-vscode-text font-sans text-xs md:text-sm leading-relaxed">{risk.mitigation}</p>
+              <span className="text-[#28C840] font-bold text-xs md:text-sm mt-0.5 font-mono">Mitigation</span>
+              <p className="text-vscode-text font-sans text-sm md:text-base leading-relaxed">{risk.mitigation}</p>
             </div>
           </div>
         ))}
@@ -485,49 +442,51 @@ const RiskAnalysisWidget = () => {
   );
 };
 
+
 // College Concerns
 const CollegeConcernsWidget = () => {
-  return (
-    <div className="bg-[#252526] border border-vscode-border rounded-xl p-6 md:p-8 my-8 shadow-xl">
-      <div className="flex items-center space-x-3 mb-6">
-        <div className="p-2 bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-[#F59E0B] rounded-full">
-          <span>🛡️</span>
-        </div>
-        <h4 className="text-white font-bold text-lg font-sans">College Administration Concerns & Safety Compliance</h4>
-      </div>
+  const concerns = [
+    {
+      title: "Accident Prevention",
+      desc: "Speed limits capped strictly at **10-15 km/h** inside pedestrian zones to ensure safety of walking students and faculty."
+    },
+    {
+      title: "Designated Parking",
+      desc: "Specific paths and geofenced zones prevent bikes from cluttering lawns, blocking entries, or causing property damage."
+    },
+    {
+      title: "Regular Maintenance",
+      desc: "Scheduled checks by operations teams ensure tyres, smart ring locks, and brake cables remain fully compliant with safety policies."
+    }
+  ];
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="p-4 bg-[#1E1E1E] rounded-lg border border-vscode-border">
-          <span className="text-white font-bold font-sans text-sm block mb-1">Accident Prevention</span>
-          <p className="text-vscode-textDark font-sans text-xs leading-relaxed">
-            Speed limits capped strictly at **10-15 km/h** inside pedestrian zones to ensure safety of walking students and faculty.
-          </p>
+  return (
+    <div className="bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[24px] p-6 md:p-8 my-8 shadow-xl space-y-6">
+      {concerns.map((concern, idx) => (
+        <div key={idx} className="flex gap-4 items-start">
+          <span className="h-2 w-2 rounded-full bg-[#c5a880] mt-2.5 shrink-0" />
+          <div className="space-y-1">
+            <h5 className="text-[#c5a880] font-sans font-bold text-base md:text-lg">
+              {concern.title}
+            </h5>
+            <p className="text-zinc-300 font-sans text-sm md:text-base leading-relaxed">
+              {concern.desc.split("**").map((part, i) => i % 2 === 1 ? <strong key={i} className="text-white font-bold">{part}</strong> : part)}
+            </p>
+          </div>
         </div>
-        <div className="p-4 bg-[#1E1E1E] rounded-lg border border-vscode-border">
-          <span className="text-white font-bold font-sans text-sm block mb-1">Designated Parking</span>
-          <p className="text-vscode-textDark font-sans text-xs leading-relaxed">
-            Specific paths and geofenced zones prevent bikes from cluttering lawns, blocking entries, or causing property damage.
-          </p>
-        </div>
-        <div className="p-4 bg-[#1E1E1E] rounded-lg border border-vscode-border">
-          <span className="text-white font-bold font-sans text-sm block mb-1">Regular Maintenance</span>
-          <p className="text-vscode-textDark font-sans text-xs leading-relaxed">
-            Scheduled checks by operations teams ensure tyres, smart ring locks, and brake cables remain fully compliant with safety policies.
-          </p>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
 
 // Interactive Journey Map with clickable stages for Rydr
 const journeyData = [
-  { label: "Locating", emoji: "🔍", color: "#3B82F6", goal: "Find a bike nearby", action: "Opens app, scans map for nearest bike dock", touchpoint: "Map Hub Screen", pain: "Bikes are scattered or canteens are empty during class peaks.", fix: "Structured docking zones with real-time stock indicators." },
-  { label: "Inspecting", emoji: "🔋", color: "#F59E0B", goal: "Verify battery and status", action: "Checks selected bike's charge level in app", touchpoint: "Bike Info Details", pain: "Walking to a bike only to find a low charge or a flat tire.", fix: "Trust-building icons (Green Check = serviced, Lightning = charged)." },
-  { label: "Unlocking", emoji: "🔓", color: "#10B981", goal: "Unlock bike instantly", action: "Scans QR code on handlebar", touchpoint: "In-App Scanner", pain: "QR code is scratched, dirty, or unreadable.", fix: "Manual Bike ID text input fallback and UV-laminated stickers." },
-  { label: "Riding", emoji: "🚲", color: "#28C840", goal: "Navigate campus safely", action: "Pedals to class with e-bike assist", touchpoint: "Active Ride HUD", pain: "Pedestrian collision risks in busy corridors.", fix: "Strict 10-15 km/h campus speed cap and geofenced zones." },
-  { label: "Parking", emoji: "🅿️", color: "#8B5CF6", goal: "Find open parking spot", action: "Arrives at target dock, checks open slots", touchpoint: "End Ride Screen", pain: "Target docking station is full, cannot return bike.", fix: "Redirects to nearest dock with 5-min grace period or overflow standby." },
-  { label: "Locking", emoji: "🔒", color: "#EC4899", goal: "End ride securely", action: "Locks physical ring lock & submits review", touchpoint: "Ride Summary Screen", pain: "Forgot to lock or charged extra due to lag.", fix: "Auto-end ride on physical dock lock confirmation." },
+  { label: "Locating", emoji: "🥵", color: "#3B82F6", goal: "Find a bike nearby", action: "Opens app, scans map for nearest bike dock", touchpoint: "Map Hub Screen", pain: "Bikes are scattered or canteens are empty during class peaks.", fix: "Structured docking zones with real-time stock indicators." },
+  { label: "Inspecting", emoji: "🧐", color: "#F59E0B", goal: "Verify battery and status", action: "Checks selected bike's charge level in app", touchpoint: "Bike Info Details", pain: "Walking to a bike only to find a low charge or a flat tire.", fix: "Trust-building icons (Green Check = serviced, Lightning = charged)." },
+  { label: "Unlocking", emoji: "😬", color: "#10B981", goal: "Unlock bike instantly", action: "Scans QR code on handlebar", touchpoint: "In-App Scanner", pain: "QR code is scratched, dirty, or unreadable.", fix: "Manual Bike ID text input fallback and UV-laminated stickers." },
+  { label: "Riding", emoji: "😎", color: "#28C840", goal: "Navigate campus safely", action: "Pedals to class with e-bike assist", touchpoint: "Active Ride HUD", pain: "Pedestrian collision risks in busy corridors.", fix: "Strict 10-15 km/h campus speed cap and geofenced zones." },
+  { label: "Parking", emoji: "😰", color: "#8B5CF6", goal: "Find open parking spot", action: "Arrives at target dock, checks open slots", touchpoint: "End Ride Screen", pain: "Target docking station is full, cannot return bike.", fix: "Redirects to nearest dock with 5-min grace period or overflow standby." },
+  { label: "Locking", emoji: "😌", color: "#EC4899", goal: "End ride securely", action: "Locks physical ring lock & submits review", touchpoint: "Ride Summary Screen", pain: "Forgot to lock or charged extra due to lag.", fix: "Auto-end ride on physical dock lock confirmation." },
 ];
 
 const JourneyMap = () => {
@@ -535,9 +494,19 @@ const JourneyMap = () => {
   const stage = journeyData[active];
 
   return (
-    <div>
+    <div className="w-full">
+      <div className="flex items-center justify-between mb-2 px-1">
+        <span className="text-[10px] md:text-xs font-mono text-[#c5a880] uppercase tracking-wider font-bold">
+          ✦ Student Journey Flow
+        </span>
+        <span className="text-[10px] md:text-xs font-sans text-zinc-400 animate-pulse flex items-center gap-1">
+          <span>Click any emoji to explore</span>
+          <span>➔</span>
+        </span>
+      </div>
+
       <div className="relative flex items-center justify-between mb-8 overflow-x-auto py-4 hide-scrollbar">
-        <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-vscode-border -translate-y-1/2 z-0 min-w-[500px]" />
+        <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-[#c5a880]/10 -translate-y-1/2 z-0 min-w-[500px]" />
         
         {journeyData.map((s, i) => (
           <button
@@ -545,15 +514,15 @@ const JourneyMap = () => {
             onClick={() => setActive(i)}
             className="relative z-10 flex flex-col items-center gap-2 group flex-shrink-0 px-2"
           >
-            <span className={`text-2xl md:text-4xl transition-transform duration-300 ${active === i ? 'scale-125' : 'scale-100 opacity-60 group-hover:opacity-100'}`}>
+            <span className={`text-3xl md:text-5xl transition-transform duration-300 ${active === i ? 'scale-125' : 'scale-100 opacity-55 group-hover:opacity-100 group-hover:scale-105'}`}>
               {s.emoji}
             </span>
             <span 
               className="px-3 py-1 rounded-full text-[10px] md:text-xs font-bold font-sans transition-all duration-300 whitespace-nowrap"
               style={{ 
                 backgroundColor: active === i ? s.color : 'transparent',
-                color: active === i ? '#fff' : '#888',
-                border: active === i ? 'none' : '1px solid #444',
+                color: active === i ? '#fff' : '#c5a880',
+                border: active === i ? 'none' : '1px solid rgba(197, 168, 128, 0.15)',
               }}
             >
               {s.label}
@@ -562,7 +531,7 @@ const JourneyMap = () => {
         ))}
       </div>
 
-      <div className="relative min-h-[360px] md:min-h-[280px]">
+      <div className="relative min-h-[430px] md:min-h-[350px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -570,37 +539,66 @@ const JourneyMap = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="bg-[#252526] border border-vscode-border rounded-xl p-6 md:p-8 absolute w-full"
+            className="bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[28px] p-6 md:p-8 absolute w-full shadow-2xl flex flex-col justify-between"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-4xl">{stage.emoji}</span>
-              <div>
-                <h4 className="text-white font-bold text-xl font-sans">{stage.label} Stage</h4>
-                <p className="text-vscode-textDark text-sm font-mono">Stage {active + 1} of 6</p>
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-4xl md:text-5xl">{stage.emoji}</span>
+                <div>
+                  <h4 className="text-white font-bold text-xl font-sans">{stage.label} Stage</h4>
+                  <p className="text-zinc-500 text-xs font-mono">Stage {active + 1} of 6</p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <div className="p-4 bg-[#141413]/60 border border-white/5 rounded-2xl">
+                    <div className="text-xs font-mono text-[#c5a880] mb-1 uppercase tracking-wider font-bold">🎯 Goal</div>
+                    <p className="text-zinc-200 font-sans text-sm">{stage.goal}</p>
+                  </div>
+                  <div className="p-4 bg-[#141413]/60 border border-white/5 rounded-2xl">
+                    <div className="text-xs font-mono text-[#c5a880] mb-1 uppercase tracking-wider font-bold">⚡ Action</div>
+                    <p className="text-zinc-300 font-sans text-sm">{stage.action}</p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="p-4 rounded-2xl border bg-[#FF5F56]/5 border-[#FF5F56]/20">
+                    <div className="text-xs font-mono text-[#FF5F56] mb-1 uppercase tracking-wider font-bold font-sans">🥵 Friction / Pain Point</div>
+                    <p className="text-zinc-300 font-sans text-sm">{stage.pain}</p>
+                  </div>
+                  <div className="p-4 rounded-2xl border bg-[#28C840]/5 border-[#28C840]/20">
+                    <div className="text-xs font-mono text-[#28C840] mb-1 uppercase tracking-wider font-bold font-sans">✨ Solution / Fix</div>
+                    <p className="text-zinc-300 font-sans text-sm">{stage.fix}</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="p-4 bg-[#1E1E1E] rounded-lg">
-                  <div className="text-xs font-mono text-vscode-accent mb-1 uppercase">🎯 Goal</div>
-                  <p className="text-white font-sans text-sm">{stage.goal}</p>
-                </div>
-                <div className="p-4 bg-[#1E1E1E] rounded-lg">
-                  <div className="text-xs font-mono text-vscode-accent mb-1 uppercase">⚡ Action</div>
-                  <p className="text-vscode-text font-sans text-sm">{stage.action}</p>
-                </div>
+            <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/5">
+              <button 
+                onClick={() => active > 0 && setActive(active - 1)}
+                disabled={active === 0}
+                className="px-3 py-1.5 rounded-lg border border-[#c5a880]/15 text-zinc-400 hover:text-white disabled:opacity-20 text-xs font-mono font-semibold transition-all flex items-center gap-1.5"
+              >
+                ← Prev Stage
+              </button>
+              
+              <div className="flex gap-1.5">
+                {journeyData.map((_, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${active === idx ? 'bg-[#c5a880] w-4' : 'bg-white/10'}`} 
+                  />
+                ))}
               </div>
-              <div className="space-y-4">
-                <div className="p-4 rounded-lg border" style={{ backgroundColor: '#FF5F5610', borderColor: '#FF5F5630' }}>
-                  <div className="text-xs font-mono text-[#FF5F56] mb-1 uppercase">😤 Pain Point</div>
-                  <p className="text-vscode-text font-sans text-sm">{stage.pain}</p>
-                </div>
-                <div className="p-4 rounded-lg border" style={{ backgroundColor: '#28C84010', borderColor: '#28C84030' }}>
-                  <div className="text-xs font-mono text-[#28C840] mb-1 uppercase">✨ Realignment Fix</div>
-                  <p className="text-vscode-text font-sans text-sm">{stage.fix}</p>
-                </div>
-              </div>
+
+              <button 
+                onClick={() => active < journeyData.length - 1 && setActive(active + 1)}
+                disabled={active === journeyData.length - 1}
+                className="px-3 py-1.5 rounded-lg border border-[#c5a880]/15 text-[#c5a880] hover:text-white disabled:opacity-20 text-xs font-mono font-semibold transition-all flex items-center gap-1.5"
+              >
+                Next Stage →
+              </button>
             </div>
           </motion.div>
         </AnimatePresence>
@@ -705,41 +703,62 @@ const SwotAnalysis = () => {
 
 const GapAnalysis = () => {
   const gaps = [
-    "City e-bike apps (Yulu) lack presence in closed educational campuses and ignore student pricing constraints.",
-    "Dockless systems lead to scattered, damaged bikes blocking pathways, violating college code-of-conduct.",
-    "Bikes are often left with depleted batteries or hidden damage, frustrating students running late.",
-    "No integrated student-only reporting mechanism that locks down unsafe bikes instantly for repair."
+    {
+      num: "01",
+      title: "Campus Exclusion",
+      desc: "City e-bike apps (Yulu) lack presence in closed educational campuses and ignore student pricing constraints.",
+    },
+    {
+      num: "02",
+      title: "Pathway Congestion",
+      desc: "Dockless systems lead to scattered, damaged bikes blocking pathways, violating college code-of-conduct.",
+    },
+    {
+      num: "03",
+      title: "Unpredictable Fleet",
+      desc: "Bikes are often left with depleted batteries or hidden damage, frustrating students running late.",
+    },
+    {
+      num: "04",
+      title: "Reporting Friction",
+      desc: "No integrated student-only reporting mechanism that locks down unsafe bikes instantly for repair.",
+    }
   ];
 
   return (
-    <div className="bg-[#1E1E1E] rounded-xl border border-vscode-border shadow-2xl overflow-hidden font-mono mt-8">
-      <div className="flex bg-[#252526] border-b border-vscode-border text-xs overflow-x-auto hide-scrollbar">
-        <div className="px-4 py-3 border-b-2 border-vscode-accent text-white uppercase tracking-wider whitespace-nowrap">
-          Campus Commute Gaps <span className="ml-2 bg-[#FF5F56]/20 text-[#FF5F56] px-1.5 rounded-full">{gaps.length}</span>
-        </div>
-      </div>
-      
-      <div className="p-4 space-y-1">
-        {gaps.map((gap, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.15 }}
-            className="flex items-start gap-3 py-3 px-3 hover:bg-[#2A2D2E] rounded cursor-pointer group"
-          >
-            <ShieldAlert size={16} className="text-[#F59E0B] mt-0.5 shrink-0 group-hover:text-[#FF5F56] transition-colors" />
-            <div className="flex-1">
-              <span className="text-[#F59E0B] group-hover:text-[#FF5F56] mr-2 transition-colors">Gap {i+1}:</span>
-              <span className="text-vscode-text text-sm font-sans">{gap}</span>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 w-full">
+      {gaps.map((gap, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+          whileHover={{ y: -6, scale: 1.01 }}
+          className="relative p-8 rounded-[28px] border bg-[#141413] border-white/5 hover:border-accent/30 overflow-hidden group shadow-2xl flex flex-col justify-between transition-all duration-300"
+        >
+          {/* Subtle background gradient glow */}
+          <div className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full blur-[100px] bg-gradient-to-tr from-[#c5a880]/10 to-transparent group-hover:from-[#c5a880]/25 transition-all duration-500" />
+          
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-[10px] font-black tracking-[0.25em] uppercase text-accent">
+                Gap Area
+              </span>
+              <span className="text-5xl font-black text-[#c5a880]/15 group-hover:text-[#c5a880]/30 transition-colors font-sans select-none leading-none">
+                {gap.num}
+              </span>
             </div>
-            <div className="text-vscode-textDark text-xs shrink-0 font-mono hidden md:block">
-              IA-Prtcl {i * 14 + 102}
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            
+            <h4 className="text-xl font-extrabold text-white uppercase tracking-tight mb-3 font-sans">
+              {gap.title}
+            </h4>
+            <p className="text-zinc-300 text-sm md:text-base leading-relaxed font-sans">
+              {gap.desc}
+            </p>
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 };
@@ -845,37 +864,61 @@ const allComps = [
 
 const CompetitiveAnalysis = () => {
   return (
-    <div className="bg-[#1E1E1E] rounded-xl border border-vscode-border shadow-2xl overflow-hidden relative">
+    <div className="bg-[#141413] rounded-[24px] border border-[#c5a880]/15 shadow-2xl overflow-hidden relative">
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[900px]">
+        <table className="w-full text-left border-collapse min-w-[950px]">
           <thead>
             <tr>
-              <th className="sticky left-0 bg-[#1E1E1E] z-20 p-4 border-b border-vscode-border font-mono text-xs text-vscode-textDark uppercase w-48 shadow-[4px_0_12px_rgba(0,0,0,0.5)]">
+              <th className="sticky left-0 bg-[#1e1d1b] z-20 p-5 border-b border-[#c5a880]/15 border-r border-[#c5a880]/10 font-mono text-sm text-[#c5a880] uppercase w-48 shadow-[4px_0_12px_rgba(0,0,0,0.5)]">
                 Feature
               </th>
               {allComps.map((comp, i) => (
                 <th 
                   key={i} 
-                  className={`p-4 border-b border-vscode-border font-sans font-bold text-sm ${comp.isOurs ? 'text-vscode-accent bg-[#252526]' : 'text-white'}`}
+                  className={`p-5 border-b border-[#c5a880]/15 font-sans font-bold text-sm md:text-base relative ${
+                    comp.isOurs 
+                      ? 'text-white bg-[#25221c] border-x border-[#c5a880]/30 shadow-[0_0_15px_rgba(197,168,128,0.1)]' 
+                      : 'text-zinc-200 bg-[#1e1d1b]'
+                  }`}
                 >
-                  {comp.name}
-                  {comp.isOurs && <div className="h-1 w-full bg-vscode-accent absolute top-0 left-0"></div>}
+                  <div className="flex flex-col gap-1">
+                    {comp.isOurs && (
+                      <span className="text-[10px] font-mono text-[#c5a880] uppercase tracking-widest block font-extrabold mb-1">
+                        ★ OUR SOLUTION
+                      </span>
+                    )}
+                    <span className={comp.isOurs ? 'text-[#c5a880] text-base md:text-lg font-black' : 'text-white'}>
+                      {comp.name}
+                    </span>
+                  </div>
+                  {comp.isOurs && <div className="h-1 w-full bg-[#c5a880] absolute top-0 left-0"></div>}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {compFeatures.map((feat, fi) => (
-              <tr key={fi} className="hover:bg-[#252526] transition-colors group">
-                <td className="sticky left-0 bg-[#1E1E1E] z-20 p-4 border-b border-vscode-border font-sans text-sm font-medium text-white shadow-[4px_0_12px_rgba(0,0,0,0.5)] group-hover:bg-[#252526] transition-colors">
+              <tr key={fi} className="hover:bg-[#1e1d1b]/40 transition-colors group">
+                <td className="sticky left-0 bg-[#1e1d1b] z-20 p-5 border-b border-[#c5a880]/10 border-r border-[#c5a880]/10 font-sans text-sm font-semibold text-[#c5a880] shadow-[4px_0_12px_rgba(0,0,0,0.5)] group-hover:bg-[#252526] transition-colors">
                   {feat}
                 </td>
                 {allComps.map((comp, ci) => (
                   <td 
                     key={ci} 
-                    className={`p-4 border-b border-vscode-border font-sans text-xs md:text-sm leading-relaxed ${comp.isOurs ? 'text-white bg-[#252526]' : 'text-vscode-text'}`}
+                    className={`p-5 border-b border-[#c5a880]/10 font-sans text-sm leading-relaxed ${
+                      comp.isOurs 
+                        ? 'text-white bg-[#25221c]/70 border-x border-[#c5a880]/20 font-medium' 
+                        : 'text-zinc-400 group-hover:text-zinc-300'
+                    }`}
                   >
-                    {comp.data[fi]}
+                    {comp.isOurs ? (
+                      <div className="flex items-start gap-2">
+                        <span className="text-[#c5a880] mt-0.5">✓</span>
+                        <span>{comp.data[fi]}</span>
+                      </div>
+                    ) : (
+                      <span>{comp.data[fi]}</span>
+                    )}
                   </td>
                 ))}
               </tr>
@@ -909,12 +952,11 @@ const StyleGuide = () => {
   const [copiedColor, setCopiedColor] = useState(null);
 
   const colors = [
-    { hex: "#28C840", name: "Rydr Green", role: "Primary Brand / Active state" },
-    { hex: "#3B82F6", name: "Electric Blue", role: "Map Docks / Live GPS tracking" },
-    { hex: "#EF4444", name: "Alert Crimson", role: "Low Battery / Forbidden perimeter" },
-    { hex: "#F59E0B", name: "Amber Zone", role: "Restricted Speed Limit notifications" },
-    { hex: "#252526", name: "Slate Grey", role: "UI Card panels and header backgrounds" },
-    { hex: "#FAF9F5", name: "Bone White", role: "Mid-Fidelity Wireframe canvas borders" }
+    { hex: "#139D86", name: "Primary Teal", role: "Main branding, call-to-actions, and checked states" },
+    { hex: "#5BB0E5", name: "Secondary Blue", role: "Active routes, docking markers, and GPS paths" },
+    { hex: "#D25B5B", name: "Accent Red", role: "Alerts, penalty notifications, and boundary locks" },
+    { hex: "#F8F9FA", name: "Base Off-White", role: "Light background panels and card canvas fills" },
+    { hex: "#333333", name: "Dark Charcoal", role: "High-contrast text, title headers, and dark bases" }
   ];
 
   const handleCopy = (hex) => {
@@ -926,99 +968,104 @@ const StyleGuide = () => {
   return (
     <div className="mt-16 border-t border-vscode-border pt-16">
       <h4 className="text-white font-bold mb-8 font-sans text-2xl md:text-3xl">Visual Style Guide</h4>
-      <div className="grid lg:grid-cols-2 gap-12">
-        <div className="bg-[#252526] border border-vscode-border rounded-xl p-8 shadow-xl">
-          <h5 className="text-white font-bold mb-6 font-sans text-lg flex items-center space-x-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#28C840] animate-pulse"></span>
-            <span>Rydr Color Palette</span>
-          </h5>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-            {colors.map((color) => (
-              <div 
-                key={color.hex} 
-                onClick={() => handleCopy(color.hex)}
-                className="group cursor-pointer flex flex-col space-y-3 p-3 bg-[#1e1e1e] border border-vscode-border rounded-lg hover:border-vscode-accent/50 transition-all duration-300 relative overflow-hidden"
-              >
+      <div className="grid lg:grid-cols-2 gap-12 items-stretch">
+        
+        {/* Colors Section */}
+        <div className="bg-[#252526] border border-vscode-border rounded-xl p-8 shadow-xl flex flex-col justify-between h-full">
+          <div>
+            <h5 className="text-white font-bold mb-6 font-sans text-lg flex items-center space-x-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#139D86] animate-pulse"></span>
+              <span>Color Palette</span>
+            </h5>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+              {colors.map((color) => (
                 <div 
-                  className="w-full aspect-square rounded-md shadow-inner transition-transform duration-300 group-hover:scale-105"
-                  style={{ backgroundColor: color.hex }}
-                />
-                
-                <div className="flex flex-col">
-                  <span className="text-white font-mono text-sm font-bold tracking-wider">{color.hex}</span>
-                  <span className="text-vscode-textDark text-xs font-sans font-medium">{color.name}</span>
-                </div>
-                
-                {copiedColor === color.hex && (
-                  <div className="absolute inset-0 bg-[#28C840]/90 backdrop-blur-xs flex items-center justify-center text-white text-xs font-bold uppercase tracking-widest font-sans">
-                    Copied!
+                  key={color.hex} 
+                  onClick={() => handleCopy(color.hex)}
+                  className="group cursor-pointer flex flex-col space-y-3 p-3 bg-[#1e1e1e] border border-vscode-border rounded-lg hover:border-vscode-accent/50 transition-all duration-300 relative overflow-hidden"
+                >
+                  {/* Color Swatch */}
+                  <div 
+                    className="w-full aspect-square rounded-md shadow-inner transition-transform duration-300 group-hover:scale-105"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  
+                  {/* Hex & Name */}
+                  <div className="flex flex-col">
+                    <span className="text-white font-mono text-sm font-bold tracking-wider">{color.hex}</span>
+                    <span className="text-vscode-textDark text-xs font-sans font-medium">{color.name}</span>
                   </div>
-                )}
-              </div>
-            ))}
+                  
+                  {/* Copied Overlay */}
+                  {copiedColor === color.hex && (
+                    <div className="absolute inset-0 bg-[#139D86]/90 backdrop-blur-xs flex items-center justify-center text-white text-xs font-bold uppercase tracking-widest font-sans">
+                      Copied!
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="bg-[#252526] border border-vscode-border rounded-xl p-8 shadow-xl flex flex-col justify-between">
+        {/* Typography Section */}
+        <div className="bg-[#252526] border border-vscode-border rounded-xl p-8 shadow-xl flex flex-col justify-between h-full">
           <div>
             <h5 className="text-white font-bold mb-6 font-sans text-lg flex items-center space-x-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#28C840] animate-pulse"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#139D86] animate-pulse"></span>
               <span>Typography System</span>
             </h5>
             
             <div className="space-y-8">
-              <div className="border-b border-vscode-border/50 pb-6">
-                <div className="flex justify-between items-baseline mb-3">
-                  <h6 className="text-white text-2xl font-bold tracking-wide font-sans">
-                    Outfit Sans
-                  </h6>
-                  <span className="text-[10px] font-mono bg-vscode-accent/10 text-vscode-accent px-2 py-0.5 rounded border border-vscode-accent/20">Brand Typography</span>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="text-5xl font-sans text-[#28C840]/20 select-none">
-                    Aa
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-white/90 text-sm font-sans flex items-start space-x-2">
-                      <span className="text-[#28C840] mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"></span>
-                      <span>Used for primary headings, callouts, and key UI markers.</span>
-                    </p>
-                    <p className="text-white/90 text-sm font-sans flex items-start space-x-2">
-                      <span className="text-[#28C840] mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"></span>
-                      <span>Chosen for its rounded, student-friendly modern curves.</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
+              {/* DM Sans Specimen */}
               <div>
                 <div className="flex justify-between items-baseline mb-3">
-                  <h6 className="text-white text-xl font-bold tracking-wide font-sans font-medium">
+                  <h6 className="text-white text-xl font-bold tracking-wide font-sans font-medium" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                     DM Sans
                   </h6>
-                  <span className="text-[10px] font-mono bg-vscode-accent/10 text-vscode-accent px-2 py-0.5 rounded border border-vscode-accent/20">System Typography</span>
+                  <span className="text-[10px] font-mono bg-vscode-accent/10 text-vscode-accent px-2 py-0.5 rounded border border-vscode-accent/20">Primary Font</span>
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="text-5xl font-bold text-[#28C840]/20 select-none font-sans">
+                  <div className="text-5xl font-bold text-[#139D86]/20 select-none font-sans" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                     Aa
                   </div>
                   <div className="space-y-2">
                     <p className="text-white/90 text-sm font-sans flex items-start space-x-2">
-                      <span className="text-[#28C840] mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"></span>
-                      <span>Used for map status overlays, ETA updates, and settings lists.</span>
+                      <span className="text-[#139D86] mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"></span>
+                      <span>Used for primary headings, callouts, agreements, body copy, and UI markers.</span>
                     </p>
                     <p className="text-white/90 text-sm font-sans flex items-start space-x-2">
-                      <span className="text-[#28C840] mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"></span>
-                      <span>Provides highly legible text during fast running commutes.</span>
+                      <span className="text-[#139D86] mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"></span>
+                      <span>Chosen for its rounded, modern curves, providing maximum legibility for mobile commutes.</span>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Type Scale Specimen */}
+          <div className="mt-8 pt-6 border-t border-vscode-border/50 grid grid-cols-2 gap-4">
+            <div className="flex flex-col space-y-1">
+              <span className="text-[10px] font-mono text-vscode-textDark tracking-wider uppercase">Headings</span>
+              <span className="text-white font-sans text-sm font-semibold">24px (DM Sans - Bold)</span>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <span className="text-[10px] font-mono text-vscode-textDark tracking-wider uppercase">Subheadings</span>
+              <span className="text-white font-sans text-sm font-semibold">18px (DM Sans - Medium)</span>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <span className="text-[10px] font-mono text-vscode-textDark tracking-wider uppercase">Body</span>
+              <span className="text-white font-sans text-sm font-semibold">14px (DM Sans)</span>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <span className="text-[10px] font-mono text-vscode-textDark tracking-wider uppercase">Labels</span>
+              <span className="text-white font-sans text-sm font-semibold">12px (DM Sans)</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   );
@@ -1031,126 +1078,436 @@ const ProblemsDashboard = () => {
     {
       id: 1,
       title: "Regular Servicing",
-      icon: "🔧",
       issue: "How to maintain the vehicle fleet and prevent sudden breakdowns during busy hours?",
       solution: "Implement automatic vehicle tracking that flags a bike for a check-up after X rides or X kilometers. The docking rack displays an 'in maintenance' indicator and digitally locks the bike. A servicing van does weekly campus rounds."
     },
     {
       id: 2,
       title: "Charging & Batteries",
-      icon: "🔋",
       issue: "How to ensure battery charge levels and avoid dead vehicles?",
       solution: "Equip bikes with swappable batteries swapped daily by operations. Design smart charging docks at key spots (hostels, canteens). If a bike falls below 20% charge, the backend flags it as unavailable and alerts staff."
     },
     {
       id: 3,
       title: "Theft Protection",
-      icon: "🔒",
       issue: "How to prevent theft and unauthorized exits from campus bounds?",
       solution: "Integrate geofencing so bikes lock up and alert security if they cross the campus perimeter. Bikes feature a hidden GPS tracker in the frame and use digital app unlocks linked to verified student IDs (no manual keys)."
     },
     {
       id: 4,
       title: "Service Administration",
-      icon: "👥",
       issue: "Who will handle regular servicing and support?",
       solution: "Operations are managed by a small dedicated team from the college maintenance department or a contracted vendor. Checkups are performed on a fixed schedule (every 2 weeks or after 120km traveled)."
     },
     {
       id: 5,
       title: "College Policies",
-      icon: "📜",
       issue: "How to align with college policies and get administrative approval?",
       solution: "Present a detailed proposal covering geofencing boundaries, speed limits, and liability. Start with a 5-bike pilot phase to demonstrate safety and reliability. Define roles for administration, security, and vendors."
     },
     {
       id: 6,
       title: "Overcrowding & Idle Time",
-      icon: "⏳",
       issue: "How to handle overcrowding at classrooms and idle bikes at hostels?",
       solution: "Position larger docking racks near high-demand zones. Use historic data to predict peak hours (e.g., 8-10 AM class start) and assign staff to rebalance bikes. Shorten maximum rental times to 30 mins during peak periods."
     },
     {
       id: 7,
       title: "Parking Limitations",
-      icon: "🅿️",
       issue: "What happens when a student arrives at a completely full docking station?",
       solution: "The app redirects the user to the nearest open dock with a 5-minute grace period. Introduce overflow standby stands where bikes can be parked temporarily and locked digitally, alerting operations to pick them up."
     },
     {
       id: 8,
       title: "Defective Pickups",
-      icon: "⚠️",
       issue: "How to prevent students from picking a damaged or flat-tire bike?",
       solution: "Incorporate quick post-ride feedback ('Did the ride go smoothly?'). If a bike is flagged twice, it is auto-disabled. Show visual trust icons on bikes (Green Check = Good, Red Triangle = Disabled/Flagged)."
     },
     {
       id: 9,
       title: "Damaged QR Codes",
-      icon: "📱",
       issue: "What if a student cannot unlock a bike because the QR code sticker is damaged?",
       solution: "Laminate QR stickers with UV protection and print a prominent numeric Bike ID on the frame. Students can manually type this ID in the app to unlock the bike immediately."
     },
     {
       id: 10,
       title: "Data & Privacy",
-      icon: "🛡️",
       issue: "How to secure student data and ride history?",
       solution: "Only collect essential information: student name, college email ID, and student ID. Encrypt all databases and integrate with college OTP login systems. Present a clear, human-readable data privacy terms popup."
     },
     {
       id: 11,
       title: "Misuse Control",
-      icon: "🚫",
       issue: "How to handle reckless riding, vandalism, or hoarding?",
       solution: "Link every account to verified college credentials. Track riding behavior via internal sensors. Issue temporary bans or penalty fees for wrong-zone parking, and escalate persistent misuse to dean offices."
     }
   ];
 
   return (
-    <div className="grid lg:grid-cols-12 gap-8 bg-[#252526] border border-vscode-border rounded-xl p-6 shadow-xl">
-      <div className="lg:col-span-4 flex flex-row lg:flex-col overflow-x-auto lg:overflow-y-auto max-h-[350px] gap-2 pr-2 hide-scrollbar pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-vscode-border/50">
-        {problemsData.map((prob, idx) => (
-          <button
-            key={prob.id}
-            onClick={() => setActiveProblem(idx)}
-            className={`p-3 rounded-lg text-left font-sans text-xs md:text-sm font-semibold transition-all duration-200 flex items-center gap-3 shrink-0 ${
-              activeProblem === idx
-                ? "bg-[#28C840] text-white shadow-md font-bold"
-                : "bg-[#1E1E1E] text-vscode-textDark hover:text-white hover:bg-[#2A2D2E] border border-vscode-border/50"
-            }`}
-          >
-            <span>{prob.icon}</span>
-            <span className="truncate">{prob.title}</span>
-          </button>
-        ))}
+    <div className="grid lg:grid-cols-12 gap-8 bg-[#141413] border border-white/10 rounded-[24px] p-6 md:p-8 shadow-2xl relative">
+      <style dangerouslySetInnerHTML={{__html: `
+        .custom-y-scrollbar::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
+        .custom-y-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 10px;
+        }
+        .custom-y-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(197, 168, 128, 0.15);
+          border-radius: 10px;
+        }
+        .custom-y-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(197, 168, 128, 0.4);
+        }
+      `}} />
+
+      <div className="lg:col-span-4 relative flex flex-col">
+        <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-3 hidden lg:block font-bold">
+          Explore 11 Problems (Click to switch)
+        </div>
+        
+        <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-y-auto max-h-[380px] gap-2 pr-2 pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-white/5 scroll-smooth custom-y-scrollbar relative">
+          {problemsData.map((prob, idx) => (
+            <button
+              key={prob.id}
+              onClick={() => setActiveProblem(idx)}
+              className={`p-3.5 rounded-xl text-left font-sans text-sm md:text-base font-semibold transition-all duration-200 flex items-center justify-between gap-3 shrink-0 group ${
+                activeProblem === idx
+                  ? "bg-[#25221c] text-[#c5a880] border-l-4 border-[#c5a880] font-extrabold pl-4 shadow-inner"
+                  : "bg-[#1e1d1b] text-zinc-400 hover:text-white hover:bg-white/5 border border-white/5 pl-4"
+              }`}
+            >
+              <div className="flex items-center gap-3 truncate">
+                <span className={`font-mono text-xs ${activeProblem === idx ? 'text-[#c5a880]' : 'text-zinc-500'}`}>{String(prob.id).padStart(2, '0')}</span>
+                <span className="truncate">{prob.title}</span>
+              </div>
+              <span className={`text-xs transition-transform duration-200 ${
+                activeProblem === idx 
+                  ? 'text-[#c5a880] translate-x-0' 
+                  : 'text-zinc-600 opacity-0 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-1'
+              }`}>
+                ➔
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-2 h-12 bg-gradient-to-t from-[#141413] to-transparent pointer-events-none hidden lg:block" />
+        <div className="absolute right-2 top-0 bottom-0 w-12 bg-gradient-to-l from-[#141413] to-transparent pointer-events-none lg:hidden" />
       </div>
 
       <div className="lg:col-span-8 flex flex-col justify-between min-h-[250px]">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">{problemsData[activeProblem].icon}</span>
+        <div className="space-y-5">
+          <div className="flex items-center gap-4">
             <div>
-              <span className="text-[10px] font-mono text-[#28C840] uppercase tracking-widest block font-bold">Identified Problem {problemsData[activeProblem].id} of 11</span>
-              <h4 className="text-white font-bold text-lg font-sans">{problemsData[activeProblem].title}</h4>
+              <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest block font-bold">Identified Problem {problemsData[activeProblem].id} of 11</span>
+              <h4 className="text-white font-bold text-xl md:text-2xl font-sans mt-0.5">{problemsData[activeProblem].title}</h4>
             </div>
           </div>
 
-          <div className="space-y-3">
-            <div className="p-4 bg-red-500/5 border border-red-500/10 rounded-xl space-y-1.5 relative overflow-hidden">
+          <div className="space-y-4">
+            <div className="p-5 bg-red-500/5 border border-red-500/10 rounded-2xl space-y-2 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-red-500/40" />
-              <span className="text-red-400 text-[10px] font-mono tracking-wider uppercase font-bold">The Problem Issue</span>
-              <p className="text-vscode-text text-sm font-sans">{problemsData[activeProblem].issue}</p>
+              <span className="text-red-400 text-xs md:text-sm font-mono tracking-wider uppercase font-bold">The Problem Issue</span>
+              <p className="text-zinc-200 text-base md:text-lg font-sans font-medium leading-relaxed">{problemsData[activeProblem].issue}</p>
             </div>
 
-            <div className="p-4 bg-[#28C840]/5 border border-[#28C840]/10 rounded-xl space-y-1.5 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1.5 h-full bg-[#28C840]/40" />
-              <span className="text-[#28C840] text-[10px] font-mono tracking-wider uppercase font-bold">Our Design Solution</span>
-              <p className="text-vscode-text text-sm font-sans">{problemsData[activeProblem].solution}</p>
+            <div className="p-5 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl space-y-2 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500/40" />
+              <span className="text-emerald-400 text-xs md:text-sm font-mono tracking-wider uppercase font-bold">Our Design Solution</span>
+              <p className="text-zinc-200 text-base md:text-lg font-sans leading-relaxed">{problemsData[activeProblem].solution}</p>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const InformationArchitectureWidget = () => {
+  const [activeLink, setActiveLink] = useState(null);
+
+  return (
+    <div className="w-full relative">
+      <style dangerouslySetInnerHTML={{__html: `
+        .custom-ia-scrollbar::-webkit-scrollbar {
+          height: 6px;
+        }
+        .custom-ia-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 10px;
+        }
+        .custom-ia-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(197, 168, 128, 0.15);
+          border-radius: 10px;
+        }
+        .custom-ia-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(197, 168, 128, 0.4);
+        }
+      `}} />
+
+      <div className="flex items-center justify-between mb-4 px-1">
+        <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest font-bold">
+          ✦ Interactive IA Flowchart
+        </span>
+        <span className="text-[10px] md:text-xs font-sans text-[#c5a880]/80 animate-pulse flex items-center gap-1.5 font-semibold">
+          <span>Hover over highlighted nodes to trace flow connectors</span>
+          <span>➔</span>
+        </span>
+      </div>
+
+      <div className="flex flex-nowrap overflow-x-auto gap-6 pb-6 pt-2 scroll-smooth custom-ia-scrollbar relative">
+        {/* Step 1: Onboarding */}
+        <div className={`w-[290px] md:w-[320px] shrink-0 bg-[#141413] border rounded-[20px] p-5 transition-all duration-300 ${
+          activeLink === 'onboarding-to-homescreen'
+            ? 'border-[#c5a880] shadow-[0_0_15px_rgba(197,168,128,0.1)]'
+            : 'border-white/10'
+        }`}>
+          <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
+            <span className="text-xs font-mono text-[#c5a880] font-bold">FLOW 01</span>
+            <h5 className="text-white font-bold text-sm uppercase tracking-wider font-sans">Onboarding & Auth</h5>
+          </div>
+          
+          <div className="space-y-3 font-sans text-xs md:text-sm">
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+              <span className="text-[#c5a880] font-bold block mb-1">Onboarding</span>
+              <div className="pl-3 border-l border-zinc-700 space-y-1 text-zinc-400">
+                <div>└ Choose role (student/teacher)</div>
+              </div>
+            </div>
+
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+              <span className="text-[#c5a880] font-bold block mb-1">Login / Signup</span>
+              <div className="pl-3 border-l border-zinc-700 space-y-1.5 text-zinc-400">
+                <div>├── Enter college email & verify ID</div>
+                <div>├── Allow app permissions</div>
+                <div className="pt-1">
+                  <span className="text-zinc-300 font-semibold block text-[11px]">Signup Option:</span>
+                  <span className="text-[10px] block pl-2 text-zinc-400">Sign Up ➔ Ask edu email ➔ Verify ➔ Done</span>
+                </div>
+                <div className="pt-1">
+                  <span className="text-zinc-300 font-semibold block text-[11px]">Login Option:</span>
+                  <span className="text-[10px] block pl-2 text-zinc-400">Login ➔ Ask email ➔ Verify ➔ Done</span>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              onMouseEnter={() => setActiveLink('onboarding-to-homescreen')}
+              onMouseLeave={() => setActiveLink(null)}
+              className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer ${
+                activeLink === 'onboarding-to-homescreen'
+                  ? 'bg-[#c5a880]/10 border-[#c5a880]'
+                  : 'bg-white/5 border-white/5 hover:border-zinc-700'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[#c5a880] font-bold">Profile Setup</span>
+                <span className="text-[10px] bg-[#c5a880]/20 text-[#c5a880] px-1.5 py-0.5 rounded font-mono font-bold animate-pulse">➔ HOME</span>
+              </div>
+              <div className="pl-3 border-l border-zinc-700 text-zinc-400 mt-1">
+                <div>└── Vehicle description</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Connector Column 1 */}
+        <div className="flex items-center justify-center shrink-0">
+          <span className="text-zinc-700 font-mono text-xl">➔</span>
+        </div>
+
+        {/* Step 2: Homescreen */}
+        <div className={`w-[290px] md:w-[320px] shrink-0 bg-[#141413] border transition-all duration-300 rounded-[20px] p-5 ${
+          activeLink === 'scan-to-rideflow' || activeLink === 'reserve-to-rideflow'
+            ? 'border-[#c5a880] shadow-[0_0_15px_rgba(197,168,128,0.1)]'
+            : activeLink === 'onboarding-to-homescreen'
+              ? 'border-emerald-500/30 bg-[#28c840]/5'
+              : 'border-white/10'
+        }`}>
+          <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
+            <span className="text-xs font-mono text-[#c5a880] font-bold">FLOW 02</span>
+            <h5 className="text-white font-bold text-sm uppercase tracking-wider font-sans">Homescreen Map</h5>
+          </div>
+
+          <div className="space-y-3 font-sans text-xs md:text-sm">
+            <div 
+              onMouseEnter={() => setActiveLink('scan-to-rideflow')}
+              onMouseLeave={() => setActiveLink(null)}
+              className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer ${
+                activeLink === 'scan-to-rideflow'
+                  ? 'bg-emerald-950/40 border-emerald-500'
+                  : 'bg-white/5 border-white/5 hover:border-zinc-700'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-white font-bold">Scan QR Code</span>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-mono font-bold">➔ RIDE</span>
+              </div>
+              <div className="pl-3 border-l border-zinc-700 text-zinc-400 mt-1">
+                <div>└── Success Screen</div>
+              </div>
+            </div>
+
+            <div 
+              onMouseEnter={() => setActiveLink('reserve-to-rideflow')}
+              onMouseLeave={() => setActiveLink(null)}
+              className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer ${
+                activeLink === 'reserve-to-rideflow'
+                  ? 'bg-emerald-950/40 border-emerald-500'
+                  : 'bg-white/5 border-white/5 hover:border-zinc-700'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-white font-bold">Reserve a Ride</span>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-mono font-bold">➔ RIDE</span>
+              </div>
+              <div className="pl-3 border-l border-zinc-700 text-zinc-400 mt-1">
+                <div>└── 5-Min Reserv Timer</div>
+              </div>
+            </div>
+
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+              <span className="text-[#c5a880] font-bold block mb-1">Search Docks</span>
+              <div className="pl-3 border-l border-zinc-700 text-zinc-400">
+                <div>└── Show battery status</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Connector Column 2 */}
+        <div className="flex items-center justify-center shrink-0">
+          <span className="text-zinc-700 font-mono text-xl">➔</span>
+        </div>
+
+        {/* Step 3: Profile Settings */}
+        <div className="w-[290px] md:w-[320px] shrink-0 bg-[#141413] border border-white/10 rounded-[20px] p-5">
+          <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
+            <span className="text-xs font-mono text-[#c5a880] font-bold">FLOW 03</span>
+            <h5 className="text-white font-bold text-sm uppercase tracking-wider font-sans">Profile & Settings</h5>
+          </div>
+
+          <div className="space-y-3 font-sans text-xs md:text-sm">
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5 space-y-2 text-zinc-300">
+              <div className="flex items-center gap-2">
+                <span className="text-[#c5a880]">✦</span>
+                <span>Ride History & Receipts</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[#c5a880]">✦</span>
+                <span>Help / Support Center</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[#c5a880]">✦</span>
+                <span>Wallet / Campus Payment</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[#c5a880]">✦</span>
+                <span>Account & App Settings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Connector Column 3 */}
+        <div className="flex items-center justify-center shrink-0">
+          <span className="text-zinc-700 font-mono text-xl">➔</span>
+        </div>
+
+        {/* Step 4: Rideflow */}
+        <div className={`w-[290px] md:w-[320px] shrink-0 bg-[#141413] border transition-all duration-300 rounded-[20px] p-5 ${
+          activeLink === 'scan-to-rideflow' || activeLink === 'reserve-to-rideflow'
+            ? 'border-emerald-500 bg-emerald-950/10 shadow-[0_0_15px_rgba(16,185,129,0.1)]'
+            : activeLink === 'rideflow-to-summary'
+              ? 'border-[#c5a880] shadow-[0_0_15px_rgba(197,168,128,0.1)]'
+              : 'border-white/10'
+        }`}>
+          <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
+            <span className="text-xs font-mono text-[#c5a880] font-bold">FLOW 04</span>
+            <h5 className="text-white font-bold text-sm uppercase tracking-wider font-sans">Active Ride Flow</h5>
+          </div>
+
+          <div className="space-y-3 font-sans text-xs md:text-sm">
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+              <span className="text-white font-bold block mb-1">Ride HUD</span>
+              <div className="pl-3 border-l border-zinc-700 text-zinc-400">
+                <div>└── Live Stats (timer + distance)</div>
+              </div>
+            </div>
+
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+              <span className="text-white font-bold block mb-1">Navigation</span>
+              <div className="pl-3 border-l border-zinc-700 text-zinc-400">
+                <div>└── GPS Route to target dock</div>
+              </div>
+            </div>
+
+            <div 
+              onMouseEnter={() => setActiveLink('rideflow-to-summary')}
+              onMouseLeave={() => setActiveLink(null)}
+              className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer ${
+                activeLink === 'rideflow-to-summary'
+                  ? 'bg-[#c5a880]/10 border-[#c5a880]'
+                  : 'bg-white/5 border-white/5 hover:border-zinc-700'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[#c5a880] font-bold">End Ride Trigger</span>
+                <span className="text-[10px] bg-[#c5a880]/20 text-[#c5a880] px-1.5 py-0.5 rounded font-mono font-bold">➔ SUMMARY</span>
+              </div>
+              <div className="pl-3 border-l border-zinc-700 text-zinc-400 mt-1.5 space-y-1.5">
+                <div>
+                  <span className="text-emerald-400 font-semibold block text-[11px]">If Dock Available:</span>
+                  <span className="block pl-2 text-[10px]">Lock Bike ➔ End Rental</span>
+                </div>
+                <div>
+                  <span className="text-red-400 font-semibold block text-[11px]">If Dock Full:</span>
+                  <span className="block pl-2 text-[10px]">Nearby Docks / Waitlist / Byp-Alert</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Connector Column 4 */}
+        <div className="flex items-center justify-center shrink-0">
+          <span className="text-zinc-700 font-mono text-xl">➔</span>
+        </div>
+
+        {/* Step 5: Post Ride Summary */}
+        <div className={`w-[290px] md:w-[320px] shrink-0 bg-[#141413] border transition-all duration-300 rounded-[20px] p-5 ${
+          activeLink === 'rideflow-to-summary'
+            ? 'border-[#c5a880] bg-[#c5a880]/5'
+            : 'border-white/10'
+        }`}>
+          <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
+            <span className="text-xs font-mono text-[#c5a880] font-bold">FLOW 05</span>
+            <h5 className="text-white font-bold text-sm uppercase tracking-wider font-sans">Post-Ride Summary</h5>
+          </div>
+
+          <div className="space-y-3 font-sans text-xs md:text-sm">
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5 space-y-2 text-zinc-300">
+              <div className="flex items-center gap-2">
+                <span className="text-[#c5a880]">✦</span>
+                <span>Ride Summary & Invoice</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[#c5a880]">✦</span>
+                <span>Rate Ride & Feedback</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-red-400">✦</span>
+                <span className="text-red-300 font-semibold">Report a Vehicle/Dock Issue</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute right-0 top-12 bottom-6 w-16 bg-gradient-to-l from-[#1e1e1e] to-transparent pointer-events-none" />
     </div>
   );
 };
@@ -1422,751 +1779,232 @@ const RedesignedScreens = () => {
   );
 };
 
-// ==========================================
-// MASSIVE DUAL-AGENT INTERACTIVE APP SIMULATOR
-// ==========================================
-const RydrSimulatorModal = ({ show, onClose }) => {
-  const [screen, setScreen] = useState("welcome"); // welcome, select_role, rider_map, rider_route, rider_request, rider_loading, rider_hud, rider_complete, driver_setup, driver_loading, driver_hud, driver_complete
-  const [activeTab, setActiveTab] = useState("shuttle"); // shuttle, carpool
-  const [selectedRoute, setSelectedRoute] = useState(null);
-  const [chatMessages, setChatMessages] = useState([
-    { sender: "driver", text: "Hey! I'm parked at the Student Union fountain in the red Honda. Ready when you are." }
-  ]);
-  const [chatInput, setChatInput] = useState("");
-  const [backpackRequired, setBackpackRequired] = useState(false);
-  const [passengersRequested, setPassengersRequested] = useState(1);
-  const [driverSeats, setDriverSeats] = useState(2);
-  const [driverDestination, setDriverDestination] = useState("Science Quad");
-
-  // Simulated Rider Booking Confirmation Waiter
-  useEffect(() => {
-    if (screen === "rider_loading") {
-      const timer = setTimeout(() => {
-        setScreen("rider_hud");
-      }, 2500);
-      return () => clearTimeout(timer);
+const PersonaShowcase = () => {
+  const personas = [
+    {
+      name: "Ashika Priya",
+      role: "Student Commuter",
+      avatar: "/ashika_avatar.png",
+      details: [
+        { label: "Age", value: "21" },
+        { label: "Education", value: "Final year design student" },
+        { label: "Status", value: "Single" },
+        { label: "Occupation", value: "Full time student" },
+        { label: "Location", value: "Lives in PG" },
+        { label: "Tech Literacy", value: "High" }
+      ],
+      quote: "I'm used to online services — I even shop on Instagram. I want something just as easy when I move around campus.",
+      personality: ["Organized", "Independent", "Resourceful", "Active"],
+      bio: "Ashika is a 21-year-old design student in her final year. She's always busy — running between classes, labs, and college events. She often carries big design stuff and needs to move fast. Her schedule is full, and she likes being in control of her time.",
+      needs: [
+        "Get to class quickly when she's late",
+        "Avoid walking long distances every day",
+        "Find something quick and easy to use without planning ahead",
+        "Not waste time in the heat or rain",
+        "Prefer something affordable or part of campus life"
+      ],
+      frustrations: [
+        "Wastes a lot of time walking between far-off classrooms and studios",
+        "Carries heavy design materials which makes walking uncomfortable",
+        "Feels drained after busy days filled with classes, clubs, and project work"
+      ],
+      struggle: "I carry more stuff than a moving van.",
+      favSpots: ["Design Lab", "Amphitheatre"],
+      devices: [
+        { type: "Laptop", icon: "💻" },
+        { type: "Mobile", icon: "📱" }
+      ]
+    },
+    {
+      name: "Dr. Meena Kumari",
+      role: "Faculty Commuter",
+      avatar: "/dr_meena_avatar.png",
+      details: [
+        { label: "Age", value: "38" },
+        { label: "Education", value: "Assistant professor" },
+        { label: "Status", value: "Married" },
+        { label: "Occupation", value: "Assistant professor" },
+        { label: "Location", value: "Lives in staff quarters" },
+        { label: "Tech Literacy", value: "Not much" }
+      ],
+      quote: "I use apps for everything — meetings, reminders, even groceries. If there's a smooth way to get around campus, I'm in.",
+      personality: ["Calm", "Disciplined", "Focused", "Efficient"],
+      bio: "Dr. Meena is a 38-year-old assistant professor. She teaches in different blocks and moves a lot during the day. She doesn't like walking too much, especially in the heat. She likes things to be simple, smooth, and on time.",
+      needs: [
+        "Reach lecture halls on time across departments",
+        "Avoid getting tired walking across a big campus",
+        "Prefer a clean, reliable way to move during hot or rainy days",
+        "Manage her time well between teaching and meetings",
+        "Have access to something simple, not too modern or complex"
+      ],
+      frustrations: [
+        "Has to walk long distances between lectures in different blocks",
+        "Hot or rainy weather makes movement across campus uncomfortable",
+        "No easy transport option for quick and regular travel within campus"
+      ],
+      struggle: "Why are all my classes in opposite ends of the campus?",
+      favSpots: ["Admin Staff Room", "Library"],
+      devices: [
+        { type: "Laptop", icon: "💻" },
+        { type: "Mobile", icon: "📱" }
+      ]
     }
-  }, [screen]);
-
-  // Simulated Driver Booking Confirmation Waiter
-  useEffect(() => {
-    if (screen === "driver_loading") {
-      const timer = setTimeout(() => {
-        setScreen("driver_hud");
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [screen]);
-
-  const handleSendMessage = () => {
-    if (!chatInput.trim()) return;
-    const userMsg = chatInput;
-    setChatMessages(prev => [...prev, { sender: "rider", text: userMsg }]);
-    setChatInput("");
-
-    setTimeout(() => {
-      setChatMessages(prev => [...prev, { sender: "driver", text: "Sounds good, heading out in a minute!" }]);
-    }, 1200);
-  };
-
-  if (!show) return null;
+  ];
 
   return (
-    <div className="fixed inset-0 z-[150] bg-[#09090B]/90 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#1E1E1E] border border-vscode-border rounded-[32px] w-full max-w-5xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[600px]">
-        
-        {/* Left Info Panel */}
-        <div className="lg:col-span-5 p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-vscode-border bg-gradient-to-br from-[#252526] to-[#1E1E1E]">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <span className="px-3.5 py-1 bg-vscode-accent/20 border border-vscode-accent/30 text-vscode-accent font-mono text-[10px] rounded-full uppercase tracking-wider font-semibold">Interactive Prototype</span>
-              <button onClick={onClose} className="p-2 text-vscode-textDark hover:text-white rounded-full bg-[#1E1E1E]/80 border border-vscode-border/50 lg:hidden"><X size={16} /></button>
-            </div>
-            
-            <div className="space-y-3 font-sans">
-              <h3 className="text-white font-extrabold text-2xl md:text-3xl tracking-tight leading-tight">Rydr Live App Simulator</h3>
-              <p className="text-vscode-textDark text-sm leading-relaxed">
-                Test the actual user interface designed for both students seeking rides and drivers offering carpool space.
-              </p>
-            </div>
+    <div className="w-full space-y-16">
+      {personas.map((p, idx) => (
+        <div key={idx} className="space-y-6">
+          {/* Section Subtitle */}
+          <div className="flex items-center gap-3">
+            <span className="text-xl">{idx === 0 ? "🎓" : "👩‍🏫"}</span>
+            <h4 className="text-[#c5a880] font-sans font-bold text-lg md:text-xl">
+              {idx === 0 ? "Primary Persona: Student" : "Secondary Persona: Faculty"}
+            </h4>
+          </div>
 
-            <div className="space-y-3 pt-4 border-t border-vscode-border/50">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-vscode-accent font-bold">Simulator Controls</span>
-              <div className="grid grid-cols-2 gap-3">
-                <button 
-                  onClick={() => { setScreen("rider_map"); setActiveTab("shuttle"); }} 
-                  className="p-3 bg-[#1E1E1E] border border-vscode-border hover:border-vscode-accent/50 text-white rounded-xl text-left font-sans text-xs flex flex-col justify-between hover:scale-[1.02] transition-all"
-                >
-                  <span className="text-lg">🚌</span>
-                  <div>
-                    <span className="font-bold block mt-1">Shuttle Tracker</span>
-                    <span className="text-[9px] text-vscode-textDark">Campus transit lines</span>
-                  </div>
-                </button>
-                <button 
-                  onClick={() => { setScreen("rider_map"); setActiveTab("carpool"); }} 
-                  className="p-3 bg-[#1E1E1E] border border-vscode-border hover:border-vscode-accent/50 text-white rounded-xl text-left font-sans text-xs flex flex-col justify-between hover:scale-[1.02] transition-all"
-                >
-                  <span className="text-lg">🚗</span>
-                  <div>
-                    <span className="font-bold block mt-1">Peer Pool list</span>
-                    <span className="text-[9px] text-vscode-textDark">Rideshare bookings</span>
-                  </div>
-                </button>
-                <button 
-                  onClick={() => { setScreen("driver_setup"); }} 
-                  className="p-3 bg-[#1E1E1E] border border-vscode-border hover:border-vscode-accent/50 text-white rounded-xl text-left font-sans text-xs flex flex-col justify-between hover:scale-[1.02] transition-all"
-                >
-                  <span className="text-lg">⚙️</span>
-                  <div>
-                    <span className="font-bold block mt-1">Driver setup</span>
-                    <span className="text-[9px] text-vscode-textDark">Offer empty seats</span>
-                  </div>
-                </button>
-                <button 
-                  onClick={() => { setScreen("welcome"); setChatMessages([{ sender: "driver", text: "Hey! I'm parked at the Student Union fountain in the red Honda. Ready when you are." }]); }} 
-                  className="p-3 bg-[#1E1E1E] border border-vscode-border hover:border-vscode-accent/50 text-white rounded-xl text-left font-sans text-xs flex flex-col justify-between hover:scale-[1.02] transition-all"
-                >
-                  <span className="text-lg">🔄</span>
-                  <div>
-                    <span className="font-bold block mt-1">Reset HUD</span>
-                    <span className="text-[9px] text-vscode-textDark">Restart simulator</span>
-                  </div>
-                </button>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Left Side: Profile Card (col-span-4) */}
+            <div className="lg:col-span-4 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[32px] p-6 space-y-6 flex flex-col justify-between shadow-2xl">
+              <div className="text-center space-y-4">
+                <h3 className="text-white font-sans font-bold text-2xl tracking-tight">{p.name}</h3>
+                
+                <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-2 border-[#c5a880]/30 shadow-lg">
+                  <img 
+                    src={p.avatar} 
+                    alt={p.name} 
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+                
+                <span className="inline-block px-4 py-1.5 rounded-full bg-[#c5a880]/10 border border-[#c5a880]/20 text-xs font-bold text-[#c5a880] font-sans uppercase tracking-wider">
+                  {p.role}
+                </span>
               </div>
-            </div>
-          </div>
 
-          <div className="pt-6 border-t border-vscode-border/50 hidden lg:flex items-center justify-between">
-            <span className="text-xs text-vscode-textDark font-mono">Built by Nibedit (Solo)</span>
-            <button 
-              onClick={onClose} 
-              className="px-5 py-2.5 bg-[#1E1E1E] border border-vscode-border hover:border-red-500/50 hover:bg-red-500/10 text-vscode-textDark hover:text-red-400 rounded-xl font-sans font-bold text-xs transition-all"
-            >
-              Exit Simulator
-            </button>
-          </div>
-        </div>
+              {/* Profile Attributes List */}
+              <div className="space-y-3 pt-4 border-t border-white/5">
+                {p.details.map((detail, idx) => (
+                  <div key={idx} className="flex justify-between items-center text-sm font-sans">
+                    <span className="text-zinc-500 uppercase tracking-wider font-mono text-xs">
+                      {detail.label}
+                    </span>
+                    <span className="text-zinc-200 font-semibold text-right max-w-[200px] truncate font-sans text-sm">
+                      {detail.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
 
-        {/* Right Phone Display Panel */}
-        <div className="lg:col-span-7 flex flex-col items-center justify-center p-8 bg-[#09090B] relative">
-          <button onClick={onClose} className="absolute top-6 right-6 p-2.5 text-vscode-textDark hover:text-white rounded-full bg-[#1E1E1E]/80 border border-vscode-border/50 hidden lg:block hover:scale-105 transition-transform"><X size={18} /></button>
-
-          <div className="relative border-[8px] border-zinc-800 rounded-[48px] p-2 bg-[#000] shadow-[0_0_60px_rgba(0,102,204,0.18)] w-full max-w-[320px] aspect-[9/19.5] overflow-hidden flex flex-col justify-start relative select-none">
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-5.5 bg-zinc-900 rounded-full z-40 border border-zinc-800/80 flex items-center justify-end px-3">
-              <div className="w-1.5 h-1.5 rounded-full bg-blue-500/80 animate-pulse"></div>
-            </div>
-            
-            <div className="w-full h-full rounded-[38px] overflow-hidden bg-[#1A1A1E] relative flex flex-col justify-between pt-6 pb-4">
-              
-              <div className="px-5 py-1 flex items-center justify-between text-zinc-400 font-mono text-[9px] font-bold z-30 absolute top-0 w-full bg-[#1A1A1E]">
-                <span>9:41</span>
-                <div className="flex items-center gap-1">
-                  <span>📶</span>
-                  <span>5G</span>
-                  <span>🔋</span>
+              {/* Personality Tags */}
+              <div className="pt-4 border-t border-white/5 space-y-2">
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block">Personality</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {p.personality.map((tag, idx) => (
+                    <span 
+                      key={idx} 
+                      className="px-2.5 py-1 rounded-lg bg-[#141413]/40 border border-white/5 text-xs text-zinc-300 font-sans font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
 
-              {/* RENDER ACTIVE SCREEN */}
-              <div className="flex-grow flex flex-col justify-between relative overflow-y-auto mt-2 h-full">
-                
-                {/* A. Welcome Splash */}
-                {screen === "welcome" && (
-                  <div className="flex flex-col justify-between h-full p-5 text-center bg-gradient-to-b from-[#252526] via-[#1E1E1E] to-[#0A0A0A]">
-                    <div className="mt-16 space-y-4">
-                      <div className="w-16 h-16 bg-[#3B82F6]/10 border-2 border-[#3B82F6]/30 rounded-2xl flex items-center justify-center mx-auto shadow-2xl relative">
-                        <Navigation className="text-[#3B82F6]" size={32} />
-                      </div>
-                      <div className="space-y-1">
-                        <h4 className="text-white font-extrabold text-3xl tracking-tight font-sans">Rydr</h4>
-                        <span className="text-[#10B981] font-mono text-[10px] uppercase tracking-widest font-semibold block">Campus Commutes Simplified</span>
-                      </div>
-                    </div>
+              {/* Quote Block */}
+              <div className="p-4 bg-[#141413]/60 border border-white/5 rounded-2xl relative">
+                <span className="text-[#c5a880] text-4xl font-serif absolute -top-1 left-2 opacity-30">“</span>
+                <p className="text-zinc-300 italic text-sm font-sans leading-relaxed pl-4 pr-2">
+                  {p.quote}
+                </p>
+              </div>
+            </div>
 
-                    <div className="space-y-4 mb-4">
-                      <button
-                        onClick={() => setScreen("select_role")}
-                        className="w-full py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-bold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2 hover:scale-[1.01] transition-transform"
-                      >
-                        Find My Ride
-                      </button>
-                      <p className="text-vscode-textDark text-[9px] leading-relaxed">
-                        Securely logs you in with your verified university credentials.
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                {/* B. Select Role */}
-                {screen === "select_role" && (
-                  <div className="flex flex-col justify-between h-full p-5 bg-[#1E1E1E]">
-                    <div className="space-y-6">
-                      <div className="space-y-1">
-                        <span className="text-vscode-textDark font-mono text-[9px] uppercase font-bold tracking-widest">CHOOSE PROFILE</span>
-                        <h5 className="text-white font-bold text-lg font-sans leading-tight">Are you commuting or offering a seat?</h5>
-                      </div>
-
-                      <div className="space-y-4">
-                        <button 
-                          onClick={() => { setScreen("rider_map"); setActiveTab("shuttle"); }}
-                          className="w-full p-4 bg-[#252526] border border-vscode-border hover:border-[#3B82F6]/50 rounded-xl text-left flex items-start gap-4 transition-all"
-                        >
-                          <div className="p-2.5 bg-[#3B82F6]/10 text-[#3B82F6] rounded-lg">
-                            <Bus size={20} />
-                          </div>
-                          <div>
-                            <span className="text-white font-bold text-xs block font-sans">I am a Commuter</span>
-                            <span className="text-[9px] text-vscode-textDark">Check shuttles & book peer seats</span>
-                          </div>
-                        </button>
-
-                        <button 
-                          onClick={() => { setScreen("driver_setup"); }}
-                          className="w-full p-4 bg-[#252526] border border-vscode-border hover:border-[#10B981]/50 rounded-xl text-left flex items-start gap-4 transition-all"
-                        >
-                          <div className="p-2.5 bg-[#10B981]/10 text-[#10B981] rounded-lg">
-                            <Car size={20} />
-                          </div>
-                          <div>
-                            <span className="text-white font-bold text-xs block font-sans">I am a Driver</span>
-                            <span className="text-[9px] text-vscode-textDark">Offer empty car space to peers</span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-
-                    <button 
-                      onClick={() => setScreen("welcome")}
-                      className="w-full py-2.5 bg-[#252526] text-vscode-textDark font-mono text-[9px] uppercase rounded-xl hover:text-white transition-colors"
-                    >
-                      ⬅ Back
-                    </button>
-                  </div>
-                )}
-
-                {/* C. Rider Map Hub */}
-                {screen === "rider_map" && (
-                  <div className="flex flex-col h-full bg-[#1E1E1E]">
-                    {/* Simulated SVG/Canvas Map */}
-                    <div className="h-44 bg-[#141416] relative border-b border-vscode-border flex items-center justify-center overflow-hidden">
-                      {/* Grid representation */}
-                      <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-                      
-                      {/* Stylized Campus Paths */}
-                      <svg className="absolute inset-0 w-full h-full text-zinc-800" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <path d="M 0,50 Q 50,20 100,50" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="3" />
-                        <path d="M 50,0 Q 20,50 50,100" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="3" />
-                      </svg>
-
-                      {/* Map Pins */}
-                      <div className="absolute top-8 left-8 flex flex-col items-center">
-                        <MapPin className="text-[#3B82F6] animate-bounce" size={14} />
-                        <span className="text-[7px] text-zinc-500 font-bold bg-black/60 px-1 rounded">Union</span>
-                      </div>
-                      <div className="absolute bottom-6 right-10 flex flex-col items-center">
-                        <MapPin className="text-[#10B981]" size={14} />
-                        <span className="text-[7px] text-zinc-500 font-bold bg-black/60 px-1 rounded">Eng Quad</span>
-                      </div>
-
-                      {/* Moving Shuttle Representation */}
-                      <motion.div 
-                        animate={{ x: [0, 80, 0], y: [0, 20, 0] }}
-                        transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
-                        className="absolute top-1/2 left-6 p-1 bg-[#3B82F6] text-white rounded-full shadow-lg z-10"
-                      >
-                        <Bus size={10} />
-                      </motion.div>
-                      
-                      {/* Moving Car Representation */}
-                      <motion.div 
-                        animate={{ x: [60, -30, 60], y: [20, -10, 20] }}
-                        transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-                        className="absolute bottom-10 right-10 p-1 bg-[#10B981] text-white rounded-full shadow-lg z-10"
-                      >
-                        <Car size={10} />
-                      </motion.div>
-
-                      <div className="absolute top-3 left-3 bg-black/70 px-2 py-1 rounded-full text-[8px] text-zinc-400 font-mono">
-                        GPS Active 🟢
-                      </div>
-                    </div>
-
-                    {/* Mode Switcher */}
-                    <div className="p-3 grid grid-cols-2 gap-2 bg-[#252526] border-b border-vscode-border">
-                      <button 
-                        onClick={() => setActiveTab("shuttle")}
-                        className={`py-1.5 rounded-lg text-[10px] font-bold font-sans transition-all ${activeTab === 'shuttle' ? 'bg-[#3B82F6] text-white shadow' : 'text-zinc-400 hover:text-white'}`}
-                      >
-                        🚌 Campus Shuttles
-                      </button>
-                      <button 
-                        onClick={() => setActiveTab("carpool")}
-                        className={`py-1.5 rounded-lg text-[10px] font-bold font-sans transition-all ${activeTab === 'carpool' ? 'bg-[#10B981] text-white shadow' : 'text-zinc-400 hover:text-white'}`}
-                      >
-                        🚗 Peer Pool
-                      </button>
-                    </div>
-
-                    {/* Listings feed */}
-                    <div className="p-3 flex-grow overflow-y-auto max-h-[170px] space-y-2">
-                      {activeTab === "shuttle" ? (
-                        <>
-                          <button 
-                            onClick={() => { setSelectedRoute("Blue Route 1"); setScreen("rider_route"); }}
-                            className="w-full p-2.5 bg-[#252526] border border-vscode-border hover:border-[#3B82F6]/50 rounded-xl text-left flex justify-between items-center transition-all group"
-                          >
-                            <div className="space-y-0.5">
-                              <span className="text-white font-bold text-[10px] block font-sans group-hover:text-[#3B82F6]">Blue Route 1 (North Loop)</span>
-                              <span className="text-[8px] text-vscode-textDark font-mono flex items-center gap-1">
-                                <Clock size={8} /> 2 mins away • Student Union Stop
-                              </span>
-                            </div>
-                            <span className="px-2 py-0.5 bg-[#10B981]/15 text-[#10B981] text-[8px] rounded font-bold font-mono">Seat OK</span>
-                          </button>
-
-                          <button 
-                            onClick={() => { setSelectedRoute("Green Express"); setScreen("rider_route"); }}
-                            className="w-full p-2.5 bg-[#252526] border border-vscode-border hover:border-[#3B82F6]/50 rounded-xl text-left flex justify-between items-center transition-all group"
-                          >
-                            <div className="space-y-0.5">
-                              <span className="text-white font-bold text-[10px] block font-sans group-hover:text-[#3B82F6]">Green Express (Science Hub)</span>
-                              <span className="text-[8px] text-vscode-textDark font-mono flex items-center gap-1">
-                                <Clock size={8} /> 8 mins away • Main Gym Stop
-                              </span>
-                            </div>
-                            <span className="px-2 py-0.5 bg-[#EF4444]/15 text-[#EF4444] text-[8px] rounded font-bold font-mono">CROWDED</span>
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <button 
-                            onClick={() => setScreen("rider_request")}
-                            className="w-full p-2.5 bg-[#252526] border border-vscode-border hover:border-[#10B981]/50 rounded-xl text-left flex justify-between items-center transition-all group"
-                          >
-                            <div className="space-y-0.5">
-                              <span className="text-white font-bold text-[10px] block font-sans group-hover:text-[#10B981]">Dev K. • Black Civic</span>
-                              <span className="text-[8px] text-vscode-textDark font-mono">Heading to Science Quad • Leaves in 3m</span>
-                            </div>
-                            <span className="text-[10px] font-bold text-[#10B981]">Join ➔</span>
-                          </button>
-
-                          <button 
-                            onClick={() => setScreen("rider_request")}
-                            className="w-full p-2.5 bg-[#252526] border border-vscode-border hover:border-[#10B981]/50 rounded-xl text-left flex justify-between items-center transition-all group"
-                          >
-                            <div className="space-y-0.5">
-                              <span className="text-white font-bold text-[10px] block font-sans group-hover:text-[#10B981]">Aria M. • Blue Tesla</span>
-                              <span className="text-[8px] text-vscode-textDark font-mono">Heading to South Dorms • Leaves in 7m</span>
-                            </div>
-                            <span className="text-[10px] font-bold text-[#10B981]">Join ➔</span>
-                          </button>
-                        </>
-                      )}
-                    </div>
-
-                    <button 
-                      onClick={() => setScreen("select_role")}
-                      className="m-3 mt-0 py-2 bg-[#252526] text-vscode-textDark font-mono text-[9px] uppercase rounded-xl hover:text-white transition-colors"
-                    >
-                      ⬅ Back
-                    </button>
-                  </div>
-                )}
-
-                {/* D. Rider Shuttle Route Details */}
-                {screen === "rider_route" && (
-                  <div className="flex flex-col justify-between h-full p-4 bg-[#1E1E1E]">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-2">
-                        <button onClick={() => setScreen("rider_map")} className="text-[#3B82F6] font-bold text-xs">⬅ Back</button>
-                        <span className="text-white font-bold text-xs">{selectedRoute} Tracker</span>
-                      </div>
-
-                      <div className="p-3 bg-[#252526] border border-vscode-border rounded-xl font-sans space-y-2">
-                        <span className="text-[9px] font-mono text-zinc-500 block uppercase">ETA Summary</span>
-                        <div className="flex justify-between items-center">
-                          <span className="text-white font-bold text-sm">Student Union Stop</span>
-                          <span className="text-[#3B82F6] font-bold text-sm">2 mins</span>
-                        </div>
-                        <span className="text-[9px] text-[#10B981] font-mono block">🟢 Shuttle is running on time</span>
-                      </div>
-
-                      {/* Stops Timeline vertical */}
-                      <div className="p-3 bg-[#252526]/50 border border-vscode-border rounded-xl space-y-4">
-                        <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest block font-bold">Route stop list</span>
-                        <div className="space-y-4 pl-3 relative border-l border-zinc-700">
-                          <div className="relative">
-                            <div className="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-[#3B82F6]"></div>
-                            <span className="text-white font-sans text-[10px] block font-bold">Student Union (Next)</span>
-                            <span className="text-[8px] text-zinc-500 font-mono">ETA 2m • Crowd level Low</span>
-                          </div>
-                          <div className="relative">
-                            <div className="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
-                            <span className="text-zinc-400 font-sans text-[10px] block">Engineering Building</span>
-                            <span className="text-[8px] text-zinc-500 font-mono">ETA 6m • Crowd level Low</span>
-                          </div>
-                          <div className="relative">
-                            <div className="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
-                            <span className="text-zinc-400 font-sans text-[10px] block">Freshman Dorm Complex</span>
-                            <span className="text-[8px] text-zinc-500 font-mono">ETA 12m • Crowd level Medium</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button 
-                      onClick={() => setScreen("rider_map")}
-                      className="w-full py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-bold text-xs rounded-xl"
-                    >
-                      Return to Map
-                    </button>
-                  </div>
-                )}
-
-                {/* E. Rider Request Rideshare Form */}
-                {screen === "rider_request" && (
-                  <div className="flex flex-col justify-between h-full p-4 bg-[#1E1E1E]">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-2">
-                        <button onClick={() => setScreen("rider_map")} className="text-[#10B981] font-bold text-xs">⬅ Back</button>
-                        <span className="text-white font-bold text-xs">Request Ride-Pool</span>
-                      </div>
-
-                      {/* Driver Card */}
-                      <div className="p-3 bg-[#252526] border border-vscode-border rounded-xl flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-[#10B981]/20 flex items-center justify-center text-lg">
-                          👤
-                        </div>
-                        <div>
-                          <span className="text-white font-bold text-xs block font-sans">Dev K. (Comp Sci Major)</span>
-                          <span className="text-[8px] text-zinc-500 font-mono">Verified Student • ⭐️ 4.9 Rating</span>
-                        </div>
-                      </div>
-
-                      {/* Form options */}
-                      <div className="space-y-3 font-sans">
-                        <div className="p-3 bg-[#252526] border border-vscode-border rounded-xl space-y-2">
-                          <span className="text-[9px] font-mono text-zinc-500 uppercase block">Destination Route</span>
-                          <span className="text-white font-bold text-xs">Student Union ➔ Science Quad</span>
-                        </div>
-
-                        <div className="p-3 bg-[#252526] border border-vscode-border rounded-xl flex justify-between items-center">
-                          <span className="text-white text-[10px] font-bold">Need space for a backpack?</span>
-                          <input 
-                            type="checkbox" 
-                            checked={backpackRequired} 
-                            onChange={(e) => setBackpackRequired(e.target.checked)} 
-                            className="w-4 h-4 accent-[#10B981]" 
-                          />
-                        </div>
-
-                        <div className="p-3 bg-[#252526] border border-vscode-border rounded-xl flex justify-between items-center">
-                          <span className="text-white text-[10px] font-bold">Seats Required</span>
-                          <div className="flex items-center gap-2.5">
-                            <button onClick={() => setPassengersRequested(Math.max(1, passengersRequested - 1))} className="text-zinc-400 hover:text-white font-bold">-</button>
-                            <span className="text-white font-bold text-xs">{passengersRequested}</span>
-                            <button onClick={() => setPassengersRequested(Math.min(2, passengersRequested + 1))} className="text-zinc-400 hover:text-white font-bold">+</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button 
-                      onClick={() => setScreen("rider_loading")}
-                      className="w-full py-3 bg-[#10B981] hover:bg-[#059669] text-white font-sans font-bold text-xs rounded-xl shadow-lg"
-                    >
-                      Confirm Seat Request
-                    </button>
-                  </div>
-                )}
-
-                {/* F. Rider Loading Match */}
-                {screen === "rider_loading" && (
-                  <div className="flex flex-col items-center justify-center h-full p-5 text-center bg-[#1E1E1E] space-y-4">
-                    <div className="w-12 h-12 border-4 border-t-[#10B981] border-[#252526] rounded-full animate-spin"></div>
-                    <div>
-                      <span className="text-vscode-accent font-mono text-[9px] uppercase font-bold tracking-widest block">Connecting you</span>
-                      <h5 className="text-white font-bold text-xs font-sans">Awaiting Dev's approval...</h5>
-                    </div>
-                    <span className="text-[9px] text-zinc-500 font-mono">Securing peer verification channel...</span>
-                  </div>
-                )}
-
-                {/* G. Rider Trip HUD & Chat */}
-                {screen === "rider_hud" && (
-                  <div className="flex flex-col justify-between h-full bg-[#1E1E1E]">
-                    <div className="px-4 py-2 border-b border-vscode-border/50 bg-[#252526] flex items-center justify-between">
-                      <span className="text-[#10B981] font-bold text-[10px] font-sans">Active Ride HUD</span>
-                      <span className="px-2 py-0.5 bg-[#10B981]/15 text-[#10B981] text-[8px] rounded-full font-mono font-bold">MATCHED</span>
-                    </div>
-
-                    {/* Driver details bar */}
-                    <div className="p-3 bg-[#252526] border-b border-vscode-border flex justify-between items-center">
-                      <div>
-                        <span className="text-white font-bold text-[10px] block font-sans">Dev K. • Red Civic</span>
-                        <span className="text-[8px] text-[#10B981] font-mono">Arriving at fountain in 2 mins</span>
-                      </div>
-                      <Car size={16} className="text-[#10B981]" />
-                    </div>
-
-                    {/* Chat Feed */}
-                    <div className="flex-grow overflow-y-auto p-3 space-y-2 max-h-[140px] bg-[#141416]">
-                      {chatMessages.map((msg, i) => (
-                        <div 
-                          key={i} 
-                          className={`flex ${msg.sender === "rider" ? "justify-end" : "justify-start"}`}
-                        >
-                          <div className={`p-2.5 rounded-xl text-[9px] leading-relaxed max-w-[85%] font-sans ${
-                            msg.sender === "rider" 
-                              ? "bg-[#10B981] text-white rounded-br-none" 
-                              : "bg-[#252526] border border-vscode-border text-vscode-text rounded-bl-none shadow-sm"
-                          }`}>
-                            {msg.text}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Quick Replies */}
-                    <div className="p-2 border-t border-vscode-border/50 bg-[#1E1E1E] flex gap-1.5 overflow-x-auto hide-scrollbar flex-shrink-0">
-                      {["I'm at fountain! 🏃‍♂️", "Awesome, thanks!", "Heading there now."].map((text, i) => (
-                        <button 
-                          key={i} 
-                          onClick={() => {
-                            setChatMessages(prev => [...prev, { sender: "rider", text }]);
-                            setTimeout(() => {
-                              setChatMessages(prev => [...prev, { sender: "driver", text: "Got it!" }]);
-                            }, 1000);
-                          }}
-                          className="px-2.5 py-1 bg-[#252526] border border-vscode-border hover:border-[#10B981]/50 text-white rounded-lg text-[8px] font-sans flex-shrink-0 transition-all"
-                        >
-                          {text}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Chat Input Bar */}
-                    <div className="p-2 border-t border-vscode-border/50 bg-[#1E1E1E] flex items-center gap-1.5 flex-shrink-0">
-                      <input 
-                        type="text" 
-                        value={chatInput}
-                        onChange={(e) => setChatInput(e.target.value)}
-                        onKeyDown={(e) => { if (e.key === "Enter") handleSendMessage(); }}
-                        placeholder="Message Dev..."
-                        className="flex-grow px-2 py-1 bg-[#252526] border border-vscode-border rounded-lg text-[9px] font-sans text-white focus:outline-none focus:border-[#10B981]"
-                      />
-                      <button 
-                        onClick={handleSendMessage}
-                        className="p-1 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-xs"
-                      >
-                        ➔
-                      </button>
-                    </div>
-
-                    <button 
-                      onClick={() => setScreen("rider_complete")}
-                      className="mx-3 my-2.5 py-2.5 bg-[#10B981] text-white font-sans font-bold text-xs rounded-xl shadow"
-                    >
-                      Complete Ride 🏁
-                    </button>
-                  </div>
-                )}
-
-                {/* H. Rider Complete Screen */}
-                {screen === "rider_complete" && (
-                  <div className="flex flex-col justify-between h-full p-5 text-center bg-[#1E1E1E]">
-                    <div className="mt-12 space-y-4">
-                      <span className="text-4xl animate-bounce block">🎓</span>
-                      <div className="space-y-1">
-                        <span className="text-[#10B981] font-mono text-[9px] uppercase font-bold tracking-widest block">ARRIVED SAFELY</span>
-                        <h4 className="text-white font-extrabold text-lg tracking-tight font-sans">Commute Complete!</h4>
-                      </div>
-                      
-                      <div className="p-4 bg-[#252526] border border-vscode-border rounded-2xl mt-4 space-y-2">
-                        <span className="text-[10px] font-mono text-[#10B981] font-bold uppercase tracking-wider block">Carbon footprint savings</span>
-                        <span className="text-white font-extrabold text-base block font-sans">🌲 1.2kg CO2 Saved</span>
-                        <p className="text-vscode-textDark text-[9px] leading-relaxed">
-                          By sharing a campus ride with Dev, you saved 18 minutes of walk time and kept campus air clean!
-                        </p>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => setScreen("welcome")}
-                      className="w-full py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-bold text-xs rounded-xl shadow-lg"
-                    >
-                      Done
-                    </button>
-                  </div>
-                )}
-
-                {/* I. Driver Setup */}
-                {screen === "driver_setup" && (
-                  <div className="flex flex-col justify-between h-full p-4 bg-[#1E1E1E]">
-                    <div className="space-y-4 font-sans">
-                      <div className="flex items-center justify-between pb-2 border-b border-vscode-border/50">
-                        <span className="text-white font-bold text-xs">Publish Ride Offer</span>
-                        <span className="px-2 py-0.5 bg-[#10B981]/15 text-[#10B981] font-mono text-[8px] rounded-full font-bold">DRIVER MODE</span>
-                      </div>
-
-                      <div className="p-3 rounded-lg bg-[#10B981]/5 border border-[#10B981]/10 text-[9px] text-vscode-text leading-relaxed">
-                        🚘 **Share the Ride:** Offer your empty vehicle seats to peers walking to help reduce parking congestion and earn parking credits!
-                      </div>
-
-                      <div className="space-y-3">
-                        <div className="space-y-1">
-                          <label className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider block font-bold">Choose Destination</label>
-                          <select 
-                            value={driverDestination}
-                            onChange={(e) => setDriverDestination(e.target.value)}
-                            className="w-full px-3 py-2 bg-[#252526] border border-vscode-border rounded-xl text-[10px] text-white focus:outline-none focus:border-[#10B981]"
-                          >
-                            <option>Science Quad</option>
-                            <option>Engineering Bldg</option>
-                            <option>Student Dorm Complex</option>
-                          </select>
-                        </div>
-
-                        <div className="space-y-1">
-                          <label className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider block font-bold">Available Seats</label>
-                          <div className="flex items-center gap-3">
-                            {[1, 2, 3, 4].map(s => (
-                              <button 
-                                key={s}
-                                onClick={() => setDriverSeats(s)}
-                                className={`w-8 h-8 rounded-full border text-xs font-bold transition-all ${driverSeats === s ? 'bg-[#10B981] text-white border-none shadow' : 'border-zinc-700 text-zinc-400'}`}
-                              >
-                                {s}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <button 
-                        onClick={() => setScreen("driver_loading")}
-                        className="w-full py-3 bg-[#10B981] hover:bg-[#059669] text-white font-sans font-bold text-xs rounded-xl shadow-lg"
-                      >
-                        Publish Ride Route
-                      </button>
-                      <button 
-                        onClick={() => setScreen("select_role")}
-                        className="w-full py-2 bg-[#252526] text-vscode-textDark font-mono text-[9px] uppercase rounded-xl hover:text-white transition-colors"
-                      >
-                        ⬅ Back
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* J. Driver Loading Page */}
-                {screen === "driver_loading" && (
-                  <div className="flex flex-col items-center justify-center h-full p-5 text-center bg-[#1E1E1E] space-y-4">
-                    <div className="w-12 h-12 border-4 border-t-[#10B981] border-[#252526] rounded-full animate-spin"></div>
-                    <div>
-                      <span className="text-[#10B981] font-mono text-[9px] uppercase font-bold tracking-widest block">Live Map Published</span>
-                      <h5 className="text-white font-bold text-xs font-sans">Awaiting passengers...</h5>
-                    </div>
-                    <span className="text-[9px] text-zinc-500 font-mono">Matched riders will ping you here.</span>
-                  </div>
-                )}
-
-                {/* K. Driver HUD notification */}
-                {screen === "driver_hud" && (
-                  <div className="flex flex-col justify-between h-full p-4 bg-[#1E1E1E]">
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center pb-2 border-b border-vscode-border/50">
-                        <span className="text-white font-bold text-xs">Drive Active HUD</span>
-                        <span className="px-2 py-0.5 bg-[#10B981]/15 text-[#10B981] font-mono text-[8px] rounded-full font-bold">ONLINE</span>
-                      </div>
-
-                      {/* Request notification card */}
-                      <div className="p-4 bg-[#252526] border border-[#10B981]/30 rounded-xl space-y-3 shadow-xl">
-                        <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#10B981]/20 text-[#10B981] font-mono text-[8px] rounded font-bold uppercase">Ride Request!</span>
-                          <span className="text-[8px] text-zinc-500 font-mono">4 mins ago</span>
-                        </div>
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">👤</div>
-                          <div>
-                            <span className="text-white font-bold text-[10px] block">Maya B. (Business Major)</span>
-                            <span className="text-[8px] text-zinc-500 block">Wants to join near Union fountain</span>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2 pt-2">
-                          <button 
-                            onClick={() => setScreen("driver_setup")}
-                            className="py-1.5 bg-[#252526] hover:bg-zinc-800 text-zinc-400 hover:text-white rounded-lg text-[9px] font-sans font-bold border border-zinc-700 transition-colors"
-                          >
-                            Decline
-                          </button>
-                          <button 
-                            onClick={() => setScreen("driver_complete")}
-                            className="py-1.5 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg text-[9px] font-sans font-bold transition-colors"
-                          >
-                            Accept Ride
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button 
-                      onClick={() => setScreen("driver_setup")}
-                      className="w-full py-2 bg-[#252526] text-vscode-textDark font-mono text-[9px] uppercase rounded-xl hover:text-white transition-colors"
-                    >
-                      Cancel Route Offer
-                    </button>
-                  </div>
-                )}
-
-                {/* L. Driver Trip Complete */}
-                {screen === "driver_complete" && (
-                  <div className="flex flex-col justify-between h-full p-5 text-center bg-[#1E1E1E]">
-                    <div className="mt-12 space-y-4">
-                      <span className="text-4xl animate-bounce block">🏆</span>
-                      <div className="space-y-1">
-                        <span className="text-[#10B981] font-mono text-[9px] uppercase font-bold tracking-widest block">TRIP COMPLETED</span>
-                        <h4 className="text-white font-extrabold text-lg tracking-tight font-sans">Thanks for driving!</h4>
-                      </div>
-                      
-                      <div className="p-4 bg-[#252526] border border-vscode-border rounded-2xl mt-4 space-y-2">
-                        <span className="text-[10px] font-mono text-[#3B82F6] font-bold uppercase tracking-wider block">Credits Earned</span>
-                        <span className="text-white font-extrabold text-base block font-sans">⭐️ +15 Green Credits</span>
-                        <p className="text-vscode-textDark text-[9px] leading-relaxed">
-                          Your account has been credited. Use these points for campus parking discounts next semester!
-                        </p>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => setScreen("welcome")}
-                      className="w-full py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-bold text-xs rounded-xl shadow-lg"
-                    >
-                      Back to Dashboard
-                    </button>
-                  </div>
-                )}
-
+            {/* Right Side: Bento Grid Cards (col-span-8) */}
+            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+              
+              {/* Card 1: Bio (Full width span 2) */}
+              <div className="md:col-span-2 p-6 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[24px] space-y-3">
+                <h4 className="text-[#c5a880] font-sans font-bold text-sm uppercase tracking-wider border-b border-white/5 pb-2">Bio</h4>
+                <p className="text-zinc-300 font-sans text-sm md:text-base leading-relaxed">
+                  {p.bio}
+                </p>
               </div>
 
-              {/* Simulated Home Indicator Bar */}
-              <div className="w-24 h-1 bg-zinc-700/80 rounded-full mx-auto mt-2"></div>
+              {/* Card 2: Core Needs */}
+              <div className="p-6 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[24px] space-y-4">
+                <h4 className="text-[#c5a880] font-sans font-bold text-sm uppercase tracking-wider border-b border-white/5 pb-2">Core Needs</h4>
+                <ul className="space-y-2.5">
+                  {p.needs.map((need, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 text-sm md:text-base font-sans text-zinc-300">
+                      <span className="text-[#c5a880] mt-0.5">•</span>
+                      <span>{need}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Card 3: Frustrations */}
+              <div className="p-6 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[24px] space-y-4">
+                <h4 className="text-[#c5a880] font-sans font-bold text-sm uppercase tracking-wider border-b border-white/5 pb-2">Frustrations</h4>
+                <ul className="space-y-2.5">
+                  {p.frustrations.map((frust, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 text-sm md:text-base font-sans text-zinc-300">
+                      <span className="text-[#FF5F56] mt-0.5">•</span>
+                      <span>{frust}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Card 4: Biggest Campus Struggle (Full width span 2) */}
+              <div className="md:col-span-2 p-5 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[24px] flex items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <span className="text-xs font-mono text-[#FF5F56] uppercase tracking-widest font-bold">Biggest Campus Struggle</span>
+                  <p className="text-white font-sans text-base md:text-lg font-semibold">
+                    "{p.struggle}"
+                  </p>
+                </div>
+                <span className="text-4xl filter saturate-75">😫</span>
+              </div>
+
+              {/* Card 5: Favourite Spot */}
+              <div className="p-6 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[24px] space-y-3">
+                <h4 className="text-[#c5a880] font-sans font-bold text-sm uppercase tracking-wider border-b border-white/5 pb-2">Favourite Spots</h4>
+                <ul className="space-y-2">
+                  {p.favSpots.map((spot, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm md:text-base font-sans text-zinc-300">
+                      <span className="text-[#28C840]">📍</span>
+                      <span>{spot}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Card 6: Device Used Mostly */}
+              <div className="p-6 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[24px] space-y-3">
+                <h4 className="text-[#c5a880] font-sans font-bold text-sm uppercase tracking-wider border-b border-white/5 pb-2">Devices Used</h4>
+                <div className="flex gap-4">
+                  {p.devices.map((dev, idx) => (
+                    <div key={idx} className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#141413]/60 border border-white/5">
+                      <span className="text-xl">{dev.icon}</span>
+                      <span className="text-zinc-300 font-sans text-sm font-semibold">{dev.type}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
+          {idx === 0 && <div className="border-t border-[#c5a880]/15 my-12" />}
         </div>
-
-      </div>
+      ))}
     </div>
   );
 };
 
 const RydrCaseStudy = ({ onClose }) => {
   const [activeTestTab, setActiveTestTab] = useState(0);
-  const [showSimulator, setShowSimulator] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -2181,10 +2019,15 @@ const RydrCaseStudy = ({ onClose }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: "100%" }}
       transition={{ type: "spring", bounce: 0, duration: 0.6 }}
-      className="fixed inset-0 z-[100] bg-[#07080b] overflow-y-auto overflow-x-hidden shadow-2xl"
+      className="fixed inset-0 z-[100] bg-[#161513] overflow-y-auto overflow-x-hidden shadow-2xl case-study-overlay"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(197, 168, 128, 0.15) 1px, transparent 1px)',
+        backgroundSize: '32px 32px',
+        backgroundAttachment: 'local'
+      }}
     >
       {/* Navbar */}
-      <div className="sticky top-0 z-[110] bg-[#07080b]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
+      <div className="sticky top-0 z-[110] bg-[#161513]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <button 
           onClick={onClose}
           className="flex items-center space-x-2 text-zinc-400 hover:text-white transition-colors group font-sans text-sm"
@@ -2195,7 +2038,7 @@ const RydrCaseStudy = ({ onClose }) => {
         <div className="text-zinc-500 text-sm font-semibold tracking-wider uppercase hidden md:block">Rydr / Case Study</div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
         
         {/* Hero Section */}
         <motion.div 
@@ -2204,26 +2047,34 @@ const RydrCaseStudy = ({ onClose }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-24"
         >
-          <span className="font-mono text-vscode-accent text-sm mb-4 block">02. Featured Case Study</span>
-          <h1 className="text-5xl md:text-7xl font-bold text-white font-sans tracking-tight mb-8">
-            Rydr
+          <div className="flex items-center gap-1.5 text-[10px] font-black tracking-[0.35em] uppercase text-accent mb-4">
+            <motion.span animate={{ rotate: [0, 360] }} transition={{ duration: 6, repeat: Infinity, ease: 'linear' }} className="inline-block">✦</motion.span>
+            02 ✦ FEATURED CASE STUDY
+          </div>
+          <h1 className="font-black uppercase leading-[0.85] text-[clamp(2.5rem,7.5vw,6rem)] flex flex-col mb-8 tracking-tighter select-none">
+            <span style={{
+              background: 'linear-gradient(110deg, #ffffff 30%, #e5dfd5 60%, #c5a880 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }} className="inline-block">RYDR</span>
           </h1>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 p-6 bg-[#252526] border border-vscode-border rounded-lg font-mono text-sm shadow-xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 p-8 border border-[#c5a880]/15 bg-[#141413] rounded-[24px] font-sans text-sm shadow-2xl relative overflow-hidden">
             <div>
-              <span className="text-vscode-textDark block mb-1">Role</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Role</span>
               <span className="text-white font-bold">UI/UX Design</span>
             </div>
             <div>
-              <span className="text-vscode-textDark block mb-1">Timeline</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Timeline</span>
               <span className="text-white font-bold">3 Weeks</span>
             </div>
             <div>
-              <span className="text-vscode-textDark block mb-1">Context</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Context</span>
               <span className="text-white font-bold">Academic Project</span>
             </div>
             <div>
-              <span className="text-vscode-textDark block mb-1">Team</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Team</span>
               <span className="text-white font-bold">Solo Project</span>
             </div>
           </div>
@@ -2332,13 +2183,13 @@ const RydrCaseStudy = ({ onClose }) => {
 
         {/* How Might We (HMW) Sticky Notes */}
         <Section title="How Might We" icon={Target}>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-6">
             {[
-              { text: "How might we caps speed limits automatically in crowded pedestrian corridors?", bg: "#FFF9C4", delay: 0.1 },
-              { text: "How might we establish strict student trust to ensure safe bicycle sharing and lock compliance?", bg: "#FFF9C4", delay: 0.15 },
-              { text: "How might we incentivize students to park bikes in designated dock areas?", bg: "#FFF9C4", delay: 0.2 },
-              { text: "How might we alert rushing students when a bike is damaged or battery is low before they walk to it?", bg: "#FFF9C4", delay: 0.25 },
-              { text: "How might we allow group booking so friends can unlock multiple e-bikes together?", bg: "#FFF9C4", delay: 0.3 },
+              { text: "How might we make sure a student rushing to a 9 AM class always finds a bike nearby?", delay: 0.1 },
+              { text: "How might we prevent bikes from cluttering campus walkways without making parking a chore?", delay: 0.15 },
+              { text: "How might we eliminate 'battery anxiety' so students never unlock a dead bike?", delay: 0.2 },
+              { text: "How might we design a student pass that costs less than a daily cup of coffee?", delay: 0.25 },
+              { text: "How might we keep campus walkways safe and walking-friendly during peak rush hours?", delay: 0.3 },
             ].map((note, i) => (
               <motion.div
                 key={i}
@@ -2346,26 +2197,31 @@ const RydrCaseStudy = ({ onClose }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: note.delay }}
-                className="rounded p-4 shadow-md w-[170px] h-[170px]"
-                style={{ backgroundColor: note.bg }}
+                className="bg-[#1e1d1b] border border-[#c5a880]/15 hover:border-[#c5a880]/30 rounded-2xl p-5 shadow-xl w-full sm:w-[230px] min-h-[160px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#c5a880]/5"
               >
-                <p className="text-[#2a2a2a] font-sans text-xs md:text-sm leading-snug font-medium">{note.text}</p>
+                <p className="text-[#f7f5f0]/90 font-sans text-xs md:text-sm leading-relaxed font-normal">{note.text}</p>
+                <div className="flex items-center justify-between mt-4 border-t border-white/5 pt-3">
+                  <span className="text-[#c5a880] text-[9px] font-bold tracking-wider uppercase">HMW {i + 1}</span>
+                  <span className="text-[#c5a880] text-sm">✦</span>
+                </div>
               </motion.div>
             ))}
           </div>
         </Section>
 
         <Section title="Research Methods" icon={Search}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="w-full p-8 md:p-10 bg-[#1e1d1b] border border-[#c5a880]/15 rounded-[32px] shadow-2xl space-y-6">
             {[
-              { title: "Student Surveys", desc: "Quantified campus transit bottlenecks" },
-              { title: "Field Research", desc: "Observed walkway congestion & delays" },
-              { title: "Competitive Study", desc: "Analyzed Yulu, Zypp & EVeez" },
-              { title: "Secondary Studies", desc: "Reviewed Mo Cycle & SmartBike" }
+              { title: "Field Research", desc: "Observed walkway congestion, commuter behavior, and campus transit bottlenecks first-hand." },
+              { title: "Competitive Study", desc: "Analyzed existing micro-mobility networks (like Yulu, Zypp, and EVeez) to understand pricing models and docking dynamics." },
+              { title: "Secondary Research", desc: "Reviewed global micro-mobility case studies (such as Mo Cycle and SmartBike) tailored to university campus frameworks." }
             ].map((method, idx) => (
-              <div key={idx} className="p-4 bg-[#252526] border border-vscode-border rounded-xl">
-                <span className="text-white font-bold font-sans text-sm block mb-1">{method.title}</span>
-                <span className="text-vscode-textDark font-mono text-xs block">{method.desc}</span>
+              <div key={idx} className="flex items-start space-x-4 text-left">
+                <span className="text-[#c5a880] mt-1.5 text-base flex-shrink-0">✦</span>
+                <div>
+                  <h4 className="text-white font-sans font-bold text-lg md:text-xl mb-1">{method.title}</h4>
+                  <p className="text-zinc-400 font-sans text-sm md:text-base leading-relaxed">{method.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -2376,27 +2232,103 @@ const RydrCaseStudy = ({ onClose }) => {
           <SecondaryResearchShowcase />
         </Section>
 
-        {/* Affinity Mapping Section */}
         <Section title="Affinity Mapping Insights" icon={Compass}>
-          <div className="grid lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-6 space-y-4">
-              <p className="text-base md:text-lg leading-relaxed text-vscode-text font-sans">
-                By clustering survey feedback and interview logs from 40+ campus commuters, key thematic areas emerged regarding walk fatigue, rental app lock instability, and the absolute necessity of real-time battery tracking.
-              </p>
-              <ul className="space-y-3 font-sans text-sm">
-                <li className="flex items-start gap-2"><CheckCircle size={14} className="text-[#10B981] mt-1 shrink-0" /> Unified app interface: students hate toggling maps to find bikes.</li>
-                <li className="flex items-start gap-2"><CheckCircle size={14} className="text-[#10B981] mt-1 shrink-0" /> Low battery locking: app must block bookings if battery is below 15%.</li>
-                <li className="flex items-start gap-2"><CheckCircle size={14} className="text-[#10B981] mt-1 shrink-0" /> Photo damage logs: allow reporting broken tyres or brakes with one tap.</li>
-              </ul>
+          <div className="space-y-6">
+            <p className="text-base md:text-lg leading-relaxed text-zinc-300 font-sans max-w-4xl">
+              Since the proposed Rydr system is new, user research was grounded in observing **existing campus commute behaviors** and auditing **public feedback/complaints regarding commercial apps (like Yulu)**. Clustering these observations on an Affinity Board revealed three distinct friction areas:
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 w-full">
+              {/* Category 1: Campus Commute Bottlenecks */}
+              <div className="p-6 bg-[#1a1917]/40 border border-[#c5a880]/10 rounded-[28px] space-y-6 flex flex-col justify-start">
+                <div className="flex items-center space-x-2 border-b border-white/5 pb-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]" />
+                  <h4 className="text-white font-bold font-sans text-xs tracking-wider uppercase">Campus Commute Frictions</h4>
+                </div>
+                <div className="space-y-5">
+                  {[
+                    { text: "Hostels completely run out of transit options by 8:45 AM ahead of morning lectures.", bg: "#fef9c3", textCol: "#422006", rot: "-2deg" },
+                    { text: "Commuters pile up around primary lecture halls, creating severe hallway congestion.", bg: "#fef9c3", textCol: "#422006", rot: "1.5deg" },
+                    { text: "Students walk long distances in extreme heat because class transition windows are too short.", bg: "#fef9c3", textCol: "#422006", rot: "-1deg" }
+                  ].map((note, idx) => (
+                    <motion.div 
+                      key={idx} 
+                      whileHover={{ scale: 1.05, rotate: "0deg", zIndex: 10 }}
+                      className="p-5 shadow-[4px_6px_12px_rgba(0,0,0,0.35)] rounded-sm flex flex-col justify-between aspect-square w-full max-w-[210px] mx-auto transition-all duration-200 cursor-pointer"
+                      style={{ 
+                        backgroundColor: note.bg, 
+                        transform: `rotate(${note.rot})`,
+                      }}
+                    >
+                      <p className="font-sans text-xs md:text-sm font-semibold leading-relaxed" style={{ color: note.textCol }}>
+                        "{note.text}"
+                      </p>
+                      <span className="text-[9px] font-sans font-bold opacity-30 mt-4 block text-right" style={{ color: note.textCol }}>✦ Field Observation</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Category 2: Legacy App Pain Points */}
+              <div className="p-6 bg-[#1a1917]/40 border border-[#c5a880]/10 rounded-[28px] space-y-6 flex flex-col justify-start">
+                <div className="flex items-center space-x-2 border-b border-white/5 pb-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#3b82f6]" />
+                  <h4 className="text-white font-bold font-sans text-xs tracking-wider uppercase">Legacy App Frictions (e.g. Yulu)</h4>
+                </div>
+                <div className="space-y-5">
+                  {[
+                    { text: "Riders scan and unlock active cycles only to discover the battery is dead.", bg: "#e0f2fe", textCol: "#0369a1", rot: "1deg" },
+                    { text: "Invisible geofencing lines penalize riders without warning during drop-offs.", bg: "#e0f2fe", textCol: "#0369a1", rot: "-1.5deg" },
+                    { text: "Commercial pricing models don't fit student budgets for quick 5-minute rides.", bg: "#e0f2fe", textCol: "#0369a1", rot: "2deg" }
+                  ].map((note, idx) => (
+                    <motion.div 
+                      key={idx} 
+                      whileHover={{ scale: 1.05, rotate: "0deg", zIndex: 10 }}
+                      className="p-5 shadow-[4px_6px_12px_rgba(0,0,0,0.35)] rounded-sm flex flex-col justify-between aspect-square w-full max-w-[210px] mx-auto transition-all duration-200 cursor-pointer"
+                      style={{ 
+                        backgroundColor: note.bg, 
+                        transform: `rotate(${note.rot})`,
+                      }}
+                    >
+                      <p className="font-sans text-xs md:text-sm font-semibold leading-relaxed" style={{ color: note.textCol }}>
+                        "{note.text}"
+                      </p>
+                      <span className="text-[9px] font-sans font-bold opacity-30 mt-4 block text-right" style={{ color: note.textCol }}>✦ App Review</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Category 3: Pathway & Safety Hazards */}
+              <div className="p-6 bg-[#1a1917]/40 border border-[#c5a880]/10 rounded-[28px] space-y-6 flex flex-col justify-start">
+                <div className="flex items-center space-x-2 border-b border-white/5 pb-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#10b981]" />
+                  <h4 className="text-white font-bold font-sans text-xs tracking-wider uppercase">Pathway & Safety Hazards</h4>
+                </div>
+                <div className="space-y-5">
+                  {[
+                    { text: "Dockless drop-offs litter narrow walking pathways, blocking wheelchair access.", bg: "#d1fae5", textCol: "#065f46", rot: "-1.5deg" },
+                    { text: "High vehicle speeds in pedestrian-only zones create safety concerns.", bg: "#d1fae5", textCol: "#065f46", rot: "2deg" },
+                    { text: "Riders fail to report physical vehicle damages, leaving broken bikes active in the fleet.", bg: "#d1fae5", textCol: "#065f46", rot: "-0.5deg" }
+                  ].map((note, idx) => (
+                    <motion.div 
+                      key={idx} 
+                      whileHover={{ scale: 1.05, rotate: "0deg", zIndex: 10 }}
+                      className="p-5 shadow-[4px_6px_12px_rgba(0,0,0,0.35)] rounded-sm flex flex-col justify-between aspect-square w-full max-w-[210px] mx-auto transition-all duration-200 cursor-pointer"
+                      style={{ 
+                        backgroundColor: note.bg, 
+                        transform: `rotate(${note.rot})`,
+                      }}
+                    >
+                      <p className="font-sans text-xs md:text-sm font-semibold leading-relaxed" style={{ color: note.textCol }}>
+                        "{note.text}"
+                      </p>
+                      <span className="text-[9px] font-sans font-bold opacity-30 mt-4 block text-right" style={{ color: note.textCol }}>✦ Safety Audit</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="lg:col-span-6 rounded-xl overflow-hidden border border-vscode-border shadow-2xl"
-            >
-              <img src="/rydr-affinity.png" alt="Rydr Affinity Mapping Board" className="w-full h-auto" />
-            </motion.div>
           </div>
         </Section>
 
@@ -2407,26 +2339,7 @@ const RydrCaseStudy = ({ onClose }) => {
 
         {/* User Persona Section */}
         <Section title="User Persona" icon={Users}>
-          <div className="grid lg:grid-cols-12 gap-8 items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="lg:col-span-7 rounded-xl overflow-hidden border border-vscode-border shadow-2xl"
-            >
-              <img src="/rydr-persona.png" alt="Rydr User Persona — Maya, 20" className="w-full h-auto" />
-            </motion.div>
-            <div className="lg:col-span-5 space-y-4 font-sans text-base">
-              <h4 className="text-white font-bold text-xl">Primary Persona: The Busy Commuter</h4>
-              <p className="text-vscode-text leading-relaxed">
-                Maya represents students balancing tight academic schedules. Living slightly off-campus, she depends entirely on erratic shuttle transport to avoid walking 20 minutes between back-to-back classes.
-              </p>
-              <div className="p-4 bg-[#252526] rounded-xl border border-vscode-border">
-                <span className="text-[10px] font-mono text-vscode-accent block uppercase mb-1">Key User Need</span>
-                <p className="text-white italic text-sm">"I need an intuitive way to track transit options instantly so I never walk into a lecture late."</p>
-              </div>
-            </div>
-          </div>
+          <PersonaShowcase />
         </Section>
 
         {/* User Journey Map */}
@@ -2435,7 +2348,7 @@ const RydrCaseStudy = ({ onClose }) => {
         </Section>
 
         {/* Competitive Analysis */}
-        <Section title="Competitive Landscape" icon={Target}>
+        <Section title="Competitive Analysis" icon={Target}>
           <CompetitiveAnalysis />
         </Section>
 
@@ -2465,35 +2378,10 @@ const RydrCaseStudy = ({ onClose }) => {
             <div>
               <h4 className="text-white font-bold mb-6 font-sans text-xl">Information Architecture</h4>
               
-              {/* Styled IA Tree */}
-              <div className="p-6 bg-[#252526] border border-vscode-border rounded-xl font-mono text-xs md:text-sm text-vscode-text space-y-4">
-                <div className="flex items-center gap-2">
-                  <span className="p-1 bg-[#28C840]/20 text-[#28C840] rounded font-bold">Rydr Core</span>
-                </div>
-                <div className="pl-6 border-l border-zinc-700 space-y-4">
-                  <div>
-                    <span className="text-white font-bold">1. Entry & Auth:</span>
-                    <span className="text-vscode-textDark block font-sans text-sm mt-1">➔ Student .edu Login ➔ Verify Campus Code ➔ Load Profile</span>
-                  </div>
-                  <div>
-                    <span className="text-white font-bold">2. Map Hub (Rider view):</span>
-                    <span className="text-vscode-textDark block font-sans text-sm mt-1">➔ Toggle e-Bike Locations (Battery / Walk ETA) ➔ Scan to Unlock QR</span>
-                  </div>
-                  <div>
-                    <span className="text-white font-bold">3. Operations Portal:</span>
-                    <span className="text-[#888] block font-sans text-sm mt-1">➔ Flag Servicing Needs ➔ Swap Low Batteries ➔ Track Geo-locked Violations</span>
-                  </div>
-                  <div>
-                    <span className="text-white font-bold">4. Campus Ride HUD:</span>
-                    <span className="text-[#888] block font-sans text-sm mt-1">➔ Battery Charge Meter ➔ Geofenced Speed Warning ➔ Overflow Docks Standby</span>
-                  </div>
-                </div>
-              </div>
+              <InformationArchitectureWidget />
             </div>
 
             <StyleGuide />
-            
-            <FeaturesComparisonWidget />
           </div>
         </Section>
 
@@ -2636,35 +2524,12 @@ const RydrCaseStudy = ({ onClose }) => {
           <RiskAnalysisWidget />
         </Section>
 
-        {/* Live Interactive Prototype Launch Card */}
-        <div className="mb-24 p-8 bg-[#252526] border border-[#3B82F6]/30 rounded-2xl text-center space-y-6 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none"></div>
-          
-          <div className="max-w-xl mx-auto space-y-3">
-            <span className="px-3.5 py-1 bg-[#3B82F6]/10 border border-[#3B82F6]/20 text-[#3B82F6] font-mono text-[10px] rounded-full uppercase tracking-wider font-semibold">Try it Yourself</span>
-            <h4 className="text-2xl md:text-3xl font-bold font-sans text-white">Live Rydr App Simulator</h4>
-            <p className="text-vscode-textDark text-sm">
-              We have compiled our high-fidelity designs into a fully interactive React prototype simulation. Open it to test booking rides and checking shuttles in real-time.
-            </p>
-          </div>
-
-          <button
-            onClick={() => setShowSimulator(true)}
-            className="px-8 py-4 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-sans font-bold text-sm rounded-xl shadow-lg hover:scale-102 transition-all flex items-center justify-center gap-2 mx-auto"
-          >
-            Launch Rydr Simulator 🚀
-          </button>
-        </div>
-
         {/* Footer */}
         <div className="mt-32 pt-8 border-t border-vscode-border flex justify-between items-center text-vscode-textDark font-mono text-sm">
           <span>End of Case Study</span>
           <button onClick={onClose} className="text-vscode-accent hover:text-white transition-colors">Return to Portfolio</button>
         </div>
       </div>
-
-      {/* Renders Simulator Modal */}
-      <RydrSimulatorModal show={showSimulator} onClose={() => setShowSimulator(false)} />
     </motion.div>
   );
 };

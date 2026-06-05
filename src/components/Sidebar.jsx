@@ -101,7 +101,7 @@ const Sidebar = ({ activeTab, onTabSelect }) => {
 
         {/* Resume Direct Link */}
         <a 
-          href="https://drive.google.com/file/d/1kFg3vWveiIqvV6MMDfxyWoi_22V-NpgQ/view?usp=sharing" 
+          href="https://drive.google.com/file/d/1lPibMcc2eOshFhVoiXdD0hAcrevxYobx/view?usp=sharing" 
           target="_blank" 
           rel="noreferrer"
           className="flex items-center px-6 py-4 border-t border-vscode-border bg-[#1E1E1E] hover:bg-vscode-accent hover:text-white text-vscode-text transition-colors group cursor-pointer"

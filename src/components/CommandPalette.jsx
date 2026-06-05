@@ -44,7 +44,7 @@ const CommandPalette = ({
     { id: 'theme-cyan', title: 'Switch to Electric Cyan Theme', category: 'Theme Customization', icon: <Palette size={16} className="text-cyan-400" />, action: () => onThemeChange('cyan') },
     { id: 'theme-gold', title: 'Switch to Solar Gold Theme', category: 'Theme Customization', icon: <Palette size={16} className="text-yellow-400" />, action: () => onThemeChange('gold') },
     
-    { id: 'action-resume', title: 'Open Professional Resume (PDF)', category: 'Utilities', icon: <FileText size={16} />, action: () => window.open('https://drive.google.com/file/d/1kFg3vWveiIqvV6MMDfxyWoi_22V-NpgQ/view?usp=sharing', '_blank') }
+    { id: 'action-resume', title: 'Open Professional Resume (PDF)', category: 'Utilities', icon: <FileText size={16} />, action: () => window.open('https://drive.google.com/file/d/1lPibMcc2eOshFhVoiXdD0hAcrevxYobx/view?usp=sharing', '_blank') }
   ];
 
   const filteredItems = items.filter(item => 

@@ -26,45 +26,61 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  background-color: #0e0e0d;
+  background-color: #161513;
 }
 
 .aurora-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(140px);
+  filter: blur(160px) !important;
   transition: background-color 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .aurora-blob-1 {
-  top: -15%;
-  left: 10%;
-  width: 45vw;
-  height: 45vw;
-  background-color: var(--accent-color);
-  animation: float-aurora-1 25s infinite ease-in-out;
-  opacity: 0.06;
+  top: -10%;
+  left: 5%;
+  width: 55vw;
+  height: 55vw;
+  background-color: var(--accent-color) !important;
+  animation: float-aurora-1 22s infinite ease-in-out;
+  opacity: 0.16;
 }
 
 .aurora-blob-2 {
-  bottom: -15%;
-  right: 10%;
-  width: 50vw;
-  height: 50vw;
-  background-color: var(--accent-color);
-  animation: float-aurora-2 30s infinite ease-in-out;
-  opacity: 0.05;
+  bottom: -10%;
+  right: 5%;
+  width: 60vw;
+  height: 60vw;
+  background-color: #d97706 !important; /* Golden Amber */
+  animation: float-aurora-2 28s infinite ease-in-out;
+  opacity: 0.14;
+}
+
+.aurora-blob-3 {
+  top: 40%;
+  left: 30%;
+  width: 45vw;
+  height: 45vw;
+  background-color: #be185d !important; /* Vibrant Rose */
+  animation: float-aurora-3 20s infinite ease-in-out;
+  opacity: 0.08;
+}
+
+@keyframes float-aurora-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6%, -8%) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
 @layer base {
   body {
     margin: 0;
-    background-color: #0e0e0d;
+    background-color: #161513;
     color: #f7f5f0;
     font-family: 'Outfit', sans-serif;
     overflow-x: hidden;
     /* Ultra-subtle warm editorial dotted pattern */
-    background-image: radial-gradient(rgba(197, 168, 128, 0.04) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(197, 168, 128, 0.15) 1px, transparent 1px);
     background-size: 32px 32px;
     background-attachment: fixed;
   }
@@ -234,5 +250,225 @@
   
   .animate-marquee:hover {
     animation-play-state: paused;
+  }
+
+  /* VS Code Theme overrides to align with portfolio's warm sand theme */
+  .text-vscode-accent {
+    color: var(--accent-color) !important;
+  }
+  .bg-vscode-accent {
+    background-color: var(--accent-color) !important;
+  }
+  .border-vscode-accent {
+    border-color: var(--accent-color) !important;
+  }
+  .bg-vscode-accent\/5 {
+    background-color: rgba(197, 168, 128, 0.05) !important;
+  }
+  .bg-vscode-accent\/10 {
+    background-color: var(--accent-glow) !important;
+  }
+  .bg-vscode-accent\/20 {
+    background-color: var(--accent-glow-strong) !important;
+  }
+  .bg-vscode-accent\/30 {
+    background-color: rgba(197, 168, 128, 0.3) !important;
+  }
+  .border-vscode-accent\/20 {
+    border-color: rgba(197, 168, 128, 0.2) !important;
+  }
+  .border-vscode-accent\/30 {
+    border-color: rgba(197, 168, 128, 0.3) !important;
+  }
+  .border-vscode-accent\/50 {
+    border-color: rgba(197, 168, 128, 0.5) !important;
+  }
+  .text-vscode-accent\/20 {
+    color: rgba(197, 168, 128, 0.2) !important;
+  }
+  .text-vscode-accent\/50 {
+    color: rgba(197, 168, 128, 0.5) !important;
+  }
+  .hover\:border-vscode-accent\/30:hover {
+    border-color: rgba(197, 168, 128, 0.3) !important;
+  }
+  .hover\:border-vscode-accent\/50:hover {
+    border-color: rgba(197, 168, 128, 0.5) !important;
+  }
+  .hover\:bg-vscode-accent\/5:hover {
+    background-color: rgba(197, 168, 128, 0.05) !important;
+  }
+  .hover\:bg-vscode-accent\/10:hover {
+    background-color: var(--accent-glow) !important;
+  }
+  .hover\:bg-vscode-accent\/90:hover {
+    background-color: rgba(197, 168, 128, 0.9) !important;
+  }
+  .hover\:bg-vscode-accent:hover {
+    background-color: var(--accent-color) !important;
+  }
+  .hover\:text-white:hover {
+    color: #ffffff !important;
+  }
+  .border-vscode-border {
+    border-color: rgba(197, 168, 128, 0.15) !important;
+  }
+  .border-vscode-border\/30 {
+    border-color: rgba(197, 168, 128, 0.08) !important;
+  }
+  .border-vscode-border\/50 {
+    border-color: rgba(197, 168, 128, 0.12) !important;
+  }
+  .hover\:border-vscode-border\/80:hover {
+    border-color: rgba(197, 168, 128, 0.3) !important;
+  }
+  .text-vscode-text {
+    color: #f7f5f0 !important;
+    opacity: 0.8 !important;
+  }
+  .text-vscode-textDark {
+    color: #f7f5f0 !important;
+    opacity: 0.55 !important;
+  }
+  .bg-vscode-activeTab {
+    background-color: #141413 !important;
+  }
+  .bg-vscode-inactiveTab {
+    background-color: #0e0e0d !important;
+  }
+  .bg-vscode-bg {
+    background-color: #0e0e0d !important;
+  }
+  .bg-\[\#252526\] {
+    background-color: #141413 !important;
+  }
+  .bg-\[\#252526\]\/40 {
+    background-color: rgba(20, 20, 19, 0.4) !important;
+  }
+  .bg-\[\#252526\]\/50 {
+    background-color: rgba(20, 20, 19, 0.5) !important;
+  }
+  .bg-\[\#1E1E1E\] {
+    background-color: #1e1d1b !important;
+  }
+  .bg-\[\#1E1E1E\]\/80 {
+    background-color: rgba(30, 29, 27, 0.8) !important;
+  }
+  .bg-\[\#1E1E1E\]\/50 {
+    background-color: rgba(30, 29, 27, 0.5) !important;
+  }
+  .bg-gradient-to-br.from-\[\#252526\].to-\[\#1E1E1E\] {
+    background-image: linear-gradient(to bottom right, #1e1d1b, #161513) !important;
+  }
+  .bg-gradient-to-b.from-\[\#252526\].via-\[\#1E1E1E\].to-\[\#0A0A0A\] {
+    background-image: linear-gradient(to bottom, #1e1d1b, #161513, #0f0f0e) !important;
+  }
+
+  /* Case Study Overrides - Creative Agency Theme Transformation */
+  .case-study-overlay {
+    font-family: 'Outfit', sans-serif !important;
+  }
+  
+  .case-study-overlay h1, 
+  .case-study-overlay h2, 
+  .case-study-overlay h3, 
+  .case-study-overlay h4, 
+  .case-study-overlay h5, 
+  .case-study-overlay h6 {
+    font-family: 'Outfit', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .case-study-overlay h1 {
+    font-size: clamp(3rem, 8vw, 6.2rem) !important;
+    font-weight: 900 !important;
+    line-height: 0.9 !important;
+    background: linear-gradient(110deg, #ffffff 30%, #e5dfd5 60%, #c5a880 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .case-study-overlay h2,
+  .case-study-overlay h3 {
+    font-weight: 800 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* Make sure titles look loud and premium */
+  .case-study-overlay .font-mono:not(code, pre, select, option, .monospaced) {
+    font-family: 'Outfit', sans-serif !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+  }
+
+  /* Bento panel styling overrides */
+  .case-study-overlay .bg-\[\#252526\],
+  .case-study-overlay .bg-\[\#1E1E1E\],
+  .case-study-overlay .bg-zinc-900,
+  .case-study-overlay .bg-\[\#1c1c1e\],
+  .case-study-overlay .bg-\[\#1E1E1E\]\/80 {
+    background-color: #1e1d1b !important;
+    border-color: rgba(197, 168, 128, 0.15) !important;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  /* Soften the corners of all cards & widgets to match the website's rounded aesthetics */
+  .case-study-overlay .rounded-md,
+  .case-study-overlay .rounded-lg,
+  .case-study-overlay .rounded-xl {
+    border-radius: 20px !important;
+  }
+  
+  .case-study-overlay .rounded-2xl,
+  .case-study-overlay .rounded-3xl {
+    border-radius: 28px !important;
+  }
+
+  /* Make the sidebar explorer files look like modern tags/pills */
+  .case-study-overlay .border-vscode-border {
+    border-color: rgba(197, 168, 128, 0.12) !important;
+  }
+
+  /* Accent highlights & Glowing titles */
+  .case-study-overlay .text-vscode-accent {
+    color: var(--accent-color) !important;
+    text-shadow: 0 0 20px rgba(197, 168, 128, 0.3) !important;
+  }
+
+  /* Loud vibrant buttons */
+  .case-study-overlay button.bg-vscode-accent,
+  .case-study-overlay button.bg-accent {
+    background: linear-gradient(135deg, #c5a880 0%, #b8986c 100%) !important;
+    color: #0e0e0d !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em !important;
+    border-radius: 12px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 8px 24px rgba(197, 168, 128, 0.25) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .case-study-overlay button.bg-vscode-accent:hover,
+  .case-study-overlay button.bg-accent:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 30px rgba(197, 168, 128, 0.4) !important;
+  }
+
+  /* Sidebar file list item styling overrides to look like modern navigation pills */
+  .case-study-overlay .flex.items-center.space-x-2.px-3.py-2.rounded {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(197, 168, 128, 0.05) !important;
+    border-radius: 10px !important;
+    margin-bottom: 4px !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .case-study-overlay .flex.items-center.space-x-2.px-3.py-2.rounded:hover {
+    background-color: rgba(197, 168, 128, 0.05) !important;
+    border-color: rgba(197, 168, 128, 0.2) !important;
   }
 }

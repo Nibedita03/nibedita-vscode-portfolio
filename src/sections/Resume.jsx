@@ -18,15 +18,15 @@ const Resume = () => {
         <p className="text-vscode-textDark text-sm mb-8">142 KB • PDF Document</p>
         
         <div className="flex flex-col space-y-4 relative z-10">
-          <a href="https://drive.google.com/file/d/1kFg3vWveiIqvV6MMDfxyWoi_22V-NpgQ/view?usp=sharing" target="_blank" rel="noreferrer" className="flex items-center justify-center space-x-2 w-full py-4 bg-vscode-accent text-white rounded-md hover:bg-blue-600 transition-colors font-mono uppercase tracking-wider text-sm">
+          <a href="https://drive.google.com/file/d/1lPibMcc2eOshFhVoiXdD0hAcrevxYobx/view?usp=sharing" target="_blank" rel="noreferrer" className="flex items-center justify-center space-x-2 w-full py-4 bg-vscode-accent text-white rounded-md hover:bg-blue-600 transition-colors font-mono uppercase tracking-wider text-sm">
             <Download size={18} />
             <span>Download Resume</span>
           </a>
           
-          <button className="flex items-center justify-center space-x-2 w-full py-4 bg-[#1E1E1E] border border-vscode-border text-white rounded-md hover:border-vscode-accent transition-colors font-mono text-sm uppercase tracking-wider">
+          <a href="https://drive.google.com/file/d/1lPibMcc2eOshFhVoiXdD0hAcrevxYobx/view?usp=sharing" target="_blank" rel="noreferrer" className="flex items-center justify-center space-x-2 w-full py-4 bg-[#1E1E1E] border border-vscode-border text-white rounded-md hover:border-vscode-accent transition-colors font-mono text-sm uppercase tracking-wider">
             <FileText size={18} />
             <span>View in Browser</span>
-          </button>
+          </a>
         </div>
       </motion.div>
     </div>

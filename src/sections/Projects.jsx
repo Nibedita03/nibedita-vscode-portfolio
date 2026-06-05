@@ -4,6 +4,7 @@ import { Play, Loader2, ArrowUpRight, FolderOpen, X, ArrowLeft } from 'lucide-re
 import NooginCaseStudy from '../components/NooginCaseStudy';
 import ScrapGardenCaseStudy from '../components/ScrapGardenCaseStudy';
 import RydrCaseStudy from '../components/RydrCaseStudy';
+import GeospatialCaseStudy from '../components/GeospatialCaseStudy';
 
 const projects = [
   {
@@ -62,18 +63,41 @@ const explorationProjects = [
   },
   { 
     id: 6, 
-    title: "Blender", 
-    description: "3D Modeling and rendering. Automated quality checks to enforce strict rules across 3D scenes.", 
-    tech: ["3D Design", "Render"], 
+    title: "Blender Basics", 
+    description: "A series of 16 3D modeling experiments, low-poly objects, and lighting studies.", 
+    tech: ["3D Modeling", "Blender", "Cycles Render"], 
     image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=400",
+    images: [
+      { id: 1, title: "Low-Poly Isometric Bedroom", type: "image", src: "/blender-1.jpg", folder: "isometric_room", aspect: "aspect-video" },
+      { id: 2, title: "Fluid Splash Simulation", type: "video", src: "/blender-2.mp4", folder: "isometric_room", aspect: "aspect-square" },
+      { id: 3, title: "Sci-Fi Cargo Bay", type: "image", src: "/blender-3.jpg", folder: "isometric_room", aspect: "aspect-square" },
+      { id: 4, title: "Satisfying Gear Assembly", type: "video", src: "/blender-4.mp4", folder: "isometric_room", aspect: "aspect-video" },
+      { id: 5, title: "Cloth Physics on Sphere", type: "video", src: "/blender-5.mp4", folder: "isometric_room", aspect: "aspect-video" },
+      { id: 6, title: "Glass Dispersion Shader", type: "image", src: "/blender-6.jpg", folder: "nobita_bedroom", aspect: "aspect-video" },
+      { id: 7, title: "Mech Drone Model", type: "image", src: "/blender-7.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
+      { id: 8, title: "Retro Console Box", type: "image", src: "/blender-8.jpg", folder: "nobita_bedroom", aspect: "aspect-video" },
+      { id: 9, title: "Marble Run Simulation", type: "video", src: "/blender-9.mp4", folder: "nobita_bedroom", aspect: "aspect-video" },
+      { id: 10, title: "Procedural Pine Tree", type: "image", src: "/blender-10.jpg", folder: "nobita_bedroom", aspect: "aspect-square" },
+      { id: 11, title: "Chocolate Bar & Gold Foil", type: "image", src: "/blender-11.jpg", folder: "basic_object_studies", aspect: "aspect-video" },
+      { id: 12, title: "Chess Queen", type: "image", src: "/blender-12.jpg", folder: "basic_object_studies", aspect: "aspect-video" },
+      { id: 13, title: "Candle & Candleholder", type: "image", src: "/blender-13.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
+      { id: 14, title: "Wine Bottles — Wide Shot", type: "image", src: "/blender-14.jpg", folder: "basic_object_studies", aspect: "aspect-video" },
+      { id: 15, title: "Chess Board", type: "image", src: "/blender-15.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
+      { id: 16, title: "Table & Chair Set", type: "image", src: "/blender-16.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
+      { id: 17, title: "Chocolate Drip", type: "image", src: "/blender-chess.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
+      { id: 18, title: "Dart Board", type: "image", src: "/blender-dart.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
+      { id: 19, title: "Ping Pong Paddle", type: "image", src: "/blender-paddle.jpg", folder: "basic_object_studies", aspect: "aspect-square" },
+      { id: 20, title: "Animation Render", type: "video", src: "/blender-anim.mp4", folder: "basic_object_studies", aspect: "aspect-video" }
+    ],
     size: "narrow"
   },
   { 
     id: 7, 
     title: "Geospatial Visualisation", 
-    description: "Data mapping without generic tools. Explored the limits by creating detailed, responsive spatial graphics.", 
-    tech: ["GIS", "Mapping"], 
-    image: "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=400",
+    description: "Mapped cyclone risk zones, population density, and critical infrastructure across Ganjam, Odisha using QGIS — identifying the most vulnerable communities and underserved shelter locations.", 
+    tech: ["QGIS", "GIS", "Data Mapping", "Humanitarian"], 
+    image: "/geo-map-3.png",
+    link: "geospatial",
     size: "wide"
   }
 ];
@@ -241,9 +265,7 @@ const ExplorationCard = ({ project, index, onRun }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0d]/95 via-[#0e0e0d]/30 to-transparent z-10" />
       </div>
 
-      <div className="absolute top-6 left-6 z-20 bg-black/60 backdrop-blur-md border border-white/10 px-2.5 py-1 rounded-lg text-[9px] font-mono tracking-widest text-zinc-400 font-bold uppercase">
-        EXP_0{project.id - 3}
-      </div>
+
 
       <div className="relative z-20 text-left">
         <h4 className="text-white text-xl md:text-2xl font-black font-sans flex items-center justify-between group-hover:text-accent transition-colors duration-300">
@@ -272,7 +294,7 @@ const ExplorationCard = ({ project, index, onRun }) => {
             </div>
             
             <span className="text-[10px] font-black font-sans uppercase tracking-wider text-accent group-hover:text-white transition-colors duration-300 whitespace-nowrap hidden sm:block">
-              {project.link === 'scrap-garden' ? 'View Case Study →' : 'Quick View →'}
+              {(project.link === 'scrap-garden' || project.link === 'geospatial') ? 'View Case Study →' : 'Quick View →'}
             </span>
           </div>
         </div>
@@ -290,9 +312,20 @@ const Projects = () => {
   const [isNooginCaseStudyOpen, setIsNooginCaseStudyOpen] = useState(false);
   const [isScrapGardenCaseStudyOpen, setIsScrapGardenCaseStudyOpen] = useState(false);
   const [isRydrCaseStudyOpen, setIsRydrCaseStudyOpen] = useState(false);
+  const [isGeospatialCaseStudyOpen, setIsGeospatialCaseStudyOpen] = useState(false);
 
   // Exploration Quick-View Detail Modal
   const [activeExploration, setActiveExploration] = useState(null);
+  
+  // Selected image index for Blender/gallery lightboxes
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+
+  // Selected folder/category for dynamic explorers
+  const [selectedFolder, setSelectedFolder] = useState("isometric_room");
+
+  // Collapsible accordion states for rooms inside Blender modal
+  const [isRoom1Expanded, setIsRoom1Expanded] = useState(false);
+  const [isRoom2Expanded, setIsRoom2Expanded] = useState(false);
 
   // Consolidated URL Hash State Monitor to support Native Browser Back Button
   useEffect(() => {
@@ -303,7 +336,12 @@ const Projects = () => {
       setIsNooginCaseStudyOpen(false);
       setIsScrapGardenCaseStudyOpen(false);
       setIsRydrCaseStudyOpen(false);
+      setIsGeospatialCaseStudyOpen(false);
       setActiveExploration(null);
+      setSelectedImageIndex(null);
+      setSelectedFolder("isometric_room");
+      setIsRoom1Expanded(false);
+      setIsRoom2Expanded(false);
 
       // Handle match
       if (hash === '#noogin') {
@@ -312,6 +350,8 @@ const Projects = () => {
         setIsRydrCaseStudyOpen(true);
       } else if (hash === '#scrap-garden') {
         setIsScrapGardenCaseStudyOpen(true);
+      } else if (hash === '#geospatial') {
+        setIsGeospatialCaseStudyOpen(true);
       } else if (hash.startsWith('#exp-')) {
         const expId = parseInt(hash.replace('#exp-', ''), 10);
         const exp = explorationProjects.find(e => e.id === expId);
@@ -339,8 +379,21 @@ const Projects = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Lock body scroll when activeExploration (Blender Basics modal) or gallery lightbox is open
+  useEffect(() => {
+    const isLocked = activeExploration !== null || selectedImageIndex !== null;
+    if (isLocked) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeExploration, selectedImageIndex]);
+
   const handleRun = (link) => {
-    if (link === 'noogin' || link === 'rydr' || link === 'scrap-garden') {
+    if (link === 'noogin' || link === 'rydr' || link === 'scrap-garden' || link === 'geospatial') {
       setLoading(true);
       setLoadingText("opening case study...");
       
@@ -359,6 +412,8 @@ const Projects = () => {
   const handleExplorationClick = (project) => {
     if (project.link === 'scrap-garden') {
       handleRun('scrap-garden');
+    } else if (project.link === 'geospatial') {
+      handleRun('geospatial');
     } else {
       window.location.hash = `exp-${project.id}`;
     }
@@ -394,8 +449,8 @@ const Projects = () => {
         <div className="h-px bg-white/5 flex-1 ml-4"></div>
       </motion.h2>
 
-      {/* Vertical Stacked Cards Deck */}
-      <div className="flex flex-col mb-40 relative">
+      {/* Vertical Stacked Cards Deck (with isolate stacking context to prevent z-index bleed) */}
+      <div className="flex flex-col mb-40 relative isolate">
         {projects.map((project, i) => (
           <ProjectCard 
             key={project.id} 
@@ -441,6 +496,9 @@ const Projects = () => {
         {isRydrCaseStudyOpen && (
           <RydrCaseStudy onClose={() => { window.location.hash = ''; }} />
         )}
+        {isGeospatialCaseStudyOpen && (
+          <GeospatialCaseStudy onClose={() => { window.location.hash = ''; }} />
+        )}
       </AnimatePresence>
 
       {/* ─── EXPLORATION QUICK-VIEW MODAL ─── */}
@@ -453,66 +511,401 @@ const Projects = () => {
             onClick={() => { window.location.hash = ''; }}
             className="fixed inset-0 z-[150] flex items-center justify-center bg-[#0e0e0d]/90 backdrop-blur-md p-4"
           >
-            <motion.div
-              initial={{ scale: 0.95, y: 15 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 15 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              onClick={(e) => e.stopPropagation()}
-              className="max-w-2xl w-full border border-white/5 bg-[#141413] rounded-3xl p-6 md:p-8 relative shadow-2xl overflow-hidden"
-            >
-              <button
-                onClick={() => { window.location.hash = ''; }}
-                className="absolute top-6 right-6 p-2 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105"
+            {activeExploration.images ? (
+              /* Immersive Collapsible-Based Gallery for Blender Basics */
+              <motion.div
+                initial={{ scale: 0.95, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 15 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                onClick={(e) => e.stopPropagation()}
+                className="max-w-7xl w-[94vw] h-[90vh] border border-[#c5a880]/15 bg-[#141413] rounded-3xl relative shadow-2xl flex flex-col overflow-hidden"
               >
-                <X size={16} />
-              </button>
+                {/* Always-pinned Close button on top-right of the modal window */}
+                <button
+                  onClick={() => { window.location.hash = ''; }}
+                  className="absolute top-8 right-8 md:top-10 md:right-10 p-3 rounded-full border border-white/10 hover:border-white/20 bg-[#141413]/90 text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105 z-30 backdrop-blur-sm shadow-md"
+                >
+                  <X size={20} />
+                </button>
 
-              <div className="w-full aspect-video overflow-hidden rounded-xl bg-zinc-950 border border-white/5 relative mb-6">
-                {activeExploration.video ? (
-                  <video
-                    src={activeExploration.video}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                ) : activeExploration.image ? (
-                  <img
-                    src={activeExploration.image}
-                    alt={activeExploration.title}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-zinc-600 font-mono text-xs">
-                    NO_PREVIEW
+                {/* Inner Scrollable Body */}
+                <div className="overflow-y-auto flex-1 custom-scrollbar p-8 md:p-12 pr-12 text-left">
+                  
+                  {/* Modal Header */}
+                  <div className="mb-12 text-left space-y-4 pr-24">
+                    <h3 className="text-4xl md:text-5xl font-black font-sans text-white tracking-tight uppercase">
+                      {activeExploration.title}
+                    </h3>
+                    <p className="text-zinc-300 font-sans text-base md:text-lg max-w-4xl leading-relaxed">
+                      {activeExploration.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2.5 pt-2">
+                      {activeExploration.tech.map((t, idx) => (
+                        <span 
+                          key={idx} 
+                          className="text-xs md:text-sm font-mono text-accent border border-accent/20 px-4 py-1.5 rounded-xl bg-accent/5 font-semibold"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                )}
-                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded text-[8px] font-mono tracking-widest text-zinc-400 font-bold uppercase">
-                  EXP_0{activeExploration.id - 3}
-                </div>
-              </div>
 
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold font-sans text-white">
-                  {activeExploration.title}
-                </h3>
-                
-                <p className="text-zinc-300 leading-relaxed font-sans text-sm">
-                  {activeExploration.description}
-                </p>
+                  {/* 1. Singular Objects Section */}
+                  <div className="space-y-6 mb-12 text-left">
+                    <div className="flex items-center gap-3 border-b border-white/5 pb-3">
+                      <span className="text-base md:text-lg font-mono uppercase text-zinc-400 font-black tracking-wider">Singular 3D Objects</span>
+                      <span className="text-xs px-2.5 py-1 rounded-lg bg-white/[0.03] text-zinc-500 border border-white/5 font-mono">6 renders</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mt-6">
+                      {activeExploration.images
+                        .filter(img => img.folder === 'basic_object_studies')
+                        .map((obj) => {
+                          const globalIndex = activeExploration.images.findIndex(img => img.id === obj.id);
+                          return (
+                            <div key={obj.id} className="flex flex-col space-y-4">
+                              <motion.div
+                                whileHover={{ scale: 1.015, y: -4 }}
+                                onClick={() => setSelectedImageIndex(globalIndex)}
+                                className="group relative aspect-video rounded-3xl overflow-hidden border border-[#c5a880]/15 bg-[#0e0e0d] cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 flex items-center justify-center"
+                              >
+                                {obj.type === 'video' ? (
+                                  <video
+                                    src={obj.src}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    onError={(e) => {
+                                      e.target.onerror = null;
+                                      e.target.src = "/scrarap-garden-loop.mp4";
+                                    }}
+                                  />
+                                ) : (
+                                  <img
+                                    src={obj.src}
+                                    alt={obj.title}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    onError={(e) => {
+                                      if (obj.src && e.target.src.endsWith('.jpg')) {
+                                        e.target.src = obj.src.replace('.jpg', '.png');
+                                      } else {
+                                        e.target.onerror = null;
+                                        e.target.src = `https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=400`;
+                                      }
+                                    }}
+                                  />
+                                )}
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                  <span className="text-white font-mono text-xs md:text-sm tracking-wider uppercase font-semibold border border-white/20 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-sm">
+                                    {obj.type === 'video' ? 'Play Animation ✦' : 'View Object ✦'}
+                                  </span>
+                                </div>
+                              </motion.div>
+                              <div className="px-2 pt-1 text-left">
+                                <span className="text-white font-sans text-lg md:text-xl font-bold tracking-tight">{obj.title}</span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
 
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {activeExploration.tech.map((t, idx) => (
-                    <span 
-                      key={idx} 
-                      className="text-xs font-mono text-accent border border-accent/10 px-3 py-1 rounded-lg bg-accent/5"
+                  {/* 2. Collapsible Isometric Room */}
+                  <div className="border border-[#c5a880]/30 bg-[#c5a880]/[0.01] rounded-3xl overflow-hidden mb-8 text-left">
+                    <button 
+                      onClick={() => setIsRoom1Expanded(!isRoom1Expanded)}
+                      className="w-full flex items-center justify-between px-8 py-6 hover:bg-[#c5a880]/[0.03] transition-colors"
                     >
-                      {t}
-                    </span>
-                  ))}
+                      <div className="flex items-center gap-4">
+                        <span className="text-2xl">📁</span>
+                        <h4 className="text-white font-sans text-lg md:text-xl font-extrabold uppercase tracking-wide">Isometric Room</h4>
+                      </div>
+                      <span className="text-zinc-300 font-mono text-base font-semibold mr-2">
+                        {isRoom1Expanded ? '▲' : '▼'}
+                      </span>
+                    </button>
+                    {isRoom1Expanded && (
+                      <div className="p-8 border-t border-[#c5a880]/30 bg-[#0e0e0d]/30 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                        {activeExploration.images
+                          .filter(img => img.folder === 'isometric_room')
+                          .map((obj) => {
+                            const globalIndex = activeExploration.images.findIndex(img => img.id === obj.id);
+                            return (
+                              <div key={obj.id} className="flex flex-col space-y-4">
+                                <motion.div
+                                  whileHover={{ scale: 1.015, y: -4 }}
+                                  onClick={() => setSelectedImageIndex(globalIndex)}
+                                  className="group relative aspect-video rounded-3xl overflow-hidden border border-[#c5a880]/15 bg-[#0e0e0d] cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 flex items-center justify-center"
+                                >
+                                  {obj.type === 'video' ? (
+                                    <video
+                                      src={obj.src}
+                                      autoPlay
+                                      muted
+                                      loop
+                                      playsInline
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                      onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/scrarap-garden-loop.mp4";
+                                      }}
+                                    />
+                                  ) : (
+                                    <img
+                                      src={obj.src}
+                                      alt={obj.title}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                      onError={(e) => {
+                                        if (obj.src && e.target.src.endsWith('.jpg')) {
+                                          e.target.src = obj.src.replace('.jpg', '.png');
+                                        } else {
+                                          e.target.onerror = null;
+                                          e.target.src = `https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=400`;
+                                        }
+                                      }}
+                                    />
+                                  )}
+                                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <span className="text-white font-mono text-xs md:text-sm tracking-wider uppercase font-semibold border border-white/20 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-sm">
+                                      {obj.type === 'video' ? 'Play Animation ✦' : 'View Object ✦'}
+                                    </span>
+                                  </div>
+                                </motion.div>
+                                <div className="px-2 pt-1 text-left">
+                                  <span className="text-white font-sans text-lg md:text-xl font-bold tracking-tight">{obj.title}</span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 3. Collapsible Nobita Bedroom */}
+                  <div className="border border-[#c5a880]/30 bg-[#c5a880]/[0.01] rounded-3xl overflow-hidden mb-8 text-left">
+                    <button 
+                      onClick={() => setIsRoom2Expanded(!isRoom2Expanded)}
+                      className="w-full flex items-center justify-between px-8 py-6 hover:bg-[#c5a880]/[0.03] transition-colors"
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className="text-2xl">📁</span>
+                        <h4 className="text-white font-sans text-lg md:text-xl font-extrabold uppercase tracking-wide">Nobita Bedroom</h4>
+                      </div>
+                      <span className="text-zinc-300 font-mono text-base font-semibold mr-2">
+                        {isRoom2Expanded ? '▲' : '▼'}
+                      </span>
+                    </button>
+                    {isRoom2Expanded && (
+                      <div className="p-8 border-t border-[#c5a880]/30 bg-[#0e0e0d]/30 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                        {activeExploration.images
+                          .filter(img => img.folder === 'nobita_bedroom')
+                          .map((obj) => {
+                            const globalIndex = activeExploration.images.findIndex(img => img.id === obj.id);
+                            return (
+                              <div key={obj.id} className="flex flex-col space-y-4">
+                                <motion.div
+                                  whileHover={{ scale: 1.015, y: -4 }}
+                                  onClick={() => setSelectedImageIndex(globalIndex)}
+                                  className="group relative aspect-video rounded-3xl overflow-hidden border border-[#c5a880]/15 bg-[#0e0e0d] cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 flex items-center justify-center"
+                                >
+                                  {obj.type === 'video' ? (
+                                    <video
+                                      src={obj.src}
+                                      autoPlay
+                                      muted
+                                      loop
+                                      playsInline
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                      onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/scrarap-garden-loop.mp4";
+                                      }}
+                                    />
+                                  ) : (
+                                    <img
+                                      src={obj.src}
+                                      alt={obj.title}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                      onError={(e) => {
+                                        if (obj.src && e.target.src.endsWith('.jpg')) {
+                                          e.target.src = obj.src.replace('.jpg', '.png');
+                                        } else {
+                                          e.target.onerror = null;
+                                          e.target.src = `https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=400`;
+                                        }
+                                      }}
+                                    />
+                                  )}
+                                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <span className="text-white font-mono text-xs md:text-sm tracking-wider uppercase font-semibold border border-white/20 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-sm">
+                                      {obj.type === 'video' ? 'Play Animation ✦' : 'View Object ✦'}
+                                    </span>
+                                  </div>
+                                </motion.div>
+                                <div className="px-2 pt-1 text-left">
+                                  <span className="text-white font-sans text-lg md:text-xl font-bold tracking-tight">{obj.title}</span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    )}
+                  </div>
+
                 </div>
+              </motion.div>
+            ) : (
+              /* Standard Single Media Modal */
+              <motion.div
+                initial={{ scale: 0.95, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 15 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                onClick={(e) => e.stopPropagation()}
+                className="max-w-2xl w-full border border-white/5 bg-[#141413] rounded-3xl p-6 md:p-8 relative shadow-2xl overflow-hidden"
+              >
+                <button
+                  onClick={() => { window.location.hash = ''; }}
+                  className="absolute top-6 right-6 p-2 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105"
+                >
+                  <X size={16} />
+                </button>
+
+                <div className="w-full aspect-video overflow-hidden rounded-xl bg-zinc-950 border border-white/5 relative mb-6">
+                  {activeExploration.video ? (
+                    <video
+                      src={activeExploration.video}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  ) : activeExploration.image ? (
+                    <img
+                      src={activeExploration.image}
+                      alt={activeExploration.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-zinc-600 font-mono text-xs">
+                      NO_PREVIEW
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold font-sans text-white">
+                    {activeExploration.title}
+                  </h3>
+                  
+                  <p className="text-zinc-300 leading-relaxed font-sans text-sm">
+                    {activeExploration.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {activeExploration.tech.map((t, idx) => (
+                      <span 
+                        key={idx} 
+                        className="text-xs font-mono text-accent border border-accent/10 px-3 py-1 rounded-lg bg-accent/5"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ─── FULLSCREEN LIGHTBOX FOR IMAGES ─── */}
+      <AnimatePresence>
+        {selectedImageIndex !== null && activeExploration && activeExploration.images && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImageIndex(null)}
+            className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedImageIndex(null)}
+              className="absolute top-6 right-6 p-2 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer hover:scale-105 z-[210]"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Left Nav Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImageIndex((prev) => (prev > 0 ? prev - 1 : activeExploration.images.length - 1));
+              }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer z-[210] font-bold text-lg"
+            >
+              ←
+            </button>
+
+            {/* Right Nav Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImageIndex((prev) => (prev < activeExploration.images.length - 1 ? prev + 1 : 0));
+              }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] text-zinc-400 hover:text-white transition-all cursor-pointer z-[210] font-bold text-lg"
+            >
+              →
+            </button>
+
+            {/* Main Lightbox Image */}
+            <motion.div
+              key={selectedImageIndex}
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-4xl max-h-[80vh] flex flex-col items-center justify-center relative select-none"
+            >
+              {activeExploration.images[selectedImageIndex].type === 'video' ? (
+                <video
+                  src={activeExploration.images[selectedImageIndex].src}
+                  autoPlay
+                  controls
+                  loop
+                  className="max-w-full max-h-[70vh] rounded-xl border border-white/10 shadow-2xl"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/scrapgarden-loop.mp4";
+                  }}
+                />
+              ) : (
+                <img
+                  src={activeExploration.images[selectedImageIndex].src}
+                  alt={activeExploration.images[selectedImageIndex].title}
+                  className="max-w-full max-h-[70vh] object-contain rounded-xl border border-white/10 shadow-2xl"
+                  onError={(e) => {
+                    if (e.target.src.endsWith('.jpg')) {
+                      e.target.src = activeExploration.images[selectedImageIndex].src.replace('.jpg', '.png');
+                    } else {
+                      e.target.onerror = null;
+                      e.target.src = `https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800`;
+                    }
+                  }}
+                />
+              )}
+              <div className="mt-4 text-center space-y-1">
+                <h4 className="text-white font-sans text-base font-semibold">
+                  {activeExploration.images[selectedImageIndex].title}
+                </h4>
+                <span className="text-zinc-500 font-mono text-xs tracking-wider uppercase block">
+                  {activeExploration.images[selectedImageIndex].type} — Object {selectedImageIndex + 1} of {activeExploration.images.length}
+                </span>
               </div>
             </motion.div>
           </motion.div>

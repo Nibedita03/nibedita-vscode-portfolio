@@ -94,6 +94,13 @@ const App = () => {
     const handleScroll = () => {
       if (isScrollingRef.current) return;
 
+      // If a modal or project page is open via URL hash, keep active section locked to projects
+      const hash = window.location.hash;
+      if (hash === '#noogin' || hash === '#rydr' || hash === '#scrap-garden' || hash === '#geospatial' || hash.startsWith('#exp-')) {
+        setActiveSection('projects');
+        return;
+      }
+
       const sections = ['home', 'projects', 'about', 'whatido', 'techstack', 'contact'];
       let current = '';
 
@@ -137,9 +144,24 @@ const App = () => {
     };
   }, [loading]);
 
+  // Sync URL Hash with active section tab indicator (Work tab for project details/explorations)
+  useEffect(() => {
+    const handleHashSync = () => {
+      const hash = window.location.hash;
+      if (hash === '#noogin' || hash === '#rydr' || hash === '#scrap-garden' || hash === '#geospatial' || hash.startsWith('#exp-')) {
+        setActiveSection('projects');
+      }
+    };
+
+    // Run on mount and listen to hashchange
+    handleHashSync();
+    window.addEventListener('hashchange', handleHashSync);
+    return () => window.removeEventListener('hashchange', handleHashSync);
+  }, []);
+
   const navItems = [
     { label: 'Home', id: 'home' },
-    { label: 'Work', id: 'projects' },
+    { label: 'My Work', id: 'projects' },
     { label: 'About', id: 'about' },
     { label: 'Services', id: 'whatido' },
     { label: 'Skills', id: 'techstack' },
@@ -148,29 +170,39 @@ const App = () => {
 
   const handleNavClick = (id) => {
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      isScrollingRef.current = true;
-      setActiveSection(id);
 
-      const offset = 90; // Navbar height
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+    const performScroll = () => {
+      const element = document.getElementById(id);
+      if (element) {
+        isScrollingRef.current = true;
+        setActiveSection(id);
 
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
+        const offset = 90; // Navbar height
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+
+        scrollTimeoutRef.current = setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 800);
       }
+    };
 
-      scrollTimeoutRef.current = setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 800);
+    if (window.location.hash) {
+      window.location.hash = '';
+      setTimeout(performScroll, 100);
+    } else {
+      performScroll();
     }
   };
 
@@ -195,7 +227,7 @@ const App = () => {
       {/* Main Container */}
       <div className={`min-h-screen bg-transparent text-[#E4E4E7] font-sans transition-opacity duration-1000 ${loading ? 'opacity-0' : 'opacity-100'}`}>
         
-        {/* Animated Aurora Background Blobs */}
+        {/* Animated Background Container */}
         {!loading && (
           <div className="aurora-bg" />
         )}
@@ -216,7 +248,7 @@ const App = () => {
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`transition-colors duration-300 relative py-1 uppercase tracking-wider text-[11px] ${
+                  className={`transition-colors duration-300 relative py-2 uppercase tracking-wider text-[11px] ${
                     activeSection === item.id 
                       ? 'text-white' 
                       : 'text-zinc-400 hover:text-zinc-200'
@@ -226,7 +258,7 @@ const App = () => {
                   {activeSection === item.id && (
                     <motion.div 
                       layoutId="activeTabIndicator"
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent rounded-full shadow-[0_0_8px_#c5a880]"
                       transition={{ type: "spring", stiffness: 350, damping: 25 }}
                     />
                   )}

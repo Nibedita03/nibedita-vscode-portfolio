@@ -105,10 +105,15 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: "100%" }}
       transition={{ type: "spring", bounce: 0, duration: 0.6 }}
-      className="fixed inset-0 z-[100] bg-[#07080b] overflow-y-auto overflow-x-hidden shadow-2xl"
+      className="fixed inset-0 z-[100] bg-[#161513] overflow-y-auto overflow-x-hidden shadow-2xl case-study-overlay"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(197, 168, 128, 0.15) 1px, transparent 1px)',
+        backgroundSize: '32px 32px',
+        backgroundAttachment: 'local'
+      }}
     >
       {/* Navbar */}
-      <div className="sticky top-0 z-[110] bg-[#07080b]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
+      <div className="sticky top-0 z-[110] bg-[#161513]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <button
           onClick={onClose}
           className="flex items-center space-x-2 text-zinc-400 hover:text-white transition-colors group font-sans text-sm"
@@ -119,7 +124,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
         <div className="text-zinc-500 text-sm font-semibold tracking-wider uppercase hidden md:block">Scrap Garden / Case Study</div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
 
         {/* Hero Block */}
         <motion.div
@@ -128,30 +133,35 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-24"
         >
-          <span className="font-mono text-vscode-accent text-sm mb-4 block">03. Featured Case Study</span>
-          <h1 className="text-5xl md:text-7xl font-bold text-white font-sans tracking-tight mb-8">
-            Scrap Garden
+          <div className="flex items-center gap-1.5 text-[10px] font-black tracking-[0.35em] uppercase text-accent mb-4">
+            <motion.span animate={{ rotate: [0, 360] }} transition={{ duration: 6, repeat: Infinity, ease: 'linear' }} className="inline-block">✦</motion.span>
+            03 ✦ CREATIVE INSTALLATION
+          </div>
+          <h1 className="font-black uppercase leading-[0.85] text-[clamp(2.5rem,7.5vw,6rem)] flex flex-col mb-8 tracking-tighter select-none">
+            <span style={{
+              background: 'linear-gradient(110deg, #ffffff 30%, #e5dfd5 60%, #c5a880 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }} className="inline-block">SCRAP</span>
+            <span className="text-white inline-block">GARDEN</span>
           </h1>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 p-8 bg-[#252526]/50 border border-vscode-border rounded-xl font-sans text-sm shadow-xl relative overflow-hidden">
-
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 p-8 border border-[#c5a880]/15 bg-[#141413] rounded-[24px] font-sans text-sm shadow-2xl relative overflow-hidden">
             <div className="space-y-1.5">
-              <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Role</span>
-              <span className="text-white font-semibold leading-relaxed block">Concept, Interaction Design, Arduino Programming</span>
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Role</span>
+              <span className="text-white font-bold leading-relaxed block">Concept, Interaction Design, Arduino</span>
             </div>
-
             <div className="space-y-1.5">
-              <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Team</span>
-              <span className="text-white font-semibold leading-relaxed block">Nibedita Behera, Vrisha, Sahana, Tanya</span>
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Team</span>
+              <span className="text-white font-bold leading-relaxed block">Nibedita, Vrisha, Sahana, Tanya</span>
             </div>
-
             <div className="space-y-1.5">
-              <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Timeline</span>
-              <span className="text-white font-semibold leading-relaxed block">2 weeks</span>
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Timeline</span>
+              <span className="text-white font-bold leading-relaxed block">2 Weeks</span>
             </div>
-
             <div className="space-y-1.5">
-              <span className="text-[10px] font-mono text-vscode-textDark uppercase tracking-wider block font-bold">Context</span>
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Context</span>
               <span className="text-white font-semibold leading-relaxed block">Art for the 99%, Srishti Manipal</span>
             </div>
 
@@ -259,7 +269,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
               </span>
             </div>
 
-            <div className="relative rounded-2xl overflow-hidden aspect-video max-h-[580px] bg-[#1E1E1E]">
+            <div className="relative rounded-2xl overflow-hidden bg-[#1E1E1E] w-full">
               <video
                 src="/scrapgarden-loop.mp4"
                 controls
@@ -267,7 +277,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
                 muted
                 loop
                 playsInline
-                className="w-full h-full object-cover"
+                className="w-full h-auto max-h-[640px] object-cover block"
               />
             </div>
 
@@ -283,54 +293,54 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
           <div className="space-y-16 w-full">
 
             {/* 1. College Junkyard Search */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-vscode-border rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-[#c5a880]/20 rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
 
 
-              <div className="lg:col-span-5 space-y-6">
-                <span className="px-3.5 py-1 bg-purple-500/15 border border-purple-500/20 text-purple-400 font-mono text-[10px] rounded-full uppercase tracking-wider font-semibold">Step 01: Junk Archaeology</span>
-                <h3 className="text-white text-3xl font-bold font-sans tracking-tight leading-none">College Junkyard Search</h3>
-                <p className="text-vscode-text text-base leading-relaxed font-sans">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="px-3.5 py-1 bg-vscode-accent/10 border border-vscode-accent/20 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Step 01: Junk Archaeology</span>
+                <h3 className="text-white text-4xl font-bold font-sans tracking-tight leading-none">College Junkyard Search</h3>
+                <p className="text-vscode-text text-lg leading-relaxed font-sans">
                   We started by just walking around campus looking for anything useful. The scrapyard behind the design block had everything. Broken lamp posts, bent pipes, coils of wire, rusted frames. Nothing was bought. Everything came from there.
                 </p>
-                <div className="p-4 rounded-xl bg-[#1E1E1E] border border-vscode-border/50 font-mono text-xs text-purple-400 leading-relaxed">
+                <div className="p-4 rounded-xl bg-[#1E1E1E] border border-[#c5a880]/15 font-mono text-sm text-vscode-accent leading-relaxed">
                   The brief said: only discarded and found materials. So we took that literally.
                 </div>
               </div>
 
-              <div className="lg:col-span-7 relative rounded-2xl overflow-hidden border border-vscode-border bg-[#1E1E1E] shadow-xl group h-[420px] flex items-center justify-center">
+              <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-[#c5a880]/20 bg-[#1E1E1E] shadow-xl group max-w-[200px] w-full mx-auto">
                 <img
                   src="/process-2.jpg"
                   alt="Junkyard Sourcing"
-                  className="w-full h-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-purple-400 rounded-lg">
+                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-vscode-accent rounded-lg">
                   🗑️ 1. The Campus Scrap Junkyard
                 </div>
               </div>
             </div>
 
             {/* 2. The Streetlight Base */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-vscode-border rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-[#c5a880]/20 rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
 
 
-              <div className="lg:col-span-7 relative rounded-2xl overflow-hidden border border-vscode-border bg-[#1E1E1E] shadow-xl group h-[420px] flex items-center justify-center">
+              <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-[#c5a880]/20 bg-[#1E1E1E] shadow-xl group max-w-[200px] w-full mx-auto">
                 <img
                   src="/process-3.jpg"
                   alt="Streetlight Base"
-                  className="w-full h-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-vscode-accent rounded-lg">
-                  💡 2. Original Streetlight Used as Base
+                  💡 2. Original Streetlight Base
                 </div>
               </div>
 
-              <div className="lg:col-span-5 space-y-6">
-                <span className="px-3.5 py-1 bg-vscode-accent/15 border border-vscode-accent/20 text-vscode-accent font-mono text-[10px] rounded-full uppercase tracking-wider font-semibold">Step 02: Structural Core</span>
-                <h3 className="text-white text-3xl font-bold font-sans tracking-tight leading-none">The Streetlight Base</h3>
-                <p className="text-vscode-text text-base leading-relaxed font-sans">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="px-3.5 py-1 bg-vscode-accent/10 border border-vscode-accent/20 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Step 02: Structural Core</span>
+                <h3 className="text-white text-4xl font-bold font-sans tracking-tight leading-none">The Streetlight Base</h3>
+                <p className="text-vscode-text text-lg leading-relaxed font-sans">
                   We found an old campus streetlight in the junkyard and realised its dome shape was perfect for what we had in mind. We pulled it apart, cleaned it up, and used it as the base of the flower. The light sits inside the dome and shines through the petals we added later.
                 </p>
-                <div className="space-y-2 font-mono text-xs text-vscode-accent">
+                <div className="space-y-2 font-mono text-sm text-vscode-accent">
                   <span className="block">✓ Salvaged streetlight dome</span>
                   <span className="block">✓ LED strips placed inside for warm glow</span>
                 </div>
@@ -338,54 +348,54 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
             </div>
 
             {/* 3. Model Circuitry & Wiring */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-vscode-border rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-[#c5a880]/20 rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
 
 
-              <div className="lg:col-span-5 space-y-6">
-                <span className="px-3.5 py-1 bg-[#4ADE80]/15 border border-[#4ADE80]/20 text-[#4ADE80] font-mono text-[10px] rounded-full uppercase tracking-wider font-semibold">Step 03: Interactive System</span>
-                <h3 className="text-white text-3xl font-bold font-sans tracking-tight leading-none">Model Circuitry & Wiring</h3>
-                <p className="text-vscode-text text-base leading-relaxed font-sans">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="px-3.5 py-1 bg-vscode-accent/10 border border-vscode-accent/20 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Step 03: Interactive System</span>
+                <h3 className="text-white text-4xl font-bold font-sans tracking-tight leading-none">Model Circuitry & Wiring</h3>
+                <p className="text-vscode-text text-lg leading-relaxed font-sans">
                   This is where we figured out how the joystick would actually control the lights. We used an Arduino and mapped the joystick direction to different LED clusters. Tilt one way and one flower lights up, tilt another and a different one does. It took a lot of testing to get it right.
                 </p>
-                <div className="p-4 rounded-xl bg-[#1E1E1E] border border-vscode-border/50 font-mono text-xs text-vscode-textDark leading-relaxed">
+                <div className="p-4 rounded-xl bg-[#1E1E1E] border border-[#c5a880]/15 font-mono text-sm text-vscode-accent leading-relaxed">
                   Analog joystick → Arduino Uno → relay switch → LED strip. Simple in theory, messy in practice.
                 </div>
               </div>
 
-              <div className="lg:col-span-7 relative rounded-2xl overflow-hidden border border-vscode-border bg-[#1E1E1E] shadow-xl group h-[420px] flex items-center justify-center">
+              <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-[#c5a880]/20 bg-[#1E1E1E] shadow-xl group max-w-[200px] w-full mx-auto">
                 <img
                   src="/process-1.jpg"
                   alt="Model Wiring"
-                  className="w-full h-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-[#4ADE80] rounded-lg">
+                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-vscode-accent rounded-lg">
                   🔌 3. Interactive Circuitry & Wiring Bench
                 </div>
               </div>
             </div>
 
             {/* 4. Installing Lamps on Site (Before Petals) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-vscode-border rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-[#c5a880]/20 rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
 
 
-              <div className="lg:col-span-7 relative rounded-2xl overflow-hidden border border-vscode-border bg-[#1E1E1E] shadow-xl group h-[420px] flex items-center justify-center">
+              <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-[#c5a880]/20 bg-[#1E1E1E] shadow-xl group max-w-[200px] w-full mx-auto">
                 <img
                   src="/process-4.jpg"
                   alt="Installing Lamps Spot"
-                  className="w-full h-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-[#4ADE80] rounded-lg">
-                  📸 4. Installing Lamps in Courtyard (Before Petals)
+                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-vscode-accent rounded-lg">
+                  📸 4. Site Installation (Before Petals)
                 </div>
               </div>
 
-              <div className="lg:col-span-5 space-y-6">
-                <span className="px-3.5 py-1 bg-vscode-accent/15 border border-vscode-accent/20 text-vscode-accent font-mono text-[10px] rounded-full uppercase tracking-wider font-semibold">Step 04: Site Installation</span>
-                <h3 className="text-white text-3xl font-bold font-sans tracking-tight leading-none">Putting It Up</h3>
-                <p className="text-vscode-text text-base leading-relaxed font-sans">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="px-3.5 py-1 bg-vscode-accent/10 border border-vscode-accent/20 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Step 04: Site Installation</span>
+                <h3 className="text-white text-4xl font-bold font-sans tracking-tight leading-none">Putting It Up</h3>
+                <p className="text-vscode-text text-lg leading-relaxed font-sans">
                   We brought everything to the courtyard and started putting it together on site. The lamps went up first, before any of the fabric was added, so we could check if the structure was stable and the wiring made sense in the actual space.
                 </p>
-                <div className="space-y-3 font-sans text-sm border-t border-vscode-border/30 pt-6">
+                <div className="space-y-3 font-sans text-base border-t border-vscode-border/30 pt-6">
                   <div className="flex items-center gap-3">
                     <span className="text-vscode-accent text-lg">⚒️</span>
                     <span className="text-vscode-text">Anchoring the steel stems and checking alignment.</span>
@@ -399,27 +409,27 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
             </div>
 
             {/* 5. Manual Fabric Fabrication */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-vscode-border rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#252526] border border-[#c5a880]/20 rounded-3xl p-6 md:p-8 shadow-2xl items-center relative overflow-hidden">
 
 
-              <div className="lg:col-span-5 space-y-6">
-                <span className="px-3.5 py-1 bg-yellow-500/15 border border-yellow-500/20 text-yellow-400 font-mono text-[10px] rounded-full uppercase tracking-wider font-semibold">Step 05: Collaborative Build</span>
-                <h3 className="text-white text-3xl font-bold font-sans tracking-tight leading-none">Making the Petals</h3>
-                <p className="text-vscode-text text-base leading-relaxed font-sans">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="px-3.5 py-1 bg-vscode-accent/10 border border-vscode-accent/20 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Step 05: Collaborative Build</span>
+                <h3 className="text-white text-4xl font-bold font-sans tracking-tight leading-none">Making the Petals</h3>
+                <p className="text-vscode-text text-lg leading-relaxed font-sans">
                   The petals were made from scrap fabric, mostly bits from the textile rooms. We cut them into petal shapes, stretched them over bent wire frames, and stitched them together. When the lights come on inside, the fabric glows and diffuses the light really nicely.
                 </p>
-                <p className="text-vscode-textDark text-sm font-sans leading-relaxed">
+                <p className="text-vscode-textDark text-base font-sans leading-relaxed">
                   This part was hands-on and a bit chaotic. A lot of pinning, cutting, redoing. But that's kind of what made it fun.
                 </p>
               </div>
 
-              <div className="lg:col-span-7 relative rounded-2xl overflow-hidden border border-vscode-border bg-[#1E1E1E] shadow-xl group h-[420px] flex items-center justify-center">
+              <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-[#c5a880]/20 bg-[#1E1E1E] shadow-xl group max-w-[200px] w-full mx-auto">
                 <img
                   src="/process-5.jpg"
                   alt="Fabrication Craft"
-                  className="w-full h-full object-contain rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-yellow-400 rounded-lg">
+                <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm border border-vscode-border/50 text-xs font-mono text-vscode-accent rounded-lg">
                   🧵 5. Manual Textile Fabrication Process
                 </div>
               </div>
@@ -456,7 +466,7 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
         </Section>
 
         {/* People Using It */}
-        <Section title="Then People Touched It" icon={Sparkles}>
+        <Section title="Intuitive Engagement & Play" icon={Sparkles}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full items-center">
             {/* Text Left */}
             <div className="lg:col-span-5 space-y-5">
@@ -499,29 +509,39 @@ const ScrapGardenCaseStudy = ({ onClose }) => {
 
         {/* Reflections */}
         <Section title="Reflection" icon={Sparkles}>
-          <div className="w-full p-6 bg-[#252526]/20 border border-vscode-border/40 rounded-xl relative overflow-hidden shadow-lg flex gap-6 items-stretch">
-            {/* Left Accent Bar with Gradient */}
-            <div className="w-1 bg-gradient-to-b from-vscode-accent via-vscode-accent/50 to-transparent rounded-full hidden md:block shrink-0"></div>
+          <div className="w-full py-12 px-6 md:px-12 bg-[#252526]/10 border border-vscode-border/30 rounded-2xl relative overflow-hidden shadow-xl text-center">
+            {/* Background Accent Quotes */}
+            <span className="absolute top-4 left-6 text-7xl md:text-8xl text-vscode-accent/15 font-serif select-none pointer-events-none">“</span>
             
-            {/* Reflection Content */}
-            <div className="flex-1 space-y-4 font-sans">
-              <div className="flex items-center space-x-3">
-                <div className="px-2 py-0.5 rounded bg-vscode-accent/10 border border-vscode-accent/20 text-[9px] font-mono text-vscode-accent uppercase tracking-wider font-bold">
-                  Takeaway
-                </div>
-                <span className="text-[11px] font-mono text-vscode-textDark">scrap_garden_reflection.md</span>
-              </div>
+            <div className="relative z-10 max-w-3xl mx-auto space-y-6 py-4">
+              <span className="text-[11px] font-mono text-vscode-textDark tracking-widest block uppercase">
+                // scrap_garden_reflection.md
+              </span>
               
-              <div className="space-y-4 text-vscode-text text-sm md:text-[15px] leading-relaxed">
+              <div className="text-lg md:text-xl lg:text-2xl font-light font-sans text-vscode-text leading-loose tracking-wide italic space-y-8">
                 <p className="text-white/95">
-                  The scrap garden changed the way I looked at waste. Junk pieces slowly started feeling like <span className="text-white font-medium border-b border-vscode-accent/30 pb-0.5">materials with another life hidden inside them</span>. Through this project, I wanted to show that <span className="text-vscode-accent font-semibold">art is not only for galleries or rich people</span>. Art can be made from everyday discarded objects and still create curiosity, interaction, and emotion.
+                  The scrap garden changed the way I looked at waste.<br />
+                  Junk pieces slowly started feeling like<br />
+                  <span className="text-white font-semibold not-italic">materials with another life hidden inside them.</span><br />
+                  Through this project, I wanted to show that<br />
+                  <span className="text-vscode-accent font-bold not-italic">art is not only for galleries or rich people.</span><br />
+                  Art can be made from everyday discarded objects<br />
+                  and still create curiosity, interaction, and emotion.
                 </p>
                 
                 <p className="text-vscode-text/90">
-                  The hardest part was realizing that simple was enough. I kept wanting to add more, but eventually understood that <span className="text-vscode-accent font-semibold">restraint itself became part of the design</span>. Watching someone move the joystick for the first time and seeing a flower light up made the project feel complete. It reminded me that interactive art <span className="text-white font-medium">does not need expensive materials; it just needs connection</span>.
+                  The hardest part was realizing that simple was enough.<br />
+                  I kept wanting to add more,<br />
+                  but eventually understood that <span className="text-vscode-accent font-bold not-italic">restraint itself became part of the design.</span><br />
+                  Watching someone move the joystick for the first time<br />
+                  and seeing a flower light up made the project feel complete.<br />
+                  It reminded me that interactive art<br />
+                  <span className="text-white font-semibold not-italic">does not need expensive materials; it just needs connection.</span>
                 </p>
               </div>
             </div>
+
+            <span className="absolute bottom-2 right-6 text-7xl md:text-8xl text-vscode-accent/15 font-serif select-none pointer-events-none">”</span>
           </div>
         </Section>
 

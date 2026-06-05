@@ -357,42 +357,62 @@ const SwotAnalysis = () => {
 
 const GapAnalysis = () => {
   const gaps = [
-    "No single platform integrates all major learning styles (visual, auditory, kinesthetic) in one place",
-    "Most platforms focus on videos and quizzes, lacking interactive or hands-on learning",
-    "Educational apps are either broad (not deeply personalized) or niche (limited to one learning style)",
-    "Lack of structured, chapter-wise curriculum adapted to individual learning preferences"
+    {
+      num: "01",
+      title: "Integration Void",
+      desc: "No single platform integrates all major learning styles (visual, auditory, kinesthetic) in one place.",
+    },
+    {
+      num: "02",
+      title: "Active Learning Gap",
+      desc: "Most platforms focus on passive videos and quizzes, lacking interactive or hands-on tactile learning.",
+    },
+    {
+      num: "03",
+      title: "Scale vs Personalization",
+      desc: "Educational apps are either too broad (lacking personal adaptation) or too niche (confined to one style).",
+    },
+    {
+      num: "04",
+      title: "Curriculum Adaptation",
+      desc: "Lack of structured, chapter-wise curriculum dynamically adapted to individual cognitive preferences.",
+    }
   ];
 
   return (
-    <div className="bg-[#1E1E1E] rounded-xl border border-vscode-border shadow-2xl overflow-hidden font-mono mt-8">
-      {/* Fake VS Code Panel Header */}
-      <div className="flex bg-[#252526] border-b border-vscode-border text-xs overflow-x-auto hide-scrollbar">
-        <div className="px-4 py-3 border-b-2 border-vscode-accent text-white uppercase tracking-wider whitespace-nowrap">
-          Market Gaps <span className="ml-2 bg-[#FF5F56]/20 text-[#FF5F56] px-1.5 rounded-full">{gaps.length}</span>
-        </div>
-      </div>
-      
-      <div className="p-4 space-y-1">
-        {gaps.map((gap, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.15 }}
-            className="flex items-start gap-3 py-3 px-3 hover:bg-[#2A2D2E] rounded cursor-pointer group"
-          >
-            <ShieldAlert size={16} className="text-[#F59E0B] mt-0.5 shrink-0 group-hover:text-[#FF5F56] transition-colors" />
-            <div className="flex-1">
-              <span className="text-[#F59E0B] group-hover:text-[#FF5F56] mr-2 transition-colors">Warning:</span>
-              <span className="text-vscode-text text-sm font-sans">{gap}</span>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 w-full">
+      {gaps.map((gap, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+          whileHover={{ y: -6, scale: 1.01 }}
+          className="relative p-8 rounded-[28px] border bg-[#141413] border-white/5 hover:border-accent/30 overflow-hidden group shadow-2xl flex flex-col justify-between transition-all duration-300"
+        >
+          {/* Subtle background gradient glow */}
+          <div className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full blur-[100px] bg-gradient-to-tr from-[#c5a880]/10 to-transparent group-hover:from-[#c5a880]/25 transition-all duration-500" />
+          
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-[10px] font-black tracking-[0.25em] uppercase text-accent">
+                Gap Area
+              </span>
+              <span className="text-5xl font-black text-[#c5a880]/15 group-hover:text-[#c5a880]/30 transition-colors font-sans select-none leading-none">
+                {gap.num}
+              </span>
             </div>
-            <div className="text-vscode-textDark text-xs shrink-0 font-mono hidden md:block">
-              Ln {i * 12 + 42}, Col 8
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            
+            <h4 className="text-xl font-extrabold text-white uppercase tracking-tight mb-3 font-sans">
+              {gap.title}
+            </h4>
+            <p className="text-zinc-300 text-sm md:text-base leading-relaxed font-sans">
+              {gap.desc}
+            </p>
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 };
@@ -1709,10 +1729,15 @@ const NooginCaseStudy = ({ onClose }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: "100%" }}
       transition={{ type: "spring", bounce: 0, duration: 0.6 }}
-      className="fixed inset-0 z-[100] bg-[#07080b] overflow-y-auto overflow-x-hidden shadow-2xl"
+      className="fixed inset-0 z-[100] bg-[#161513] overflow-y-auto overflow-x-hidden shadow-2xl case-study-overlay"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(197, 168, 128, 0.15) 1px, transparent 1px)',
+        backgroundSize: '32px 32px',
+        backgroundAttachment: 'local'
+      }}
     >
       {/* Navbar */}
-      <div className="sticky top-0 z-[110] bg-[#07080b]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
+      <div className="sticky top-0 z-[110] bg-[#161513]/85 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <button 
           onClick={onClose}
           className="flex items-center space-x-2 text-zinc-400 hover:text-white transition-colors group font-sans text-sm"
@@ -1723,7 +1748,7 @@ const NooginCaseStudy = ({ onClose }) => {
         <div className="text-zinc-500 text-sm font-semibold tracking-wider uppercase hidden md:block">Noogin Nooks / Case Study</div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-10">
         {/* Hero Section */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -1731,27 +1756,36 @@ const NooginCaseStudy = ({ onClose }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-24"
         >
-          <span className="font-mono text-vscode-accent text-sm mb-4 block">01. Featured Case Study</span>
-          <h1 className="text-5xl md:text-7xl font-bold text-white font-sans tracking-tight mb-8">
-            Noogin Nooks
+          <div className="flex items-center gap-1.5 text-[10px] font-black tracking-[0.35em] uppercase text-accent mb-4">
+            <motion.span animate={{ rotate: [0, 360] }} transition={{ duration: 6, repeat: Infinity, ease: 'linear' }} className="inline-block">✦</motion.span>
+            01 ✦ FEATURED CASE STUDY
+          </div>
+          <h1 className="font-black uppercase leading-[0.85] text-[clamp(2.5rem,7.5vw,6rem)] flex flex-col mb-8 tracking-tighter select-none">
+            <span style={{
+              background: 'linear-gradient(110deg, #ffffff 30%, #e5dfd5 60%, #c5a880 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }} className="inline-block">NOOGIN</span>
+            <span className="text-white inline-block">NOOKS</span>
           </h1>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 p-6 bg-[#252526] border border-vscode-border rounded-lg font-mono text-sm shadow-xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 p-8 border border-[#c5a880]/15 bg-[#141413] rounded-[24px] font-sans text-sm shadow-2xl relative overflow-hidden">
             <div>
-              <span className="text-vscode-textDark block mb-1">Role</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Role</span>
               <span className="text-white font-bold">UI/UX Design</span>
             </div>
             <div>
-              <span className="text-vscode-textDark block mb-1">Timeline</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Timeline</span>
               <span className="text-white font-bold">3 Weeks</span>
             </div>
             <div>
-              <span className="text-vscode-textDark block mb-1">Context</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Context</span>
               <span className="text-white font-bold">Academic Project</span>
             </div>
             <div>
-              <span className="text-vscode-textDark block mb-1">Team</span>
-              <span className="text-white font-bold">Nibedita Behera, Lavanya Bhatia, Amrutha Bathala, Neha AK</span>
+              <span className="text-zinc-500 block mb-1.5 text-[10px] font-bold uppercase tracking-wider">Team</span>
+              <span className="text-white font-bold">Nibedita, Lavanya, Amrutha, Neha</span>
             </div>
           </div>
 
