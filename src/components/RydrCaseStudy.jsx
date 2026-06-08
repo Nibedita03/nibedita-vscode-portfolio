@@ -1564,14 +1564,31 @@ const HighFidelityGrid = () => {
   const containerRef = useRef(null);
 
   const screensData = [
-    { title: "Bike Map & GPS", image: "/rydr-screenshot-1.png", icon: "🗺️" },
-    { title: "Active Ride HUD", image: "/rydr-tracker.png", icon: "🚲" },
-    { title: "Ride Paused HUD", image: "/rydr-screenshot-2.png", icon: "⏸️" },
-    { title: "Bike Reserved Confirmation", image: "/rydr-screenshot-5.png", icon: "✅" },
-    { title: "Rules & Agreements", image: "/rydr-rules.png", icon: "📜" },
-    { title: "Final Ride Summary", image: "/rydr-summary.png", icon: "🏁" },
-    { title: "Welcome & Onboarding", image: "/rydr-onboarding.png", icon: "👋" },
-    { title: "Dock Search & Filter", image: "/rydr-rider-search.png", icon: "🔍" }
+    { title: "Onboarding: Explore Campus", image: "/rydr-onboarding-1.png", icon: "🗺️" },
+    { title: "Onboarding: Commute Green", image: "/rydr-onboarding-2.png", icon: "🌱" },
+    { title: "Onboarding: Seamless Access", image: "/rydr-onboarding-3.png", icon: "⚡" },
+    { title: "Role Selection: Idle", image: "/rydr-role-idle.png", icon: "👤" },
+    { title: "Role Selection: Student Active", image: "/rydr-role-active.png", icon: "🎓" },
+    { title: "Sign-Up: College Email", image: "/rydr-signup-email.png", icon: "✉️" },
+    { title: "Verification: OTP Sent", image: "/rydr-otp-idle.png", icon: "🔢" },
+    { title: "Verification: OTP Verified", image: "/rydr-otp-active.png", icon: "✅" },
+    { title: "Permissions: Location & Tracking", image: "/rydr-permissions-idle.png", icon: "🔒" },
+    { title: "Permissions: Enabled", image: "/rydr-permissions-active.png", icon: "🔓" },
+    { title: "Dock Map: Home Screen", image: "/rydr-map-reserve.png", icon: "📍" },
+    { title: "Dock List: Nearby Docks", image: "/rydr-nearby-docks.png", icon: "📋" },
+    { title: "Walking Route Navigation", image: "/rydr-navigation.png", icon: "🚶" },
+    { title: "QR Code Scanner", image: "/rydr-qr-scanner.png", icon: "📷" },
+    { title: "Bike Details Confirmation", image: "/rydr-bike-details.png", icon: "🚲" },
+    { title: "Safety & Rules Checklist", image: "/rydr-rules-checklist.png", icon: "📋" },
+    { title: "Active Ride HUD", image: "/rydr-active-ride.png", icon: "🚲" },
+    { title: "Ride Paused Screen", image: "/rydr-ride-paused.png", icon: "⏸️" },
+    { title: "End Ride Confirmation", image: "/rydr-end-ride-confirm.png", icon: "🏁" },
+    { title: "Final Ride Summary", image: "/rydr-ride-summary.png", icon: "💰" },
+    { title: "Feedback Detail Form", image: "/rydr-feedback.png", icon: "⭐" },
+    { title: "Reserve Bike Selection List", image: "/rydr-reserve-list.png", icon: "📝" },
+    { title: "Bike Reserved Confirmation", image: "/rydr-reserved-success.png", icon: "✔️" },
+    { title: "Green Commute Statistics", image: "/rydr-impact-stats.png", icon: "📊" },
+    { title: "User Profile Dashboard", image: "/rydr-user-profile.png", icon: "⚙️" }
   ];
 
   const GridContent = ({ isLensLayer = false }) => (
@@ -1604,7 +1621,7 @@ const HighFidelityGrid = () => {
             <p className="text-[#28C840] font-mono text-sm mt-1">
               {lensEnabled 
                 ? "Move your mouse over the screens to use the magnifying lens →" 
-                : "A clean overview of all 8 final Rydr screens →"}
+                : "A clean overview of all 25 final Rydr screens →"}
             </p>
           </div>
         </div>
@@ -2130,7 +2147,7 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
             {/* Background glow */}
             <div className="absolute w-[600px] h-[500px] bg-vscode-accent/10 rounded-full blur-[150px] pointer-events-none" />
 
-            {/* Phone 1 - Far left: Bike Reserved */}
+            {/* Phone 1 - Far left: Route Navigation */}
             <motion.div 
               initial={{ opacity: 0, x: -80 }}
               animate={{ opacity: 1, x: 0 }}
@@ -2139,10 +2156,10 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
               className="absolute w-[160px] md:w-[230px] rounded-[24px] overflow-hidden border-[5px] border-[#3C3C3C] shadow-[0_25px_50px_rgba(0,0,0,0.4)] cursor-pointer transition-all duration-500 z-[5]"
               style={{ left: 'calc(50% - 370px)', top: '12%', rotate: -14 }}
             >
-              <img src="/rydr-screenshot-5.png" alt="Rydr Bike Reserved" className="w-full h-auto" />
+              <img src="/rydr-navigation.png" alt="Rydr Walking Navigation" className="w-full h-auto" />
             </motion.div>
-
-            {/* Phone 2 - Left: User Map Docks */}
+ 
+            {/* Phone 2 - Left: Active Ride HUD */}
             <motion.div 
               initial={{ opacity: 0, x: -40, rotate: -15 }}
               animate={{ opacity: 1, x: 0, rotate: -7 }}
@@ -2151,10 +2168,10 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
               className="absolute w-[180px] md:w-[260px] rounded-[26px] overflow-hidden border-[6px] border-[#3C3C3C] shadow-[0_30px_60px_rgba(0,0,0,0.5)] cursor-pointer transition-all duration-500 z-10"
               style={{ left: 'calc(50% - 260px)', top: '6%' }}
             >
-              <img src="/rydr-screenshot-1.png" alt="Rydr Map Docks" className="w-full h-auto" />
+              <img src="/rydr-active-ride.png" alt="Rydr Active Ride HUD" className="w-full h-auto" />
             </motion.div>
-
-            {/* Phone 3 - Center: Ride Summary */}
+ 
+            {/* Phone 3 - Center: Dock Map Home Screen */}
             <motion.div 
               initial={{ opacity: 0, y: 60, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -2162,10 +2179,10 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
               whileHover={{ scale: 1.03 }}
               className="relative w-[220px] md:w-[300px] rounded-[32px] overflow-hidden border-[7px] border-[#3C3C3C] shadow-[0_40px_80px_rgba(0,0,0,0.7)] cursor-pointer transition-all duration-500 z-30"
             >
-              <img src="/rydr-summary.png" alt="Rydr Ride Summary" className="w-full h-auto" />
+              <img src="/rydr-map-reserve.png" alt="Rydr Dock Map Home Screen" className="w-full h-auto" />
             </motion.div>
-
-            {/* Phone 4 - Right: User Ride Paused */}
+ 
+            {/* Phone 4 - Right: Green Commute Stats */}
             <motion.div 
               initial={{ opacity: 0, x: 40, rotate: 15 }}
               animate={{ opacity: 1, x: 0, rotate: 7 }}
@@ -2174,10 +2191,10 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
               className="absolute w-[180px] md:w-[260px] rounded-[26px] overflow-hidden border-[6px] border-[#3C3C3C] shadow-[0_30px_60px_rgba(0,0,0,0.5)] cursor-pointer transition-all duration-500 z-10"
               style={{ right: 'calc(50% - 260px)', top: '6%' }}
             >
-              <img src="/rydr-screenshot-2.png" alt="Rydr Ride Paused" className="w-full h-auto" />
+              <img src="/rydr-impact-stats.png" alt="Rydr Green Commute Stats" className="w-full h-auto" />
             </motion.div>
-
-            {/* Phone 5 - Far right: Rules Agreement */}
+ 
+            {/* Phone 5 - Far right: Reservation Confirmed */}
             <motion.div 
               initial={{ opacity: 0, x: 80 }}
               animate={{ opacity: 1, x: 0 }}
@@ -2186,7 +2203,7 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
               className="absolute w-[160px] md:w-[230px] rounded-[24px] overflow-hidden border-[5px] border-[#3C3C3C] shadow-[0_25px_50px_rgba(0,0,0,0.4)] cursor-pointer transition-all duration-500 z-[5]"
               style={{ right: 'calc(50% - 370px)', top: '12%', rotate: 14 }}
             >
-              <img src="/rydr-rules.png" alt="Rydr Rules Agreement" className="w-full h-auto" />
+              <img src="/rydr-reserved-success.png" alt="Rydr Reservation Confirmed" className="w-full h-auto" />
             </motion.div>
           </div>
         </motion.div>
