@@ -6,6 +6,7 @@ import ScrapGardenCaseStudy from '../components/ScrapGardenCaseStudy';
 import RydrCaseStudy from '../components/RydrCaseStudy';
 import GeospatialCaseStudy from '../components/GeospatialCaseStudy';
 import SmartVisionCaseStudy from '../components/SmartVisionCaseStudy';
+import PhysicalComputingCaseStudy from '../components/PhysicalComputingCaseStudy';
 
 const projects = [
   {
@@ -59,7 +60,8 @@ const explorationProjects = [
     title: "Physical Computing", 
     description: "Hardware and software integration. Developed robust physical interfaces capable of handling complex inputs.", 
     tech: ["Arduino", "C++"], 
-    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=400",
+    image: "/physical-computing-cover.png",
+    link: "physical-computing",
     size: "narrow"
   },
   { 
@@ -315,6 +317,7 @@ const Projects = () => {
   const [isRydrCaseStudyOpen, setIsRydrCaseStudyOpen] = useState(false);
   const [isGeospatialCaseStudyOpen, setIsGeospatialCaseStudyOpen] = useState(false);
   const [isSmartVisionCaseStudyOpen, setIsSmartVisionCaseStudyOpen] = useState(false);
+  const [isPhysicalComputingCaseStudyOpen, setIsPhysicalComputingCaseStudyOpen] = useState(false);
 
   // Exploration Quick-View Detail Modal
   const [activeExploration, setActiveExploration] = useState(null);
@@ -340,6 +343,7 @@ const Projects = () => {
       setIsRydrCaseStudyOpen(false);
       setIsGeospatialCaseStudyOpen(false);
       setIsSmartVisionCaseStudyOpen(false);
+      setIsPhysicalComputingCaseStudyOpen(false);
       setActiveExploration(null);
       setSelectedImageIndex(null);
       setSelectedFolder("isometric_room");
@@ -357,6 +361,8 @@ const Projects = () => {
         setIsGeospatialCaseStudyOpen(true);
       } else if (hash === '#smart-vision') {
         setIsSmartVisionCaseStudyOpen(true);
+      } else if (hash === '#physical-computing') {
+        setIsPhysicalComputingCaseStudyOpen(true);
       } else if (hash.startsWith('#exp-')) {
         const expId = parseInt(hash.replace('#exp-', ''), 10);
         const exp = explorationProjects.find(e => e.id === expId);
@@ -398,7 +404,7 @@ const Projects = () => {
   }, [activeExploration, selectedImageIndex]);
 
   const handleRun = (link) => {
-    if (link === 'noogin' || link === 'rydr' || link === 'scrap-garden' || link === 'geospatial' || link === 'smart-vision') {
+    if (link === 'noogin' || link === 'rydr' || link === 'scrap-garden' || link === 'geospatial' || link === 'smart-vision' || link === 'physical-computing') {
       setLoading(true);
       setLoadingText("opening case study...");
       
@@ -442,6 +448,8 @@ const Projects = () => {
       handleRun('scrap-garden');
     } else if (project.link === 'geospatial') {
       handleRun('geospatial');
+    } else if (project.link === 'physical-computing') {
+      handleRun('physical-computing');
     } else {
       window.location.hash = `exp-${project.id}`;
     }
@@ -529,6 +537,9 @@ const Projects = () => {
         )}
         {isSmartVisionCaseStudyOpen && (
           <SmartVisionCaseStudy onClose={() => { window.location.hash = ''; }} onNavigate={handleNavigate} />
+        )}
+        {isPhysicalComputingCaseStudyOpen && (
+          <PhysicalComputingCaseStudy onClose={() => { window.location.hash = ''; }} onNavigate={handleNavigate} />
         )}
       </AnimatePresence>
 

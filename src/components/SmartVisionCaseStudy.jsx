@@ -23,14 +23,6 @@ const Section = ({ title, icon: Icon, children, delay = 0 }) => (
 );
 
 const SmartVisionCaseStudy = ({ onClose, onNavigate }) => {
-  // Video Playlist State
-  const videos = [
-    { id: 0, title: "AI Detection Demo", src: "/working-video.mp4", description: "Real-time OpenCV tracking of active slots in the paper mock garage." },
-    { id: 1, title: "Physical Setup & Lab Testing", src: "/process-video.mp4", description: "Interactive setup showing camera positioning and physical validation runs." },
-    { id: 2, title: "Virtual Space Walkthrough", src: "/blender-anim.mp4", description: "3D virtual render showing how spaces are modeled and processed." },
-    { id: 3, title: "Secondary Validation Loop", src: "/blender-egg.mp4", description: "Secondary physics verification loop for processing vehicle movement vectors." }
-  ];
-  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
 
   // Lock body scroll
   useEffect(() => {
@@ -145,41 +137,18 @@ const SmartVisionCaseStudy = ({ onClose, onNavigate }) => {
 
         {/* SECTION 1: OVERVIEW & ASSIGNMENT BRIEF */}
         <Section title="Project Overview & Brief" icon={Target}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            <div className="lg:col-span-7 space-y-6">
-              <p className="text-lg text-zinc-200 leading-relaxed font-sans">
-                The prompt was simple yet challenging: <strong>"Find a mundane, repetitive task in daily life that people find frustrating, and design a solution to eliminate or optimize it."</strong>
+          <div className="space-y-6">
+            <p className="text-lg text-zinc-200 leading-relaxed font-sans">
+              The prompt was simple yet challenging: <strong>"Find a mundane, repetitive task in daily life that people find frustrating, and design a solution to eliminate or optimize it."</strong>
+            </p>
+            <p className="text-zinc-300 leading-relaxed font-sans">
+              As designers, we often focus on digital interfaces like social apps or shopping carts. But the most significant pain points occur at the intersection of our physical and digital lives. 
+            </p>
+            <div className="p-6 rounded-2xl bg-white/[0.01] border border-white/5 mt-4">
+              <span className="text-xs font-mono text-accent uppercase tracking-widest block mb-2">The Goal</span>
+              <p className="text-zinc-300 font-sans text-sm leading-relaxed">
+                Bridge the gap between design theory and technical reality. Rather than just sketching high-fidelity UI screens, I decided to build a working sensor system using AI to prove that we can collect and display physical space vacancy in real time.
               </p>
-              <p className="text-zinc-300 leading-relaxed font-sans">
-                As designers, we often focus on digital interfaces like social apps or shopping carts. But the most significant pain points occur at the intersection of our physical and digital lives. 
-              </p>
-              <div className="p-6 rounded-2xl bg-white/[0.01] border border-white/5 mt-4">
-                <span className="text-xs font-mono text-accent uppercase tracking-widest block mb-2">The Goal</span>
-                <p className="text-zinc-300 font-sans text-sm leading-relaxed">
-                  Bridge the gap between design theory and technical reality. Rather than just sketching high-fidelity UI screens, I decided to build a working sensor system using AI to prove that we can collect and display physical space vacancy in real time.
-                </p>
-              </div>
-            </div>
-            <div className="lg:col-span-5 bg-[#141413] border border-[#c5a880]/15 rounded-[24px] p-8 space-y-6">
-              <h4 className="text-white font-sans text-xl font-bold tracking-tight">Key Metrics</h4>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-2 border-b border-white/5">
-                  <span className="text-zinc-400 font-mono text-xs">YOLOv8 Accuracy</span>
-                  <span className="text-accent font-mono font-bold text-sm">96.4%</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-white/5">
-                  <span className="text-zinc-400 font-mono text-xs">Processing Latency</span>
-                  <span className="text-accent font-mono font-bold text-sm">&lt;45ms / frame</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-white/5">
-                  <span className="text-zinc-400 font-mono text-xs">Time Saved per Driver</span>
-                  <span className="text-accent font-mono font-bold text-sm">~8.5 mins</span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-zinc-400 font-mono text-xs">Prototype Scale</span>
-                  <span className="text-accent font-mono font-bold text-sm">1:1 Functional</span>
-                </div>
-              </div>
             </div>
           </div>
         </Section>
@@ -272,44 +241,43 @@ const SmartVisionCaseStudy = ({ onClose, onNavigate }) => {
             </div>
           </div>
 
-          {/* Pain Points list */}
           <div className="border border-white/5 rounded-2xl bg-white/[0.01] p-8 space-y-6">
-            <h4 className="text-white text-xl font-bold font-sans">Primary Opportunity Areas</h4>
-            <div className="grid md:grid-cols-2 gap-6">
+            <h4 className="text-white text-xl font-bold font-sans">Primary Challenges Identified</h4>
+            <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-accent font-mono text-xs uppercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                  <span>1. Real-Time Occupancy Data</span>
+                  <span>1. Real-Time Spot Visibility</span>
                 </div>
-                <p className="text-zinc-300 text-sm font-sans pl-3.5">
-                  Eliminating the "blind entry" by displaying active spots count before entering the structure.
+                <p className="text-zinc-300 text-base md:text-lg font-sans pl-3.5 leading-relaxed">
+                  Drivers enter the parking garage blindly, causing confusion and traffic.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-accent font-mono text-xs uppercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                  <span>2. Dynamic Route Optimization</span>
+                  <span>2. Dynamic Level Guidance</span>
                 </div>
-                <p className="text-zinc-300 text-sm font-sans pl-3.5">
-                  Directing drivers to the nearest floor and space immediately upon arrival, avoiding unnecessary circling.
+                <p className="text-zinc-300 text-base md:text-lg font-sans pl-3.5 leading-relaxed">
+                  Drivers waste too much time driving around floors looking for an empty spot.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-accent font-mono text-xs uppercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                  <span>3. Cost-Efficient Splicing</span>
+                  <span>3. Cost-Effective Scaling</span>
                 </div>
-                <p className="text-zinc-300 text-sm font-sans pl-3.5">
-                  Installing magnetic loops or ultrasonic sensors in every single parking bay is expensive. We need a system that leverages existing security cameras.
+                <p className="text-zinc-300 text-base md:text-lg font-sans pl-3.5 leading-relaxed">
+                  Putting sensors in every single parking spot is way too expensive and hard to install.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-accent font-mono text-xs uppercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                  <span>4. Low Cognitive Load UI</span>
+                  <span>4. Glanceable HUD Interface</span>
                 </div>
-                <p className="text-zinc-300 text-sm font-sans pl-3.5">
-                  Drivers cannot safely look at detailed maps while navigating. The interface must rely on simple HUD indicators.
+                <p className="text-zinc-300 text-base md:text-lg font-sans pl-3.5 leading-relaxed">
+                  Looking at detailed maps or reading text while driving is dangerous.
                 </p>
               </div>
             </div>
@@ -396,50 +364,16 @@ const SmartVisionCaseStudy = ({ onClose, onNavigate }) => {
               </div>
             </div>
 
-            {/* Video Player & Queue Holder */}
-            <div className="border-t border-white/5 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-8 space-y-3">
-                <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black aspect-video flex items-center justify-center">
-                  <video 
-                    key={activeVideoIndex}
-                    src={videos[activeVideoIndex].src} 
-                    controls 
-                    autoPlay={activeVideoIndex !== 0}
-                    onEnded={() => {
-                      setActiveVideoIndex((prev) => (prev + 1) % videos.length);
-                    }}
-                    className="w-full h-full object-contain"
-                  />
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded bg-black/60 backdrop-blur text-[10px] font-mono text-accent uppercase tracking-widest border border-accent/20">
-                    Playing: {videos[activeVideoIndex].title}
-                  </div>
-                </div>
-                <p className="text-zinc-400 text-xs font-mono italic pl-2">
-                  ℹ️ Once a video finishes playing, the player automatically cues and runs the next video in sequence.
-                </p>
-              </div>
-              
-              {/* Play Queue Tabs */}
-              <div className="lg:col-span-4 flex flex-col gap-3 justify-center text-left">
-                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mb-1 font-bold">Video Playlist Queue</span>
-                <div className="flex flex-col gap-2">
-                  {videos.map((vid, idx) => (
-                    <button
-                      key={vid.id}
-                      onClick={() => setActiveVideoIndex(idx)}
-                      className={`p-3.5 rounded-xl text-left transition-all duration-300 border font-sans text-xs flex flex-col gap-1 cursor-pointer ${
-                        activeVideoIndex === idx
-                          ? 'bg-[#c5a880]/10 border-[#c5a880]/30 text-white shadow-lg'
-                          : 'bg-zinc-950/40 border-white/5 text-zinc-400 hover:text-white hover:bg-white/5'
-                      }`}
-                    >
-                      <span className={`font-mono text-[9px] uppercase tracking-wider ${activeVideoIndex === idx ? 'text-accent' : 'text-zinc-500'}`}>
-                        Video 0{idx + 1} // {activeVideoIndex === idx ? 'Currently Playing' : 'Queued'}
-                      </span>
-                      <span className="font-bold text-sm text-white">{vid.title}</span>
-                      <span className="text-[10px] text-zinc-500 line-clamp-1">{vid.description}</span>
-                    </button>
-                  ))}
+            {/* Video Player */}
+            <div className="border-t border-white/5 pt-8">
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black aspect-video flex items-center justify-center max-w-4xl mx-auto">
+                <video 
+                  src="/untitled-design-cropped.mp4" 
+                  controls 
+                  className="w-full h-full object-contain"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded bg-black/60 backdrop-blur text-[10px] font-mono text-accent uppercase tracking-widest border border-accent/20">
+                  Prototype Video Demonstration
                 </div>
               </div>
             </div>
@@ -537,67 +471,18 @@ def check_occupancy(frame):
           </div>
         </Section>
 
-        {/* PROTOTYPE EVALUATION & REFLECTIONS */}
-        <Section title="Prototype Evaluation & Reflections" icon={CheckCircle}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-left">
-            <div className="p-8 rounded-[24px] border border-white/5 bg-[#141413] flex flex-col justify-between">
-              <div>
-                <span className="text-3xl md:text-5xl font-black font-sans text-accent block mb-3">96.4%</span>
-                <h5 className="text-white font-bold font-sans text-base mb-2">Lab Detection Accuracy</h5>
-                <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                  Measured during testing of the scale mockup with toy vehicles under overhead camera feeds, confirming highly reliable vacancy status.
-                </p>
-              </div>
-              <div className="text-[10px] font-mono text-zinc-500 border-t border-white/5 pt-3 mt-auto">
-                <strong>Basis:</strong> Correctly detected 241 out of 250 mock slot test states under varying overhead angles.
-              </div>
-            </div>
-            
-            <div className="p-8 rounded-[24px] border border-white/5 bg-[#141413] flex flex-col justify-between">
-              <div>
-                <span className="text-3xl md:text-5xl font-black font-sans text-accent block mb-3">~73%</span>
-                <h5 className="text-white font-bold font-sans text-base mb-2">Simulated Transit Savings</h5>
-                <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                  Projected search times dropped from 15 minutes to under 4 minutes based on routing simulation models.
-                </p>
-              </div>
-              <div className="text-[10px] font-mono text-zinc-500 border-t border-white/5 pt-3 mt-auto">
-                <strong>Basis:</strong> Python queuing model simulating 50 virtual drivers navigating a 3-level grid layout.
-              </div>
-            </div>
+        {/* SECTION 5 Reflection Quote */}
+        <div className="relative p-10 md:p-14 border border-[#c5a880]/20 bg-[#1e1d1b] rounded-3xl mt-16 text-center max-w-4xl mx-auto shadow-2xl overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1.5 bg-[#c5a880]/30" />
+          <span className="text-8xl text-[#c5a880]/10 font-serif absolute -top-2 left-6 pointer-events-none select-none">“</span>
+          <p className="text-zinc-200 text-lg md:text-2xl font-serif italic leading-relaxed relative z-10 font-medium">
+            Building this project taught me that design isn't just about beautiful Figma screens. By learning Python and writing the computer vision detection script myself, I was able to validate the product concept completely. It showed that good designers must understand the constraints of the technology they are designing for.
+          </p>
+          <span className="text-8xl text-[#c5a880]/10 font-serif absolute -bottom-14 right-6 pointer-events-none select-none">”</span>
+          <div className="mt-8 font-mono text-xs text-accent uppercase tracking-widest">— Project Reflection</div>
+        </div>
 
-            <div className="p-8 rounded-[24px] border border-white/5 bg-[#141413] flex flex-col justify-between">
-              <div>
-                <span className="text-3xl md:text-5xl font-black font-sans text-accent block mb-3">7 Days</span>
-                <h5 className="text-white font-bold font-sans text-base mb-2">Rapid Dev Cycle</h5>
-                <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                  Accelerated timeline from design research, workflow mapping, OpenCV prototyping, to the final presentation mockup.
-                </p>
-              </div>
-              <div className="text-[10px] font-mono text-zinc-500 border-t border-white/5 pt-3 mt-auto">
-                <strong>Basis:</strong> Rapid engineering milestone schedule for the design research semester deliverable.
-              </div>
-            </div>
-          </div>
 
-          <div className="p-8 border border-white/5 rounded-2xl bg-white/[0.01] mb-16 text-left">
-            <h4 className="text-white font-sans font-bold text-lg mb-3">Project Validation Note</h4>
-            <p className="text-zinc-300 leading-relaxed text-sm">
-              As a 7-day university design research assignment, this system was developed and validated in a local lab environment using toy models and video loop captures. While never deployed to municipal parking lots, the prototype proved the feasibility of using existing security cameras instead of expensive in-ground sensors.
-            </p>
-          </div>
-
-          {/* Large Editorial Quotation Reflection */}
-          <div className="relative p-10 md:p-14 border border-[#c5a880]/20 bg-[#1e1d1b] rounded-3xl mt-12 text-center max-w-4xl mx-auto shadow-2xl overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-[#c5a880]/30" />
-            <span className="text-8xl text-[#c5a880]/10 font-serif absolute -top-2 left-6 pointer-events-none select-none">“</span>
-            <p className="text-zinc-200 text-lg md:text-2xl font-serif italic leading-relaxed relative z-10 font-medium">
-              Building this project taught me that design isn't just about beautiful Figma screens. By learning Python and writing the computer vision detection script myself, I was able to validate the product concept completely. It showed that good designers must understand the constraints of the technology they are designing for.
-            </p>
-            <span className="text-8xl text-[#c5a880]/10 font-serif absolute -bottom-14 right-6 pointer-events-none select-none">”</span>
-            <div className="mt-8 font-mono text-xs text-accent uppercase tracking-widest">— Project Reflection</div>
-          </div>
-        </Section>
 
         {/* Cinematic Split Image Navigation Footer */}
         <div className="mt-28 pt-12 border-t border-white/10">

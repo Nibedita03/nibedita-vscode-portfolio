@@ -1689,158 +1689,7 @@ const HighFidelityGrid = () => {
   );
 };
 
-const RedesignedScreens = () => {
-  const [activeTab, setActiveTab] = useState(0);
 
-  return (
-    <div className="w-full">
-      <div className="relative border border-vscode-border bg-[#252526] rounded-3xl shadow-2xl overflow-hidden w-full min-h-[520px] flex flex-col justify-start">
-        
-        <div className="grid grid-cols-2 bg-[#1E1E1E] border-b border-vscode-border w-full relative z-10">
-          <button
-            onClick={() => setActiveTab(0)}
-            className={`py-4 px-4 font-sans text-xs md:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2.5 relative ${
-              activeTab === 0
-                ? "bg-[#252526] text-white border-b-2 border-[#28C840] scale-[1.01]"
-                : "text-vscode-textDark hover:text-white"
-            }`}
-          >
-            <span className="truncate">1. Station Discovery</span>
-          </button>
-          
-          <button
-            onClick={() => setActiveTab(1)}
-            className={`py-4 px-4 font-sans text-xs md:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2.5 relative ${
-              activeTab === 1
-                ? "bg-[#252526] text-white border-b-2 border-[#28C840] scale-[1.01]"
-                : "text-vscode-textDark hover:text-white"
-            }`}
-          >
-            <span className="truncate">2. Active In-Ride HUD</span>
-          </button>
-        </div>
-
-        <div className="p-6 md:p-8 flex-grow flex flex-col justify-center relative">
-          <AnimatePresence mode="wait">
-            {activeTab === 0 && (
-              <motion.div
-                key="redesign-0"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full"
-              >
-                <div className="lg:col-span-5 space-y-6">
-                  <div className="space-y-2">
-                    <span className="px-3.5 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Evolution 1</span>
-                    <h4 className="text-white font-extrabold text-2xl font-sans tracking-tight leading-tight">Finding Docks & Bikes</h4>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/10 space-y-2">
-                      <span className="text-red-400 text-xs font-mono uppercase font-bold block">Legacy App Flow:</span>
-                      <p className="text-vscode-text text-sm font-sans">
-                        Students had to search via search input and guess where the nearest dock was, resulting in long walk errors.
-                      </p>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-[#28C840]/5 border border-[#28C840]/10 space-y-2">
-                      <span className="text-[#28C840] text-xs font-mono uppercase font-bold block">Redesigned Hub:</span>
-                      <p className="text-vscode-text text-sm font-sans">
-                        A live interactive campus map showing exactly how many bikes are docked, their battery charge, and walk routes.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-7 flex flex-col items-center justify-center p-6 bg-[#1E1E1E]/50 rounded-2xl border border-vscode-border/50 w-full">
-                  <span className="font-mono text-[10px] text-vscode-textDark uppercase tracking-widest mb-4 font-semibold">Visual Evolution</span>
-                  <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full justify-items-center">
-                    <div className="flex flex-col items-center space-y-3 w-full max-w-[210px]">
-                      <div className="relative border-4 border-red-500/20 rounded-[38px] p-1.5 bg-[#09090B] shadow-2xl w-full">
-                        <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
-                          <img src="/rydr-rider-search.png" alt="Before: list view" className="w-full h-full object-fill" />
-                        </div>
-                      </div>
-                      <span className="text-red-400 font-mono text-xs tracking-wider uppercase font-semibold text-center">Before: Text Search</span>
-                    </div>
-
-                    <div className="flex flex-col items-center space-y-3 w-full max-w-[210px]">
-                      <div className="relative border-4 border-[#28C840]/20 rounded-[38px] p-1.5 bg-[#09090B] shadow-2xl w-full">
-                        <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
-                          <img src="/rydr-screenshot-1.png" alt="After: map view" className="w-full h-full object-fill" />
-                        </div>
-                      </div>
-                      <span className="text-[#28C840] font-mono text-xs tracking-wider uppercase font-semibold text-center">After: Live Map Docks</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {activeTab === 1 && (
-              <motion.div
-                key="redesign-1"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full"
-              >
-                <div className="lg:col-span-5 space-y-6">
-                  <div className="space-y-2">
-                    <span className="px-3.5 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Evolution 2</span>
-                    <h4 className="text-white font-extrabold text-2xl font-sans tracking-tight leading-tight">In-Ride Control HUD</h4>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/10 space-y-2">
-                      <span className="text-red-400 text-xs font-mono uppercase font-bold block">Legacy App Flow:</span>
-                      <p className="text-vscode-text text-sm font-sans">
-                        Basic counter timer which didn't show safety rules, pause locks, or live battery remaining.
-                      </p>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-[#28C840]/5 border border-[#28C840]/10 space-y-2">
-                      <span className="text-[#28C840] text-xs font-mono uppercase font-bold block">Redesigned Hub:</span>
-                      <p className="text-vscode-text text-sm font-sans">
-                        Comprehensive HUD featuring live battery tracking, easy pause lock, geofence alarm alerts, and a help button.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-7 flex flex-col items-center justify-center p-6 bg-[#1E1E1E]/50 rounded-2xl border border-vscode-border/50 w-full">
-                  <span className="font-mono text-[10px] text-vscode-textDark uppercase tracking-widest mb-4 font-semibold">Visual Evolution</span>
-                  <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full justify-items-center">
-                    <div className="flex flex-col items-center space-y-3 w-full max-w-[210px]">
-                      <div className="relative border-4 border-red-500/20 rounded-[38px] p-1.5 bg-[#09090B] shadow-2xl w-full">
-                        <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
-                          <img src="/rydr-screenshot-2.png" alt="Before: simple timer" className="w-full h-full object-fill" />
-                        </div>
-                      </div>
-                      <span className="text-red-400 font-mono text-xs tracking-wider uppercase font-semibold text-center">Before: Basic Timer</span>
-                    </div>
-
-                    <div className="flex flex-col items-center space-y-3 w-full max-w-[210px]">
-                      <div className="relative border-4 border-[#28C840]/20 rounded-[38px] p-1.5 bg-[#09090B] shadow-2xl w-full">
-                        <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
-                          <img src="/rydr-tracker.png" alt="After: e-bike tracker" className="w-full h-full object-fill" />
-                        </div>
-                      </div>
-                      <span className="text-[#28C840] font-mono text-xs tracking-wider uppercase font-semibold text-center">After: Interactive HUD</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const PersonaShowcase = () => {
   const personas = [
@@ -2452,42 +2301,44 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
         <HighFidelityGrid />
 
         {/* User Usability Testing */}
-        <Section title="Usability Testing" icon={Users}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-12">
-            <div className="lg:col-span-5 relative group overflow-hidden rounded-xl border border-vscode-border bg-[#252526] p-2 shadow-2xl">
-              <div className="p-8 bg-[#1e1e1e] border border-vscode-border rounded-lg text-center space-y-4">
-                <span className="text-5xl block animate-pulse">🧪</span>
-                <span className="text-white font-bold block font-sans">Usability Testing Session</span>
-                <p className="text-xs text-vscode-textDark leading-relaxed font-mono">Tested 12 active campus commuters across 2 iterations to calculate cognitive friction during peak lecture intervals.</p>
-              </div>
-            </div>
+        <Section title="User Usability Testing" icon={Users}>
+          {/* Top Row: Session Overview in a Single Card */}
+          <div className="relative border border-vscode-border bg-[#252526] rounded-3xl p-6 md:p-8 shadow-2xl mb-12 overflow-hidden font-sans">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-vscode-accent/5 rounded-full blur-2xl pointer-events-none"></div>
             
-            <div className="lg:col-span-7 space-y-6 font-sans">
-              <h4 className="text-white font-bold text-2xl">Refining the Mobility Flow</h4>
-              <p className="text-vscode-text text-base leading-relaxed">
-                Putting our interactive prototypes directly in front of students revealed key friction points. Rushing between classes makes students impatient; they need transit decisions made in under 3 seconds.
+            <div className="max-w-4xl space-y-6">
+              <div className="flex flex-col space-y-1">
+                <span className="font-mono text-vscode-accent text-xs uppercase tracking-wider">Empathetic Design Validation</span>
+                <h4 className="text-white font-bold text-2xl md:text-3xl">Real-World Usability Run</h4>
+              </div>
+              
+              <p className="text-vscode-text text-base md:text-lg leading-relaxed">
+                Instead of just guessing if our designs worked, we took the interactive prototype to the campus bus stand and the main library. We asked 12 students to complete booking and parking tasks during the 10-minute rush between classes to see exactly where they got stuck.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-[#1E1E1E] border border-vscode-border rounded-xl p-4">
-                  <span className="text-vscode-accent font-mono text-xs block mb-1">METHOD</span>
-                  <span className="text-white font-bold text-sm">Task Walkthroughs</span>
+
+              {/* Unified horizontal metadata list inside the single card */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-vscode-border/30">
+                <div className="flex flex-col space-y-1">
+                  <span className="text-vscode-accent font-mono text-[11px] uppercase tracking-wider">PARTICIPANTS</span>
+                  <span className="text-white font-bold text-sm md:text-base">12 Active Students</span>
                 </div>
-                <div className="bg-[#1E1E1E] border border-vscode-border rounded-xl p-4">
-                  <span className="text-vscode-accent font-mono text-xs block mb-1">PARTICIPANTS</span>
-                  <span className="text-white font-bold text-sm">12 Students</span>
+                <div className="flex flex-col space-y-1">
+                  <span className="text-vscode-accent font-mono text-[11px] uppercase tracking-wider">METHODOLOGY</span>
+                  <span className="text-white font-bold text-sm md:text-base">Task Walkthroughs</span>
                 </div>
-                <div className="bg-[#1E1E1E] border border-vscode-border rounded-xl p-4">
-                  <span className="text-vscode-accent font-mono text-xs block mb-1">KPI METRIC</span>
-                  <span className="text-white font-bold text-sm">Time to Match</span>
+                <div className="flex flex-col space-y-1">
+                  <span className="text-vscode-accent font-mono text-[11px] uppercase tracking-wider">TEST GOAL</span>
+                  <span className="text-white font-bold text-sm md:text-base">Task Success Rate</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Usability Findings Segmented Dashboard */}
+          {/* Bottom Row: Unified Segmented Dashboard Card with Inner Full-Width Toggle */}
           <div className="w-full">
-            <div className="relative border border-vscode-border bg-[#252526] rounded-3xl shadow-2xl overflow-hidden w-full min-h-[460px] flex flex-col justify-start">
+            <div className="relative border border-vscode-border bg-[#252526] rounded-3xl shadow-2xl overflow-hidden w-full min-h-[520px] flex flex-col justify-start">
               
+              {/* Tab Toggle - Flush at the top of the box, spanning the exact box width */}
               <div className="grid grid-cols-2 bg-[#1E1E1E] border-b border-vscode-border w-full relative z-10">
                 <button
                   onClick={() => setActiveTestTab(0)}
@@ -2497,7 +2348,7 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
                       : "text-vscode-textDark hover:text-white"
                   }`}
                 >
-                  <span>1. Map Interface Clarity</span>
+                  <span className="truncate">1. Station Discovery</span>
                 </button>
                 
                 <button
@@ -2508,66 +2359,155 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
                       : "text-vscode-textDark hover:text-white"
                   }`}
                 >
-                  <span>2. Safety & Trust Signals</span>
+                  <span className="truncate">2. Active In-Ride HUD</span>
                 </button>
               </div>
 
+              {/* Main Content Body - Padded */}
               <div className="p-6 md:p-8 flex-grow flex flex-col justify-center relative">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-vscode-accent/5 rounded-full blur-2xl pointer-events-none"></div>
+
                 <AnimatePresence mode="wait">
                   {activeTestTab === 0 && (
                     <motion.div
-                      key="test-tab-0"
+                      key="pivot-0"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
                       className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full"
                     >
-                      <div className="lg:col-span-6 space-y-6">
-                        <span className="px-3.5 py-1 bg-vscode-accent/15 border border-vscode-accent/30 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Finding 1</span>
-                        <h4 className="text-white font-bold text-2xl font-sans leading-tight">Unified Map Over separate tabs</h4>
-                        <div className="p-4 bg-red-500/5 border border-red-500/10 rounded-xl">
-                          <span className="text-red-400 text-xs font-mono block mb-1">PROBLEM OBSERVED</span>
-                          <p className="text-vscode-text text-sm">"I hated toggling between separate screens to compare shuttle schedules against carpool drivers. I just wanted to see what's closer."</p>
+                      {/* Left: Quotes */}
+                      <div className="lg:col-span-5 space-y-8 flex flex-col justify-between h-full py-2">
+                        <div className="space-y-6">
+                          <div className="space-y-2">
+                            <span className="px-3.5 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Finding 01</span>
+                            <h4 className="text-white font-extrabold text-2xl md:text-3xl font-sans tracking-tight leading-tight">Battery Related Issue</h4>
+                          </div>
+
+                          <div className="space-y-5">
+                            <div className="p-5 rounded-2xl bg-red-500/5 border border-red-500/10 space-y-3 relative overflow-hidden shadow-inner">
+                              <div className="absolute top-0 left-0 w-1.5 h-full bg-red-500/40" />
+                              <span className="text-red-400 text-xs font-mono tracking-wider uppercase font-bold flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+                                What the student said:
+                              </span>
+                              <p className="text-vscode-text text-sm italic leading-relaxed font-sans font-medium">
+                                "When looking at the station pins on the map, I couldn't tell if the available bikes actually had enough charge for my ride. I was worried I'd reserve one, walk all the way to the station, only to find out the battery was dead."
+                              </p>
+                            </div>
+
+                            <div className="p-5 rounded-2xl bg-[#28C840]/5 border border-[#28C840]/10 space-y-3 relative overflow-hidden shadow-inner">
+                              <div className="absolute top-0 left-0 w-1.5 h-full bg-[#28C840]/40" />
+                              <span className="text-[#28C840] text-xs font-mono tracking-wider uppercase font-bold flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#28C840]"></span>
+                                How we solved it:
+                              </span>
+                              <p className="text-vscode-text text-sm leading-relaxed font-sans font-medium">
+                                Since showing battery levels on every map pin cluttered the view, we kept map pins focused on simple bike counts. Instead, we added the exact battery percentage details directly on the dock details and reservation card when a user selects a bike.
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="p-4 bg-[#10B981]/5 border border-[#10B981]/10 rounded-xl">
-                          <span className="text-[#10B981] text-xs font-mono block mb-1">DESIGN FIX</span>
-                          <p className="text-vscode-text text-sm">We redesigned the map to display BOTH shuttle route vectors and peer-car pool vehicles in a single interactive map screen.</p>
-                        </div>
+
                       </div>
-                      <div className="lg:col-span-6 p-6 bg-[#1E1E1E]/50 rounded-2xl border border-vscode-border text-center">
-                        <span className="text-3xl block mb-2">⚡</span>
-                        <span className="text-white font-bold block font-sans">45% Commute Speed Improvement</span>
-                        <span className="text-vscode-textDark text-xs font-mono">Consolidating routes saved students key decision time during transitions.</span>
+
+                      {/* Right: Mockup phones */}
+                      <div className="lg:col-span-7 flex flex-col items-center justify-center p-6 bg-[#1E1E1E]/50 rounded-2xl border border-vscode-border/50 w-full relative group">
+                        <span className="font-mono text-[10px] text-vscode-textDark uppercase tracking-widest mb-4 font-semibold">Visual Layout Evolution</span>
+                        <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full justify-items-center">
+                          <div className="flex flex-col items-center space-y-3 w-full max-w-[210px] transition-transform duration-300 hover:scale-[1.03]">
+                            <div className="relative group border-4 border-red-500/20 rounded-[38px] p-1.5 bg-[#09090B] transition-all hover:border-red-500/50 shadow-2xl w-full">
+                              <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
+                                <img src="/rydr-reserve-no-battery.png" alt="Before: reserve list without battery info" className="w-full h-full object-fill" />
+                                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-12 h-3.5 bg-zinc-900 rounded-full z-20"></div>
+                              </div>
+                            </div>
+                            <span className="text-red-400 font-mono text-xs tracking-wider uppercase font-semibold text-center">Before: List Without Battery</span>
+                          </div>
+
+                          <div className="flex flex-col items-center space-y-3 w-full max-w-[210px] transition-transform duration-300 hover:scale-[1.03]">
+                            <div className="relative group border-4 border-[#28C840]/20 rounded-[38px] p-1.5 bg-[#09090B] transition-all hover:border-[#28C840]/50 shadow-2xl w-full">
+                              <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
+                                <img src="/rydr-reserve-list.png" alt="After: reserve list with battery level indicator" className="w-full h-full object-fill" />
+                                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-12 h-3.5 bg-zinc-900 rounded-full z-20"></div>
+                              </div>
+                            </div>
+                            <span className="text-[#28C840] font-mono text-xs tracking-wider uppercase font-semibold text-center">After: Battery Level Added</span>
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   )}
 
                   {activeTestTab === 1 && (
                     <motion.div
-                      key="test-tab-1"
+                      key="pivot-1"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
                       className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full"
                     >
-                      <div className="lg:col-span-6 space-y-6">
-                        <span className="px-3.5 py-1 bg-vscode-accent/15 border border-vscode-accent/30 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Finding 2</span>
-                        <h4 className="text-white font-bold text-2xl font-sans leading-tight">Elevating verification Badges</h4>
-                        <div className="p-4 bg-red-500/5 border border-red-500/10 rounded-xl">
-                          <span className="text-red-400 text-xs font-mono block mb-1">PROBLEM OBSERVED</span>
-                          <p className="text-vscode-text text-sm">"Getting into a stranger's car on campus makes me hesitant unless I know they are definitely a student here."</p>
+                      {/* Left: Quotes */}
+                      <div className="lg:col-span-5 space-y-8 flex flex-col justify-between h-full py-2">
+                        <div className="space-y-6">
+                          <div className="space-y-2">
+                            <span className="px-3.5 py-1 bg-vscode-accent/10 border border-vscode-accent/20 text-vscode-accent font-mono text-xs rounded-full uppercase tracking-wider font-semibold">Finding 02</span>
+                            <h4 className="text-white font-extrabold text-2xl md:text-3xl font-sans tracking-tight leading-tight">Accidental Ride Cancellation</h4>
+                          </div>
+
+                          <div className="space-y-5">
+                            <div className="p-5 rounded-2xl bg-red-500/5 border border-red-500/10 space-y-3 relative overflow-hidden shadow-inner">
+                              <div className="absolute top-0 left-0 w-1.5 h-full bg-red-500/40" />
+                              <span className="text-red-400 text-xs font-mono tracking-wider uppercase font-bold flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+                                What the student said:
+                              </span>
+                              <p className="text-vscode-text text-sm italic leading-relaxed font-sans font-medium">
+                                "The 'Pause Ride' and 'End Ride' buttons were placed right next to each other and looked almost identical. During my test run, I accidentally ended my ride session when I just wanted to temporarily pause it to lock the bike."
+                              </p>
+                            </div>
+
+                            <div className="p-5 rounded-2xl bg-[#28C840]/5 border border-[#28C840]/10 space-y-3 relative overflow-hidden shadow-inner">
+                              <div className="absolute top-0 left-0 w-1.5 h-full bg-[#28C840]/40" />
+                              <span className="text-[#28C840] text-xs font-mono tracking-wider uppercase font-bold flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#28C840]"></span>
+                                How we solved it:
+                              </span>
+                              <p className="text-vscode-text text-sm leading-relaxed font-sans font-medium">
+                                We introduced a clear confirmation pop-up modal that triggers when 'End Ride' is selected. This prompt asks riders to confirm if they wish to end the session or return to the active ride, preventing accidental taps.
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="p-4 bg-[#10B981]/5 border border-[#10B981]/10 rounded-xl">
-                          <span className="text-[#10B981] text-xs font-mono block mb-1">DESIGN FIX</span>
-                          <p className="text-vscode-text text-sm">Introduced a clear verified student badge next to driver profiles and displayed their college major and mutual dormitory connections.</p>
-                        </div>
+
                       </div>
-                      <div className="lg:col-span-6 p-6 bg-[#1E1E1E]/50 rounded-2xl border border-vscode-border text-center">
-                        <span className="text-3xl block mb-2">🔒</span>
-                        <span className="text-white font-bold block font-sans">96% Student Trust Rating</span>
-                        <span className="text-vscode-textDark text-xs font-mono">Explicit safety signals and EDU verification eliminated ridesharing hesitation.</span>
+
+                      {/* Right: Mockup phones */}
+                      <div className="lg:col-span-7 flex flex-col items-center justify-center p-6 bg-[#1E1E1E]/50 rounded-2xl border border-vscode-border/50 w-full relative group">
+                        <span className="font-mono text-[10px] text-vscode-textDark uppercase tracking-widest mb-4 font-semibold">HUD Layout Evolution</span>
+                        <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full justify-items-center">
+                          <div className="flex flex-col items-center space-y-3 w-full max-w-[210px] transition-transform duration-300 hover:scale-[1.03]">
+                            <div className="relative group border-4 border-red-500/20 rounded-[38px] p-1.5 bg-[#09090B] transition-all hover:border-red-500/50 shadow-2xl w-full">
+                              <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
+                                <img src="/rydr-active-ride.png" alt="Before: active ride screen without confirmation" className="w-full h-full object-fill" />
+                                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-12 h-3.5 bg-zinc-900 rounded-full z-20"></div>
+                              </div>
+                            </div>
+                            <span className="text-red-400 font-mono text-xs tracking-wider uppercase font-semibold text-center">Before: No Confirmation</span>
+                          </div>
+
+                          <div className="flex flex-col items-center space-y-3 w-full max-w-[210px] transition-transform duration-300 hover:scale-[1.03]">
+                            <div className="relative group border-4 border-[#28C840]/20 rounded-[38px] p-1.5 bg-[#09090B] transition-all hover:border-[#28C840]/50 shadow-2xl w-full">
+                              <div className="w-full aspect-[9/19.5] rounded-[28px] overflow-hidden relative border border-zinc-800">
+                                <img src="/rydr-end-ride-confirm.png" alt="After: ride end confirmation pop-up modal" className="w-full h-full object-fill" />
+                                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-12 h-3.5 bg-zinc-900 rounded-full z-20"></div>
+                              </div>
+                            </div>
+                            <span className="text-[#28C840] font-mono text-xs tracking-wider uppercase font-semibold text-center">After: Confirmation Pop-up</span>
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -2575,11 +2515,6 @@ const RydrCaseStudy = ({ onClose, onNavigate }) => {
               </div>
             </div>
           </div>
-        </Section>
-
-        {/* Redesigned Screens */}
-        <Section title="Redesigned Screens" icon={Layout}>
-          <RedesignedScreens />
         </Section>
 
         {/* Risk Analysis */}
